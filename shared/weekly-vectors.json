@@ -1,0 +1,758 @@
+{
+  "about": "The weekly report's figures (docs/PLAN.md section 3). web/src/lib/reports.weekly.spec.ts runs each case through weeklyReport and server/internal/reports through Weekly; both must give expect. Entries are on a task, or with taskId null on a project itself, which counts while the project is in use. Tasks are every live task the person sees: fields left out are null, mine is false. Days fall in zone. WEEKLY_VECTORS=write npx vitest run reports.weekly in web/ fills in expect from the app's answers: look at what changed.",
+  "cases": [
+    {
+      "name": "a week in a workspace",
+      "zone": "UTC",
+      "today": "2026-11-09",
+      "me": "u1",
+      "projects": [
+        {
+          "id": "p1",
+          "name": "Wholesale",
+          "inUse": true
+        },
+        {
+          "id": "p2",
+          "name": "Holiday blends",
+          "inUse": true
+        },
+        {
+          "id": "p3",
+          "name": "Roastery upkeep",
+          "inUse": false
+        },
+        {
+          "id": "p4",
+          "name": "Empty",
+          "inUse": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t1",
+          "title": "Price the winter range",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-10-20T10:00:00.000Z",
+          "startedAt": "2026-11-02T09:00:00.000Z",
+          "completedAt": "2026-11-04T21:00:00.000Z"
+        },
+        {
+          "id": "t2",
+          "title": "Call the new cafe",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-11-03T08:00:00.000Z",
+          "startedAt": "2026-11-03T08:00:00.000Z",
+          "completedAt": "2026-11-04T08:00:00.000Z"
+        },
+        {
+          "id": "t3",
+          "title": "File the invoice",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-11-05T12:00:00.000Z",
+          "completedAt": "2026-11-06T12:00:00.000Z"
+        },
+        {
+          "id": "t4",
+          "title": "Check the delivery route",
+          "projectId": "p1",
+          "category": "todo",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "dueDate": "2026-11-05",
+          "estimateMinutes": 60,
+          "mine": true
+        },
+        {
+          "id": "t5",
+          "title": "Order sacks",
+          "projectId": "p1",
+          "category": "in-progress",
+          "madeAt": "2026-10-28T12:00:00.000Z",
+          "startedAt": "2026-10-29T12:00:00.000Z",
+          "dueDate": "2026-11-08",
+          "mine": true
+        },
+        {
+          "id": "t6",
+          "title": "Taste the blend",
+          "projectId": "p2",
+          "category": "done",
+          "madeAt": "2026-10-27T12:00:00.000Z",
+          "startedAt": "2026-10-28T00:00:00.000Z",
+          "completedAt": "2026-10-30T12:00:00.000Z"
+        },
+        {
+          "id": "t7",
+          "title": "Print labels",
+          "projectId": "p2",
+          "category": "todo",
+          "madeAt": "2026-10-29T12:00:00.000Z",
+          "dueDate": "2026-11-01"
+        },
+        {
+          "id": "t8",
+          "title": "Set up the standing order",
+          "projectId": "p2",
+          "category": "todo",
+          "madeAt": "2026-10-15T12:00:00.000Z",
+          "mine": true
+        },
+        {
+          "id": "t9",
+          "title": "Agree the price",
+          "projectId": "p2",
+          "category": "todo",
+          "madeAt": "2026-11-07T12:00:00.000Z"
+        },
+        {
+          "id": "t10",
+          "title": "Service the roaster",
+          "projectId": "p3",
+          "category": "done",
+          "madeAt": "2026-11-02T12:00:00.000Z",
+          "completedAt": "2026-11-03T12:00:00.000Z",
+          "mine": true
+        },
+        {
+          "id": "t11",
+          "title": "A dropped idea",
+          "projectId": "p1",
+          "category": "canceled",
+          "madeAt": "2026-11-03T12:00:00.000Z",
+          "dueDate": "2026-11-04",
+          "mine": true
+        },
+        {
+          "id": "t12",
+          "title": "Renew the domain",
+          "category": "done",
+          "madeAt": "2026-11-01T12:00:00.000Z",
+          "completedAt": "2026-11-07T12:00:00.000Z"
+        },
+        {
+          "id": "t13",
+          "title": "Under a task in the trash",
+          "projectId": "p1",
+          "parentId": "gone",
+          "category": "todo",
+          "madeAt": "2026-11-03T12:00:00.000Z",
+          "dueDate": "2026-11-04",
+          "mine": true
+        },
+        {
+          "id": "t14",
+          "title": "Made this morning, already late",
+          "projectId": "p1",
+          "category": "todo",
+          "madeAt": "2026-11-09T06:00:00.000Z",
+          "dueDate": "2026-11-01",
+          "mine": true
+        },
+        {
+          "id": "t15",
+          "title": "Done this morning, late",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "completedAt": "2026-11-09T03:00:00.000Z",
+          "dueDate": "2026-11-03",
+          "mine": true
+        },
+        {
+          "id": "t16",
+          "title": "Done at a time nobody kept",
+          "projectId": "p1",
+          "category": "done",
+          "dueDate": "2026-10-20"
+        },
+        {
+          "id": "t17",
+          "title": "A subtask",
+          "projectId": "p2",
+          "parentId": "t8",
+          "category": "todo",
+          "madeAt": "2026-11-04T12:00:00.000Z",
+          "dueDate": "2026-11-06"
+        }
+      ],
+      "dependencies": [
+        {
+          "taskId": "t8",
+          "blockerId": "t9"
+        },
+        {
+          "taskId": "t5",
+          "blockerId": "t2"
+        },
+        {
+          "taskId": "t5",
+          "blockerId": "gone"
+        }
+      ],
+      "entries": [
+        {
+          "taskId": "t4",
+          "userId": "u1",
+          "day": "2026-11-04",
+          "minutes": 90
+        },
+        {
+          "taskId": "t2",
+          "userId": "u2",
+          "day": "2026-11-03",
+          "minutes": 120
+        },
+        {
+          "taskId": "t1",
+          "userId": "u1",
+          "day": "2026-10-30",
+          "minutes": 60
+        },
+        {
+          "taskId": "t10",
+          "userId": "u1",
+          "day": "2026-11-03",
+          "minutes": 45
+        },
+        {
+          "taskId": "t9",
+          "userId": "u2",
+          "day": "2026-11-09",
+          "minutes": 30
+        },
+        {
+          "taskId": null,
+          "projectId": "p1",
+          "userId": "u1",
+          "day": "2026-11-05",
+          "minutes": 60
+        },
+        {
+          "taskId": null,
+          "projectId": "p3",
+          "userId": "u2",
+          "day": "2026-11-05",
+          "minutes": 30
+        },
+        {
+          "taskId": null,
+          "projectId": "p2",
+          "userId": "u2",
+          "day": "2026-10-28",
+          "minutes": 15
+        }
+      ],
+      "expect": {
+        "week": {
+          "from": "2026-11-02",
+          "to": "2026-11-08"
+        },
+        "before": {
+          "from": "2026-10-26",
+          "to": "2026-11-01"
+        },
+        "last": {
+          "done": 4,
+          "made": 4,
+          "overdue": 5,
+          "median": 1.75
+        },
+        "prior": {
+          "done": 1,
+          "made": 4,
+          "overdue": 1,
+          "median": 2.5
+        },
+        "projects": [
+          {
+            "id": "p1",
+            "name": "Wholesale",
+            "done": 3,
+            "open": 3,
+            "overdue": 3
+          },
+          {
+            "id": "p2",
+            "name": "Holiday blends",
+            "done": 0,
+            "open": 4,
+            "overdue": 2
+          }
+        ],
+        "mine": 150,
+        "everyone": 270,
+        "needs": [
+          {
+            "task": "t14",
+            "late": 8,
+            "waiting": 0,
+            "over": null
+          },
+          {
+            "task": "t4",
+            "late": 4,
+            "waiting": 0,
+            "over": 30
+          },
+          {
+            "task": "t5",
+            "late": 1,
+            "waiting": 0,
+            "over": null
+          },
+          {
+            "task": "t8",
+            "late": null,
+            "waiting": 1,
+            "over": null
+          }
+        ],
+        "quiet": false
+      }
+    },
+    {
+      "name": "days in the person's zone, across the clocks going back",
+      "zone": "America/Los_Angeles",
+      "today": "2026-11-08",
+      "me": "u2",
+      "projects": [
+        {
+          "id": "p1",
+          "name": "Shop",
+          "inUse": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "a",
+          "title": "Done Saturday evening",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-11-01T06:30:00.000Z",
+          "startedAt": "2026-11-05T05:00:00.000Z",
+          "completedAt": "2026-11-08T05:00:00.000Z"
+        },
+        {
+          "id": "b",
+          "title": "Late all along",
+          "projectId": "p1",
+          "category": "todo",
+          "madeAt": "2026-10-25T06:00:00.000Z",
+          "dueDate": "2026-10-31",
+          "mine": true
+        },
+        {
+          "id": "c",
+          "title": "Done the Sunday before",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-10-20T12:00:00.000Z",
+          "startedAt": "2026-10-25T03:00:00.000Z",
+          "completedAt": "2026-10-26T03:00:00.000Z"
+        },
+        {
+          "id": "d",
+          "title": "Done before it was made",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-11-03T12:00:00.000Z",
+          "completedAt": "2026-11-02T12:00:00.000Z"
+        },
+        {
+          "id": "e",
+          "title": "Started after it was done",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "startedAt": "2026-11-04T00:00:00.000Z",
+          "completedAt": "2026-11-03T00:00:00.000Z"
+        }
+      ],
+      "dependencies": [],
+      "entries": [
+        {
+          "taskId": "a",
+          "userId": "u2",
+          "day": "2026-11-07",
+          "minutes": 30
+        },
+        {
+          "taskId": "a",
+          "userId": "u1",
+          "day": "2026-11-01",
+          "minutes": 15
+        },
+        {
+          "taskId": "b",
+          "userId": "u2",
+          "day": "2026-10-31",
+          "minutes": 20
+        }
+      ],
+      "expect": {
+        "week": {
+          "from": "2026-11-01",
+          "to": "2026-11-07"
+        },
+        "before": {
+          "from": "2026-10-25",
+          "to": "2026-10-31"
+        },
+        "last": {
+          "done": 3,
+          "made": 1,
+          "overdue": 1,
+          "median": 3
+        },
+        "prior": {
+          "done": 1,
+          "made": 1,
+          "overdue": 1,
+          "median": 1
+        },
+        "projects": [
+          {
+            "id": "p1",
+            "name": "Shop",
+            "done": 3,
+            "open": 1,
+            "overdue": 1
+          }
+        ],
+        "mine": 30,
+        "everyone": 45,
+        "needs": [
+          {
+            "task": "b",
+            "late": 8,
+            "waiting": 0,
+            "over": null
+          }
+        ],
+        "quiet": false
+      }
+    },
+    {
+      "name": "a quiet week",
+      "zone": "UTC",
+      "today": "2026-11-09",
+      "me": "u1",
+      "projects": [
+        {
+          "id": "p1",
+          "name": "Shop",
+          "inUse": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "q1",
+          "title": "Still late",
+          "projectId": "p1",
+          "category": "todo",
+          "madeAt": "2026-09-01T12:00:00.000Z",
+          "dueDate": "2026-10-01",
+          "mine": true
+        },
+        {
+          "id": "q2",
+          "title": "Done long ago",
+          "projectId": "p1",
+          "category": "done",
+          "madeAt": "2026-09-01T12:00:00.000Z",
+          "completedAt": "2026-09-02T12:00:00.000Z"
+        }
+      ],
+      "dependencies": [],
+      "entries": [
+        {
+          "taskId": "q1",
+          "userId": "u1",
+          "day": "2026-10-01",
+          "minutes": 30
+        }
+      ],
+      "expect": {
+        "week": {
+          "from": "2026-11-02",
+          "to": "2026-11-08"
+        },
+        "before": {
+          "from": "2026-10-26",
+          "to": "2026-11-01"
+        },
+        "last": {
+          "done": 0,
+          "made": 0,
+          "overdue": 1,
+          "median": null
+        },
+        "prior": {
+          "done": 0,
+          "made": 0,
+          "overdue": 1,
+          "median": null
+        },
+        "projects": [
+          {
+            "id": "p1",
+            "name": "Shop",
+            "done": 0,
+            "open": 1,
+            "overdue": 1
+          }
+        ],
+        "mine": 0,
+        "everyone": 0,
+        "needs": [
+          {
+            "task": "q1",
+            "late": 39,
+            "waiting": 0,
+            "over": null
+          }
+        ],
+        "quiet": true
+      }
+    },
+    {
+      "name": "ties sort by code units, never the locale",
+      "zone": "UTC",
+      "today": "2026-11-09",
+      "me": "u1",
+      "projects": [
+        {
+          "id": "pa",
+          "name": "apple",
+          "inUse": true
+        },
+        {
+          "id": "pb",
+          "name": "Banana",
+          "inUse": true
+        },
+        {
+          "id": "pc",
+          "name": "Banana",
+          "inUse": true
+        },
+        {
+          "id": "pz",
+          "name": "Zed",
+          "inUse": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "x3",
+          "title": "apple",
+          "projectId": "pa",
+          "category": "todo",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "dueDate": "2026-11-07",
+          "mine": true
+        },
+        {
+          "id": "x2",
+          "title": "Banana",
+          "projectId": "pc",
+          "category": "todo",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "dueDate": "2026-11-07",
+          "mine": true
+        },
+        {
+          "id": "x1",
+          "title": "Banana",
+          "projectId": "pb",
+          "category": "todo",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "dueDate": "2026-11-07",
+          "mine": true
+        },
+        {
+          "id": "w1",
+          "title": "Waits for two",
+          "projectId": "pz",
+          "category": "todo",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "mine": true
+        },
+        {
+          "id": "w2",
+          "title": "Waits for one, over its estimate",
+          "projectId": "pz",
+          "category": "todo",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "estimateMinutes": 30,
+          "mine": true
+        },
+        {
+          "id": "w3",
+          "title": "Over its estimate",
+          "projectId": "pz",
+          "category": "in-progress",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "estimateMinutes": 30,
+          "mine": true
+        },
+        {
+          "id": "b1",
+          "title": "Blocker",
+          "projectId": "pz",
+          "category": "todo",
+          "madeAt": "2026-11-03T12:00:00.000Z"
+        },
+        {
+          "id": "b2",
+          "title": "Blocker done",
+          "projectId": "pz",
+          "category": "done",
+          "madeAt": "2026-10-01T12:00:00.000Z",
+          "completedAt": "2026-10-02T12:00:00.000Z"
+        },
+        {
+          "id": "b3",
+          "title": "Another blocker",
+          "projectId": "pz",
+          "category": "backlog",
+          "madeAt": "2026-10-01T12:00:00.000Z"
+        }
+      ],
+      "dependencies": [
+        {
+          "taskId": "w1",
+          "blockerId": "b1"
+        },
+        {
+          "taskId": "w1",
+          "blockerId": "b3"
+        },
+        {
+          "taskId": "w2",
+          "blockerId": "b1"
+        },
+        {
+          "taskId": "w2",
+          "blockerId": "b2"
+        }
+      ],
+      "entries": [
+        {
+          "taskId": "w2",
+          "userId": "u2",
+          "day": "2026-10-10",
+          "minutes": 45
+        },
+        {
+          "taskId": "w3",
+          "userId": "u1",
+          "day": "2026-11-02",
+          "minutes": 20
+        },
+        {
+          "taskId": "w3",
+          "userId": "u1",
+          "day": "2026-11-03",
+          "minutes": 20
+        }
+      ],
+      "expect": {
+        "week": {
+          "from": "2026-11-02",
+          "to": "2026-11-08"
+        },
+        "before": {
+          "from": "2026-10-26",
+          "to": "2026-11-01"
+        },
+        "last": {
+          "done": 0,
+          "made": 1,
+          "overdue": 3,
+          "median": null
+        },
+        "prior": {
+          "done": 0,
+          "made": 0,
+          "overdue": 0,
+          "median": null
+        },
+        "projects": [
+          {
+            "id": "pz",
+            "name": "Zed",
+            "done": 0,
+            "open": 5,
+            "overdue": 0
+          },
+          {
+            "id": "pb",
+            "name": "Banana",
+            "done": 0,
+            "open": 1,
+            "overdue": 1
+          },
+          {
+            "id": "pc",
+            "name": "Banana",
+            "done": 0,
+            "open": 1,
+            "overdue": 1
+          },
+          {
+            "id": "pa",
+            "name": "apple",
+            "done": 0,
+            "open": 1,
+            "overdue": 1
+          }
+        ],
+        "mine": 40,
+        "everyone": 40,
+        "needs": [
+          {
+            "task": "x1",
+            "late": 2,
+            "waiting": 0,
+            "over": null
+          },
+          {
+            "task": "x2",
+            "late": 2,
+            "waiting": 0,
+            "over": null
+          },
+          {
+            "task": "x3",
+            "late": 2,
+            "waiting": 0,
+            "over": null
+          },
+          {
+            "task": "w1",
+            "late": null,
+            "waiting": 2,
+            "over": null
+          },
+          {
+            "task": "w2",
+            "late": null,
+            "waiting": 1,
+            "over": 15
+          },
+          {
+            "task": "w3",
+            "late": null,
+            "waiting": 0,
+            "over": 10
+          }
+        ],
+        "quiet": false
+      }
+    }
+  ]
+}

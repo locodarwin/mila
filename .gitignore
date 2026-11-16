@@ -1,0 +1,6 @@
+/bin/
+/tmp/
+/server/internal/webui/dist/*
+!/server/internal/webui/dist/.gitkeep
+__pycache__/
+/server/mila

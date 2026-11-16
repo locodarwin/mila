@@ -1,0 +1,61 @@
+# Self-hosting behind a reverse proxy you already run (Nginx Proxy
+# Manager, Traefik, nginx, a Caddy of your own): Mila alone, no Caddy.
+# docs/self-hosting.md walks through it.
+#
+#   cp .env.example .env                        # set MILA_DOMAIN
+#   docker compose -f compose.proxy.yaml up -d  # or: podman compose
+#
+# Mila answers on 127.0.0.1:8080 of this machine; MILA_BIND and MILA_PORT
+# in .env change that. Point the proxy at it with WebSockets on.
+
+services:
+  mila:
+    image: ${MILA_IMAGE:-ghcr.io/locodarwin/mila:latest}
+    restart: unless-stopped
+    # Mila needs no privileges and writes only to /data, and to /tmp for
+    # large uploads on their way in.
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp]
+    ports:
+      - "${MILA_BIND:-127.0.0.1}:${MILA_PORT:-8080}:8080"
+    environment:
+      MILA_BASE_URL: https://${MILA_DOMAIN:?set MILA_DOMAIN in .env}
+      MILA_DATABASE_URL: ${MILA_DATABASE_URL:-}
+      MILA_SMTP_URL: ${MILA_SMTP_URL:-}
+      MILA_MAIL_FROM: ${MILA_MAIL_FROM:-}
+      MILA_IMAP_URL: ${MILA_IMAP_URL:-}
+      MILA_INBOUND_ADDRESS: ${MILA_INBOUND_ADDRESS:-}
+      MILA_IMAP_POLL: ${MILA_IMAP_POLL:-60}
+      MILA_IMAP_AFTER: ${MILA_IMAP_AFTER:-keep}
+      # A Microsoft mailbox: microsoft, with the app's IDs (docs/self-hosting.md).
+      MILA_IMAP_AUTH: ${MILA_IMAP_AUTH:-password}
+      MILA_MICROSOFT_CLIENT_ID: ${MILA_MICROSOFT_CLIENT_ID:-}
+      MILA_MICROSOFT_TENANT: ${MILA_MICROSOFT_TENANT:-common}
+      # on lets apps such as hosted assistants connect by OAuth to the
+      # agents' tools, once a person says yes (docs/agents.md).
+      MILA_OAUTH: ${MILA_OAUTH:-off}
+      MILA_BACKUP_HOUR: ${MILA_BACKUP_HOUR:-3}
+      # Requests through the published port come from this network's
+      # gateway, which is this machine: so a proxy on this machine is
+      # trusted, and so is anything else running here. A proxy in a
+      # container on this network has an address of its own; put it here
+      # instead. If Mila's log says a proxy is not trusted, put the address
+      # it names here.
+      MILA_TRUSTED_PROXIES: ${MILA_TRUSTED_PROXIES:-172.30.80.1/32}
+    volumes:
+      - mila-data:/data
+
+# A network of Mila's own, at a fixed address, so the gateway trusted above
+# is this machine and no other container's network. MILA_SUBNET and
+# MILA_GATEWAY in .env change it, should it clash with one already here.
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: ${MILA_SUBNET:-172.30.80.0/24}
+          gateway: ${MILA_GATEWAY:-172.30.80.1}
+
+volumes:
+  mila-data:

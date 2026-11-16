@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-forget-place"
+description = "Enables the forget_place command without any pre-configured scope."
+commands.allow = ["forget_place"]
+
+[[permission]]
+identifier = "deny-forget-place"
+description = "Denies the forget_place command without any pre-configured scope."
+commands.deny = ["forget_place"]

@@ -1,0 +1,32 @@
+{
+	"_comment": "Sort keys as web/src/lib/sync/sortkey.ts makes and checks them, which the server's port (server/internal/syncer/sortkey.go) must match: after holds [key, the key keyBetween(key, null) puts after it]; invalid holds keys neither side takes.",
+	"first": "a0",
+	"after": [
+		["a0", "a1"],
+		["a1", "a2"],
+		["a9", "aA"],
+		["aZ", "aa"],
+		["az", "b00"],
+		["b00", "b01"],
+		["b0z", "b10"],
+		["bzz", "c000"],
+		["Zz", "a0"],
+		["Y00", "Y01"],
+		["a0V", "a1"],
+		["a0zz", "a1"],
+		["zzzzzzzzzzzzzzzzzzzzzzzzzzz", "zzzzzzzzzzzzzzzzzzzzzzzzzzzV"],
+		["zzzzzzzzzzzzzzzzzzzzzzzzzzzV", "zzzzzzzzzzzzzzzzzzzzzzzzzzzl"],
+		["A000000000000000000000000001", "A00000000000000000000000001"],
+		["Zz8", "a0"],
+		["a5", "a6"],
+		["a7", "a8"],
+		["aE", "aF"],
+		["aL", "aM"],
+		["aS", "aT"],
+		["ag", "ah"],
+		["an", "ao"],
+		["au", "av"],
+		["b01", "b02"]
+	],
+	"invalid": ["", "a", "a00", "a10", "A00000000000000000000000000", "b0", "0", "!a", "zzz"]
+}

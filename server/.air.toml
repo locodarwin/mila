@@ -1,0 +1,15 @@
+# Live reload for make dev. The frontend is served by Vite on :5173, so
+# this build skips embedding it, and the base URL is Vite's: that is the
+# origin the browser sends and the one passkeys are bound to.
+root = "."
+tmp_dir = "../tmp/air"
+
+[build]
+cmd = "go build -o ../tmp/air/mila ./cmd/mila"
+entrypoint = ["../tmp/air/mila", "serve", "--listen", "127.0.0.1:8790", "--base-url", "http://localhost:5173", "--log-format", "text", "--log-level", "debug", "--data-dir", "../tmp/dev-data"]
+include_ext = ["go", "sql", "toml"]
+exclude_dir = ["internal/webui/dist"]
+delay = 300
+
+[log]
+time = false

@@ -1,0 +1,2 @@
+# git archive writes the commit into this file, which stamps test builds.
+scripts/stage-commit export-subst

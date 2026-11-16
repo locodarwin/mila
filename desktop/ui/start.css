@@ -1,0 +1,101 @@
+/* The app's own page, the Places screen, in Mila's Standard theme's colors. */
+:root {
+	color-scheme: light dark;
+	--page: oklch(0.975 0.006 260);
+	--card: oklch(0.995 0.006 260);
+	--text: oklch(0.24 0.006 260);
+	--soft: oklch(0.44 0.006 260);
+	--edge: oklch(0.82 0.006 260);
+	--control: oklch(0.6 0.006 260);
+	--accent: oklch(0.53 0.17 262);
+	--on-accent: oklch(0.995 0 0);
+	--danger: oklch(0.5 0.17 25);
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--page: oklch(0.18 0.006 260);
+		--card: oklch(0.21 0.006 260);
+		--text: oklch(0.94 0.006 260);
+		--soft: oklch(0.77 0.006 260);
+		--edge: oklch(0.4 0.006 260);
+		--control: oklch(0.56 0.006 260);
+		--accent: oklch(0.72 0.14 262);
+		--on-accent: oklch(0.18 0.01 262);
+		--danger: oklch(0.72 0.16 25);
+	}
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { display: grid; place-items: center; padding: 24px; background: var(--page); color: var(--text); font: 14px/1.5 system-ui, sans-serif; }
+main { display: grid; gap: 16px; width: min(640px, 100%); }
+section { display: grid; gap: 12px; }
+h1 { margin: 0; font-size: 22px; font-weight: 600; line-height: 1.25; }
+p { margin: 0; }
+[hidden] { display: none !important; }
+.muted { color: var(--soft); }
+.version { color: var(--soft); font-size: 12px; }
+.error { color: var(--danger); }
+button, input { font: inherit; color: inherit; }
+button { min-height: 34px; padding: 0 14px; background: var(--card); border: 1px solid var(--edge); border-radius: 6px; font-weight: 550; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; }
+form { display: grid; gap: 8px; }
+label { font-weight: 550; font-size: 13px; }
+input { min-height: 36px; padding: 0 10px; background: var(--card); border: 1px solid var(--control); border-radius: 6px; }
+.choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.choice { display: grid; gap: 6px; padding: 16px; text-align: left; align-content: start; }
+.choice b { font-size: 15px; font-weight: 600; }
+.choice span { color: var(--soft); font-size: 13px; font-weight: 400; }
+
+/* The Places screen. */
+:root { --ready: oklch(0.52 0.12 160); --warn: oklch(0.55 0.13 65); --idle: var(--soft); }
+@media (prefers-color-scheme: dark) { :root { --ready: oklch(0.75 0.13 160); --warn: oklch(0.78 0.13 70); } }
+body { place-items: start center; padding-top: 48px; }
+.brand { display: flex; gap: 12px; align-items: center; }
+.brand p { font-size: 13px; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.place { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px 10px 12px; background: var(--card); border: 1px solid var(--edge); border-radius: 8px; }
+.place.last { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.icon { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--edge); background: var(--page); }
+.icon.local { background: linear-gradient(var(--page), var(--page)) padding-box; }
+.icon::before { content: ""; display: block; width: 18px; height: 18px; margin: 8px; border: 1.5px solid var(--soft); border-radius: 3px; }
+.icon.server::before { height: 7px; box-shadow: 0 9px 0 -1.5px var(--page), 0 9px 0 0 var(--soft); }
+.body { min-width: 0; display: grid; gap: 2px; }
+.name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-weight: 600; }
+.name small { font-weight: 400; color: var(--soft); font-size: 12px; overflow-wrap: anywhere; }
+.tag { font-size: 11px; font-weight: 600; color: var(--accent); }
+.meta { display: flex; flex-wrap: wrap; gap: 2px 12px; color: var(--soft); font-size: 13px; }
+.status { display: inline-flex; align-items: center; gap: 6px; font-weight: 550; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status.ready { color: var(--ready); }
+.status.offline { color: var(--warn); }
+.status.signin { color: var(--danger); }
+.status.stopped, .status.checking { color: var(--idle); }
+.acts { display: flex; gap: 6px; align-items: center; }
+.more { min-width: 34px; padding: 0 8px; border-color: transparent; background: none; font-size: 18px; line-height: 1; }
+.pop { position: relative; }
+.pop ul { position: absolute; right: 0; top: calc(100% + 4px); z-index: 2; list-style: none; margin: 0; padding: 4px; width: 250px; background: var(--card); border: 1px solid var(--edge); border-radius: 8px; box-shadow: 0 8px 24px oklch(0 0 0 / 0.18); }
+.pop li button { display: grid; gap: 1px; width: 100%; min-height: 32px; padding: 6px 10px; border: 0; background: none; text-align: left; font-weight: 500; }
+.pop li button:hover, .pop li button:focus-visible { background: var(--page); }
+.pop li small { color: var(--soft); font-weight: 400; font-size: 12px; overflow-wrap: anywhere; }
+.pop li .danger { color: var(--danger); }
+.rename { min-height: 28px; font-weight: 600; width: min(280px, 100%); }
+.adds { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
+.add { display: grid; gap: 2px; padding: 10px 14px; text-align: left; border-style: dashed; background: none; }
+.add b { font-weight: 600; }
+.add span { color: var(--soft); font-size: 12px; font-weight: 400; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center; color: var(--soft); font-size: 13px; border-top: 1px solid var(--edge); padding-top: 12px; }
+.foot label, .check { display: inline-flex; gap: 8px; align-items: center; font-weight: 400; font-size: 13px; }
+input[type="checkbox"] { min-height: 0; width: 16px; height: 16px; accent-color: var(--accent); }
+.danger { color: var(--danger); }
+button.danger { border-color: var(--danger); }
+dialog { width: min(460px, calc(100% - 32px)); padding: 20px; background: var(--card); color: var(--text); border: 1px solid var(--edge); border-radius: 10px; }
+dialog::backdrop { background: oklch(0 0 0 / 0.4); }
+dialog h2 { margin: 0; font-size: 17px; }
+#remove-form { gap: 12px; }
+#remove-confirm { display: grid; gap: 6px; }
+@media (max-width: 560px) {
+	.place { grid-template-columns: 36px minmax(0, 1fr); }
+	.acts { grid-column: 1 / -1; justify-content: flex-end; }
+}

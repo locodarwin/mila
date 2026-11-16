@@ -1,0 +1,189 @@
+name: CI
+
+# What every push and pull request runs: the Go tests on SQLite and
+# Postgres, the web checks and unit tests, and the browser tests on the
+# desktop layout; then, on main, the image and the staging deploy. The
+# rest (the race detector, the phone layout, the Go tests on Windows, the
+# performance budgets, visual regression and the long fuzz run) is in
+# nightly.yml, run by hand.
+#
+# Every job runs on GitHub's machines. Pull requests from anyone run go, web
+# and e2e with a read-only token and no secrets; image and staging run only
+# for a push to main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Nothing unless a job says so; each asks for the least it needs.
+permissions: {}
+
+jobs:
+  go:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    # The Go tests' Postgres, on the address they use.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: mila
+          POSTGRES_PASSWORD: mila
+          POSTGRES_DB: mila
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U mila" --health-interval 2s --health-timeout 5s --health-retries 15
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # The job's token stays out of .git/config, where install scripts
+          # and tests could read it.
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - name: gofmt
+        run: test -z "$(gofmt -l .)" || (gofmt -l .; exit 1)
+      - run: go vet ./...
+      - uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9
+        with:
+          working-directory: server
+      - name: Generated code is current
+        run: |
+          (cd internal/store && go generate)
+          (cd internal/httpapi/api && go generate)
+          git diff --exit-code -- internal/store internal/httpapi ../shared/openapi.yaml
+      # The race detector and the server budgets run nightly
+      # (nightly.yml), where their time keeps no one waiting.
+      - name: Tests on SQLite and Postgres
+        env:
+          MILA_TEST_POSTGRES_URL: postgres://mila:mila@localhost:5432/mila?sslmode=disable
+          MILA_TEST_REQUIRE_POSTGRES: "1"
+        run: go test ./...
+      - name: govulncheck
+        run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+
+  web:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # The job's token stays out of .git/config, where install scripts
+          # and tests could read it.
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run check
+      - name: Generated API types and the spec's JSON copy are current
+        run: npm run generate && git diff --exit-code -- src/lib/api/schema.d.ts ../server/internal/httpapi/openapi.json
+      - run: npx vitest --run
+      - name: Initial JavaScript budget
+        run: npm run build && npm run budget:size
+      - name: Audit what ships
+        run: npm audit --omit=dev --audit-level=moderate
+
+  e2e:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # The job's token stays out of .git/config, where install scripts
+          # and tests could read it.
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      # Chromium at the version @playwright/test pins, with the libraries it needs.
+      - run: cd web && npm ci && npx playwright install --with-deps chromium
+      # Desktop only; the phone layout's run is nightly. Two workers, as
+      # playwright.config.ts gives CI, on GitHub's four cores.
+      - run: cd web && npx playwright test --project=desktop
+        env:
+          CI: "1"
+      # Mila as the desktop app runs it on this computer, on a server of its own.
+      - run: cd web && npx playwright test -c playwright.local.config.ts
+        env:
+          CI: "1"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: failure()
+        with:
+          name: playwright-results
+          path: web/test-results
+
+  # Every commit on main whose tests pass (Go, web and browser) becomes an
+  # image and goes to the staging server. Staging needs the secret
+  # STAGING_SSH_KEY in the staging environment, which only main may deploy
+  # to, so no other job or branch can read it (the private half of the key
+  # in the deploy user's authorized_keys), and the repository variables
+  # STAGING_HOST and STAGING_KNOWN_HOSTS (its ssh-keyscan line); the
+  # server's side is deploy/staging/README.md.
+  image:
+    needs: [go, web, e2e]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/image.yml
+
+  staging:
+    needs: image
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://${{ vars.STAGING_HOST }}
+    # One deploy at a time; a newer commit waits rather than cutting one off.
+    concurrency:
+      group: staging
+      cancel-in-progress: false
+    permissions:
+      packages: read
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          KNOWN_HOSTS: ${{ vars.STAGING_KNOWN_HOSTS }}
+          HOST: ${{ vars.STAGING_HOST }}
+          IMAGE: ghcr.io/locodarwin/mila@${{ needs.image.outputs.digest }}
+          ACTOR: ${{ github.actor }}
+          # The server logs in with this run's token and forgets it after
+          # the pull, so it keeps no credential of its own.
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          printf '%s' "$TOKEN" | ssh -o BatchMode=yes "deploy@$HOST" "$IMAGE $ACTOR"
+      - name: The new version answers
+        env:
+          HOST: ${{ vars.STAGING_HOST }}
+          WANT: ${{ needs.image.outputs.version }}
+        run: |
+          got=$(curl -fsS "https://$HOST/api/v1/instance" | jq -r .version)
+          echo "staging runs $got"
+          test "$got" = "$WANT"

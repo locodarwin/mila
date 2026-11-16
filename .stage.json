@@ -1,0 +1,11 @@
+{
+	"tool": "mila",
+	"branches": ["main"],
+	"build": ["sh scripts/stage-build.sh"],
+	"exclude": [
+		".github/*", ".gitattributes", ".gitignore", ".dockerignore", ".stage.json",
+		"Dockerfile", "Makefile", "README.md",
+		"deploy/*", "desktop/*", "docs/*", "scripts/*", "server/*", "shared/*", "web/*"
+	],
+	"entry": "python stage/run.py"
+}

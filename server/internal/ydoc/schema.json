@@ -1,0 +1,96 @@
+{
+	"nodes": {
+		"blockquote": {},
+		"bulletList": {},
+		"callout": {
+			"kind": "note"
+		},
+		"codeBlock": {
+			"language": null
+		},
+		"column": {},
+		"columns": {
+			"layout": "1:1"
+		},
+		"doc": {},
+		"fold": {
+			"open": false
+		},
+		"foldTitle": {},
+		"hardBreak": {},
+		"heading": {
+			"level": 1
+		},
+		"horizontalRule": {},
+		"image": {
+			"alt": null,
+			"caption": null,
+			"height": null,
+			"side": null,
+			"size": null,
+			"src": null,
+			"title": null,
+			"width": null
+		},
+		"listItem": {},
+		"orderedList": {
+			"start": 1,
+			"type": null
+		},
+		"pageStyle": {
+			"font": null,
+			"size": null
+		},
+		"paragraph": {},
+		"reportEmbed": {
+			"chart": null,
+			"id": null,
+			"name": ""
+		},
+		"table": {},
+		"tableCell": {
+			"align": null,
+			"colspan": 1,
+			"colwidth": null,
+			"rowspan": 1
+		},
+		"tableHeader": {
+			"align": null,
+			"colspan": 1,
+			"colwidth": null,
+			"rowspan": 1
+		},
+		"tableRow": {},
+		"taskItem": {
+			"checked": false
+		},
+		"taskList": {},
+		"text": {},
+		"viewEmbed": {
+			"id": null,
+			"layout": null,
+			"name": ""
+		}
+	},
+	"marks": {
+		"bold": {},
+		"code": {},
+		"highlight": {
+			"color": "yellow"
+		},
+		"italic": {},
+		"link": {
+			"class": null,
+			"href": null,
+			"rel": "noopener noreferrer nofollow",
+			"target": "_blank",
+			"title": null
+		},
+		"strike": {},
+		"textStyle": {
+			"font": null,
+			"size": null
+		},
+		"underline": {}
+	}
+}

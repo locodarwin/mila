@@ -1,0 +1,44 @@
+#!/bin/bash
+# Sets the staging server's mail settings from a Postmark server token read
+# on stdin, so the token never appears in a command line, and restarts Mila
+# to pick them up. Run by an admin:
+#
+#   printf '%s\n' "$token" | ssh <admin>@<host> sudo mila-set-mail ["From name <address>"]
+#
+# Without a From address it keeps the MILA_MAIL_FROM the server has.
+set -euo pipefail
+
+env=/srv/mila/.env
+from=${1:-$(sed -n 's/^MILA_MAIL_FROM=//p' "$env" | tail -n 1)}
+if [[ -z $from ]]; then
+	echo "give the From address, such as \"Mila Staging <mila@example.com>\"" >&2
+	exit 2
+fi
+IFS= read -r token
+if [[ ! $token =~ ^[A-Za-z0-9-]{20,100}$ ]]; then
+	echo "expected a Postmark server token on stdin" >&2
+	exit 2
+fi
+if [[ $from == *$'\n'* ]]; then
+	echo "the From address must be one line" >&2
+	exit 2
+fi
+
+tmp=$(mktemp /srv/mila/.env.XXXXXX)
+trap 'rm -f "$tmp"' EXIT
+while IFS= read -r line || [[ -n $line ]]; do
+	case $line in
+	MILA_SMTP_URL=* | MILA_MAIL_FROM=*) ;;
+	*) printf '%s\n' "$line" ;;
+	esac
+done <"$env" >"$tmp"
+printf 'MILA_SMTP_URL=smtp://%s:%s@smtp.postmarkapp.com:587\n' "$token" "$token" >>"$tmp"
+printf 'MILA_MAIL_FROM=%s\n' "$from" >>"$tmp"
+chown deploy:deploy "$tmp"
+chmod 600 "$tmp"
+mv "$tmp" "$env"
+restorecon "$env" 2>/dev/null || true
+
+cd /srv/mila
+sudo -u deploy docker compose up -d mila 2>&1 | grep -v '^\s*$' || true
+echo "mail set: smtp.postmarkapp.com:587, from $from"

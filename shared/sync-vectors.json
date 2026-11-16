@@ -1,0 +1,12 @@
+{
+	"_comment": "HLC cases checked by both server/internal/syncer and web/src/lib/sync. An HLC is <13-digit ms>-<4 hex counter>-<device>, and comparing HLCs is comparing strings.",
+	"valid": ["1793237300000-0000-a", "0000000000001-ffff-device_1-x"],
+	"invalid": ["", "1793237300000-0000", "179323730000-0000-a", "1793237300000-00g0-a", "1793237300000-0000-has space", "yesterday"],
+	"ordered": [
+		"1793237300000-0000-b",
+		"1793237300000-0001-a",
+		"1793237300000-000a-a",
+		"1793237300001-0000-a",
+		"1793237300001-0000-b"
+	]
+}

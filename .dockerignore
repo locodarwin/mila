@@ -1,0 +1,11 @@
+.git
+bin
+tmp
+web/node_modules
+web/build
+web/.svelte-kit
+web/test-results
+server/internal/webui/dist
+HANDOFF.md
+desktop
+server/mila

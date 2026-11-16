@@ -1,0 +1,144 @@
+[
+	{
+		"assignees": [],
+		"body": "Comments in tasks have some issues:\n\n- Links pasted in should be converted to clickable links\n- Guests are not seeing the name of a commenter in a task other than themselves, they just see \"Someone.\" It's okay for a guest of a workspace and/or project to see and @mention other people in the workspace/project.\n- For some reason guests aren't receiving notifications when they've been @mentioned\n\nAlso, let's implement a / command with some options:\n\n- reference a task with /task\n- reference a wiki page (and optionally a section) with /wiki",
+		"closedAt": "2026-11-03T04:02:51Z",
+		"comments": [
+			{
+				"id": "IC_kwDOVbMkxs8AAAABiRm7Gw",
+				"author": {
+					"login": "locodarwin"
+				},
+				"authorAssociation": "OWNER",
+				"body": "Built in d56b7fb and tried on staging.",
+				"createdAt": "2026-11-03T04:02:50Z",
+				"includesCreatedEdit": false,
+				"isMinimized": false,
+				"minimizedReason": "",
+				"reactionGroups": [],
+				"url": "https://github.com/locodarwin/mila/issues/6#issuecomment-6595132187",
+				"viewerDidAuthor": true
+			}
+		],
+		"createdAt": "2026-11-02T17:09:07Z",
+		"labels": [],
+		"milestone": null,
+		"number": 6,
+		"state": "CLOSED",
+		"title": "Comments in task panel need some QOL updates",
+		"url": "https://github.com/locodarwin/mila/issues/6"
+	},
+	{
+		"assignees": [],
+		"body": "@mention in all areas where @mention is available should allow the user to see the list of users who have access to that area/field and pick one. Otherwise the user has no guarantee the @mentioned user received the mention/notification.",
+		"closedAt": "2026-11-03T04:02:48Z",
+		"comments": [
+			{
+				"id": "IC_kwDOVbMkxs8AAAABiRm5Jw",
+				"author": {
+					"login": "locodarwin"
+				},
+				"authorAssociation": "OWNER",
+				"body": "Built in d56b7fb and tried on staging.",
+				"createdAt": "2026-11-03T04:02:48Z",
+				"includesCreatedEdit": false,
+				"isMinimized": false,
+				"minimizedReason": "",
+				"reactionGroups": [],
+				"url": "https://github.com/locodarwin/mila/issues/5#issuecomment-6595131687",
+				"viewerDidAuthor": true
+			}
+		],
+		"createdAt": "2026-11-02T16:59:35Z",
+		"labels": [],
+		"milestone": null,
+		"number": 5,
+		"state": "CLOSED",
+		"title": "Mention needs a list of @mentionables.",
+		"url": "https://github.com/locodarwin/mila/issues/5"
+	},
+	{
+		"assignees": [],
+		"body": "The Wiki in all areas where it is available needs size adjustability. The user should have the option to resize the usable Wiki space.\n\n<img width=\"1665\" height=\"1543\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d96db4a4-2fc5-4154-a930-260af277b05b\" />",
+		"closedAt": "2026-11-03T04:02:46Z",
+		"comments": [
+			{
+				"id": "IC_kwDOVbMkxs8AAAABiRm3bg",
+				"author": {
+					"login": "locodarwin"
+				},
+				"authorAssociation": "OWNER",
+				"body": "Built in d56b7fb and tried on staging.",
+				"createdAt": "2026-11-03T04:02:46Z",
+				"includesCreatedEdit": false,
+				"isMinimized": false,
+				"minimizedReason": "",
+				"reactionGroups": [],
+				"url": "https://github.com/locodarwin/mila/issues/4#issuecomment-6595131246",
+				"viewerDidAuthor": true
+			}
+		],
+		"createdAt": "2026-11-02T16:48:30Z",
+		"labels": [],
+		"milestone": null,
+		"number": 4,
+		"state": "CLOSED",
+		"title": "Wiki size adjustability",
+		"url": "https://github.com/locodarwin/mila/issues/4"
+	},
+	{
+		"assignees": [],
+		"body": "The sidebar collapse button overlaps workspace button/dropdown when sidebar is collapsed. The best fix would be to slide the Workspace icon down below the collapse/expand button.\n\n",
+		"closedAt": "2026-11-01T00:11:53Z",
+		"comments": [],
+		"createdAt": "2026-10-31T23:56:28Z",
+		"labels": [],
+		"milestone": null,
+		"number": 3,
+		"state": "CLOSED",
+		"title": "[bug] Sidebar collapse button overlaps workspace when sidebar collapsed",
+		"url": "https://github.com/locodarwin/mila/issues/3"
+	},
+	{
+		"assignees": [],
+		"body": "The green button above the account link should be labeled, and positioned correctly. I assume this green button is an \"online\" indicator.",
+		"closedAt": "2026-11-01T00:11:53Z",
+		"comments": [
+			{
+				"id": "IC_kwDOVbMkxs8AAAABhnVAYQ",
+				"author": {
+					"login": "locodarwin"
+				},
+				"authorAssociation": "OWNER",
+				"body": "<img width=\"825\" height=\"683\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/23d15d7b-aa21-43f2-9482-c24d0da142d4\" />",
+				"createdAt": "2026-10-31T23:52:03Z",
+				"includesCreatedEdit": false,
+				"isMinimized": false,
+				"minimizedReason": "",
+				"reactionGroups": [],
+				"url": "https://github.com/locodarwin/mila/issues/2#issuecomment-6550798433",
+				"viewerDidAuthor": true
+			}
+		],
+		"createdAt": "2026-10-31T23:50:32Z",
+		"labels": [],
+		"milestone": null,
+		"number": 2,
+		"state": "CLOSED",
+		"title": "[bug] Green button on UI needs fixing.",
+		"url": "https://github.com/locodarwin/mila/issues/2"
+	},
+	{
+		"assignees": [],
+		"body": "When adding a new project, focus should immediately switch to the project name entry field for typing in the name. Currently adding a project with the plus sign on \"Projects\" doesn't put focus on the Project name field and so the user has to click on the field manually before typing the name.",
+		"closedAt": "2026-11-01T00:11:52Z",
+		"comments": [],
+		"createdAt": "2026-10-31T23:47:58Z",
+		"labels": [],
+		"milestone": null,
+		"number": 1,
+		"state": "CLOSED",
+		"title": "[bug] New project add; focus on name field",
+		"url": "https://github.com/locodarwin/mila/issues/1"
+	}
+]

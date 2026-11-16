@@ -1,0 +1,7 @@
+﻿TYPE,CONTENT,DESCRIPTION,ICON,IS_COLLAPSED,PRIORITY,INDENT,AUTHOR,RESPONSIBLE,DATE,DATE_LANG,TIMEZONE,DURATION,DURATION_UNIT,DEADLINE,DEADLINE_LANG,REMINDER_TYPE,REMINDER_OFFSET,REMINDER_DATE,REMINDER_DATE_LANG
+meta,view_style=list,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+task,Post the parcel @town,,,,2,1,Ada Park (1001),,,,,,,,,,,,
+task,Find some tape,,,,4,2,Ada Park (1001),,,,,,,,,,,,
+task,Ask next door for tape,,,,4,3,Ada Park (1001),,,,,,,,,,,,
+note,They have the wide kind.,,,,,,Ada Park (1001),,2026-10-03T12:00:00.000000Z,,,,,,,,,,

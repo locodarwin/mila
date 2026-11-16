@@ -1,0 +1,36 @@
+# Mila on a NAS: the app alone on port 8080, with its data in a folder of the
+# NAS's. docs/self-hosting.md, option 4, has the steps for Synology, TrueNAS
+# SCALE, Unraid and UGREEN; each sets the folder and the user below.
+
+services:
+  mila:
+    image: ghcr.io/locodarwin/mila:latest
+    restart: unless-stopped
+    # The user Mila runs as, who must own the data folder. Left out, it is the
+    # image's own (65532); TrueNAS's apps user is "568:568", and on UGREEN it
+    # is the data folder's owner, usually "1000:1000".
+    # user: "568:568"
+    # Mila needs no privileges and writes only to /data, and to /tmp for
+    # large uploads on their way in.
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp]
+    ports:
+      # Behind a reverse proxy on the NAS itself, "127.0.0.1:8080:8080", so
+      # Mila is reached only through it.
+      - "8080:8080"
+    environment:
+      # The address people use: the NAS's reverse proxy, with HTTPS, for a
+      # domain; or http://<the NAS's address>:8080 on your network alone,
+      # where only email links sign in (passkeys need a domain and HTTPS).
+      MILA_BASE_URL: https://mila.example.com
+      # Email for sign-in links; without it they are printed in the log.
+      MILA_SMTP_URL: ""
+      # Behind a reverse proxy, its address, which Mila's log names the first
+      # time a visitor comes through it (the guide, option 4). Left empty,
+      # Mila believes no one about where visitors come from.
+      MILA_TRUSTED_PROXIES: ""
+    volumes:
+      # The data folder, which holds everything: back it up with the NAS.
+      - /volume1/docker/mila:/data

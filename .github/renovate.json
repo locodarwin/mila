@@ -1,0 +1,61 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended", "helpers:pinGitHubActionDigests", "docker:pinDigests"],
+	"schedule": ["before 6am on monday"],
+	"minimumReleaseAge": "3 days",
+	"labels": ["dependencies"],
+	"packageRules": [
+		{
+			"description": "Go modules together, tidied",
+			"matchManagers": ["gomod"],
+			"groupName": "Go modules",
+			"postUpdateOptions": ["gomodTidy"]
+		},
+		{
+			"description": "GitHub Actions together",
+			"matchManagers": ["github-actions"],
+			"groupName": "GitHub Actions"
+		},
+		{
+			"description": "Web tooling (minor and patch) together",
+			"matchManagers": ["npm"],
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor", "patch"],
+			"matchPackageNames": ["*", "!@playwright/test"],
+			"groupName": "web tooling"
+		},
+		{
+			"description": "Playwright, its pinned image (Makefile, CI) and so the visual baselines move together; the image is tracked through the npm version below",
+			"matchPackageNames": ["@playwright/test"],
+			"groupName": "Playwright",
+			"rangeStrategy": "pin",
+			"prBodyNotes": [
+				"Screenshots change with Playwright's browser: run `make visual-update` on this branch and commit the new baselines in `web/e2e/visual/__screenshots__` after looking at them."
+			]
+		},
+		{
+			"description": "The Playwright image is updated with @playwright/test, not on its own",
+			"matchDatasources": ["docker"],
+			"matchPackageNames": ["mcr.microsoft.com/playwright"],
+			"enabled": false
+		}
+	],
+	"customManagers": [
+		{
+			"customType": "regex",
+			"description": "The Playwright image tag in the Makefile and CI follows @playwright/test",
+			"managerFilePatterns": ["/^Makefile$/", "/^\\.github/workflows/.+\\.ya?ml$/"],
+			"matchStrings": ["mcr\\.microsoft\\.com/playwright:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-noble"],
+			"depNameTemplate": "@playwright/test",
+			"datasourceTemplate": "npm"
+		},
+		{
+			"customType": "regex",
+			"description": "Lighthouse CI, fetched with npx by web/scripts/lighthouse.mjs",
+			"managerFilePatterns": ["/^web/scripts/lighthouse\\.mjs$/"],
+			"matchStrings": ["'@lhci/cli@(?<currentValue>\\d+\\.\\d+\\.\\d+)'"],
+			"depNameTemplate": "@lhci/cli",
+			"datasourceTemplate": "npm"
+		}
+	]
+}

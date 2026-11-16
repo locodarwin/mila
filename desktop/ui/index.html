@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mila</title>
+<link rel="stylesheet" href="start.css">
+</head>
+<body>
+<main>
+	<section id="home" hidden>
+		<header class="brand">
+			<img src="icon.png" alt="" width="36" height="36">
+			<div>
+				<h1>Choose a place</h1>
+				<p class="muted">Your work lives in each place on its own. Open one, or add another.</p>
+			</div>
+		</header>
+		<ul id="list" class="list" aria-label="Places"></ul>
+		<div class="adds">
+			<button type="button" class="add" id="add-server"><b>+ Connect to a server</b><span>Sign in through your browser.</span></button>
+			<button type="button" class="add" id="add-local"><b>+ New place on this computer</b><span>Just you, in a folder of its own.</span></button>
+		</div>
+		<footer class="foot">
+			<label><input type="checkbox" id="open-last"> Open my last place straight away</label>
+			<span class="version" id="version"></span>
+		</footer>
+	</section>
+	<section id="first" hidden>
+		<header class="brand">
+			<img src="icon.png" alt="" width="36" height="36">
+			<div>
+				<h1>Where should your work live?</h1>
+				<p class="muted">You can have both, and add more places any time.</p>
+			</div>
+		</header>
+		<div class="choices">
+			<button type="button" class="choice" id="first-server"><b>Connect to a server</b><span>Your workspaces as they are, shared with others and in step on all your devices. You sign in through your browser.</span></button>
+			<button type="button" class="choice" id="first-local"><b>Keep it on this computer</b><span>Just you, with no server and no account. Nothing leaves this computer.</span></button>
+		</div>
+	</section>
+	<section id="server" hidden>
+		<h1>Connect to a server</h1>
+		<form id="server-form">
+			<label for="address">Its address</label>
+			<input id="address" autocomplete="url" spellcheck="false" placeholder="mila.example.com" required>
+			<p class="muted">Your browser opens so you can sign in the way you usually do, with a passkey or an emailed link.</p>
+			<div class="row"><button type="submit" class="primary">Continue in my browser</button><button type="button" class="back">Back</button></div>
+		</form>
+	</section>
+	<section id="local" hidden>
+		<h1>A new place on this computer</h1>
+		<form id="local-form">
+			<label for="local-name">Its name</label>
+			<input id="local-name" maxlength="60" spellcheck="false" placeholder="Personal">
+			<p class="muted">Just you, with no server and no account. Its work is kept in a folder of its own on this computer.</p>
+			<div class="row"><button type="submit" class="primary">Make it</button><button type="button" class="back">Back</button></div>
+		</form>
+	</section>
+	<section id="waiting" hidden>
+		<h1>Waiting for your browser</h1>
+		<p class="muted">Sign in there. When it says you can close its tab, this window opens your workspaces.</p>
+		<div class="row"><button type="button" id="cancel">Cancel</button></div>
+	</section>
+	<section id="starting" hidden>
+		<h1>Starting Mila…</h1>
+	</section>
+	<p id="error" class="error" role="alert" hidden></p>
+</main>
+<dialog id="remove" aria-labelledby="remove-title">
+	<form method="dialog" id="remove-form">
+		<h2 id="remove-title"></h2>
+		<p id="remove-says" class="muted"></p>
+		<div id="remove-local" hidden>
+			<label class="check"><input type="checkbox" id="remove-delete"> Also delete its work</label>
+			<div id="remove-confirm" hidden>
+				<label for="remove-typed" id="remove-typed-label"></label>
+				<input id="remove-typed" autocomplete="off" spellcheck="false">
+			</div>
+		</div>
+		<p id="remove-error" class="error" role="alert" hidden></p>
+		<div class="row"><button type="submit" class="danger" id="remove-go">Remove</button><button type="button" id="remove-cancel">Cancel</button></div>
+	</form>
+</dialog>
+<script src="start.js"></script>
+</body>
+</html>

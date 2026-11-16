@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-open-place"
+description = "Enables the open_place command without any pre-configured scope."
+commands.allow = ["open_place"]
+
+[[permission]]
+identifier = "deny-open-place"
+description = "Denies the open_place command without any pre-configured scope."
+commands.deny = ["open_place"]

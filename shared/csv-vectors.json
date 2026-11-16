@@ -1,0 +1,33 @@
+{
+	"_comment": "CSV fields as written, each [text, field], checked by both web/src/lib/csv.ts (field, through writeCsv) and server/internal/ownership/export.go (csvField). Text starting like a formula (= + - @) after any whitespace (JavaScript's \\s), or starting with a tab or CR, gets an apostrophe first, except a plain negative number. A field holding a comma, quote, line end, ; or tab is quoted.",
+	"fields": [
+		["plain", "plain"],
+		["", ""],
+		["=1+2", "'=1+2"],
+		["+1", "'+1"],
+		["@me", "'@me"],
+		["-x", "'-x"],
+		["-5", "-5"],
+		["-2.5", "-2.5"],
+		["-1e5", "'-1e5"],
+		["-Inf", "'-Inf"],
+		["x;=1+2", "\"x;=1+2\""],
+		["Fix login;=HYPERLINK(CHAR(104))", "\"Fix login;=HYPERLINK(CHAR(104))\""],
+		[" =1+2", "' =1+2"],
+		["\u00a0=1+2", "'\u00a0=1+2"],
+		["\u3000@x", "'\u3000@x"],
+		["\ufeff=1", "'\ufeff=1"],
+		["\u0085=1", "\u0085=1"],
+		[" -5", "' -5"],
+		["tab\there", "\"tab\there\""],
+		["\tplain", "\"'\tplain\""],
+		["\rplain", "\"'\rplain\""],
+		["\n=1", "\"'\n=1\""],
+		["a,b", "\"a,b\""],
+		["two\nlines", "\"two\nlines\""],
+		["say \"hi\"", "\"say \"\"hi\"\"\""],
+		["=HYPERLINK(\"http://x\",\"a;b\")", "\"'=HYPERLINK(\"\"http://x\"\",\"\"a;b\"\")\""],
+		[" leading space", " leading space"],
+		["a; b", "\"a; b\""]
+	]
+}

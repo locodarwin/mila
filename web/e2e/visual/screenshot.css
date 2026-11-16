@@ -1,0 +1,5 @@
+/* Applied while a screenshot is taken: the style guide's controls stay at
+   the top of the page instead of sticking over the section in the shot. */
+.guide > .controls {
+	position: static !important;
+}

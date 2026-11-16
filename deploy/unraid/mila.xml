@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Mila for Unraid's Docker page, as a Community Applications template.
+     Untested on Unraid: docs/self-hosting.md, option 4. -->
+<Container version="2">
+  <Name>Mila</Name>
+  <Repository>ghcr.io/locodarwin/mila:latest</Repository>
+  <Registry>https://github.com/locodarwin/mila/pkgs/container/mila</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/locodarwin/mila/issues</Support>
+  <Project>https://github.com/locodarwin/mila</Project>
+  <Overview>Mila, a project manager for a person or a small team: tasks, projects, views, a wiki, time tracking and reports, in one program with its own database, kept in sync on every device. Its data is one folder. The setup link for the first account is in its log.</Overview>
+  <Category>Productivity: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <Icon>https://raw.githubusercontent.com/locodarwin/mila/main/web/static/icon-512.png</Icon>
+  <!-- Runs as Unraid's nobody:users, who own appdata, so New Permissions keeps it working. -->
+  <ExtraParams>--user 99:100 --cap-drop ALL --security-opt no-new-privileges:true --read-only --tmpfs /tmp</ExtraParams>
+  <Config Name="Web port" Target="8080" Default="8080" Mode="tcp" Description="The port Mila answers on." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/mila" Mode="rw" Description="Everything Mila keeps: the database, files and backups." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/mila</Config>
+  <Config Name="Address" Target="MILA_BASE_URL" Default="http://tower:8080" Mode="" Description="The address people use, such as https://mila.example.com behind a reverse proxy, or http://your-server:8080 on your network alone." Type="Variable" Display="always" Required="true" Mask="false">http://tower:8080</Config>
+  <Config Name="Email server" Target="MILA_SMTP_URL" Default="" Mode="" Description="smtps://user:password@smtp.example.com:465 for sign-in links and reminders; empty prints them in the log." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="Trusted proxies" Target="MILA_TRUSTED_PROXIES" Default="" Mode="" Description="Behind a reverse proxy, its address, which Mila's log names the first time a visitor comes through it. Empty, Mila believes no one about where visitors come from." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+</Container>

@@ -1,0 +1,609 @@
+{
+	"_comment": "Theme documents, checked by both web/src/lib/theme/document.ts (document.spec.ts) and server/internal/accounts (themes_test.go). Each raw is the JSON text as sent or imported. valid: the server stores it, and both sides normalize it to normalized. invalid: the server refuses it; import says what parseTheme(raw, 'import') does instead: reject (no theme), notes (a theme, with notes on what was left out) or clean (a theme, no notes; a bad id or name is replaced).",
+	"valid": [
+		{
+			"name": "the least a theme is",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {},
+				"light": {},
+				"dark": {}
+			}
+		},
+		{
+			"name": "every kind of value",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"target\":\"AAA\",\"accent\":{\"hue\":200},\"tokens\":{\"radius-md\":{\"px\":8},\"font-ui\":{\"font\":\"nunito\"},\"font-heading\":{\"ref\":\"font-ui\"},\"dur-panel\":{\"ms\":240},\"ease\":{\"bezier\":[0.2,-0.5,0.3,1.4]},\"ease-spring\":{\"ease\":\"spring\"},\"leading\":{\"n\":1.5},\"hue-red\":{\"hue\":20},\"shadow-sm\":{\"layers\":[{\"y\":1,\"blur\":3,\"spread\":0},{\"y\":0,\"blur\":0,\"spread\":1}]},\"shadow-lg\":{\"layers\":[]},\"card-radius\":{\"ref\":\"radius-sm\"},\"card-shadow\":{\"ref\":\"shadow-md\"},\"palette-c\":{\"n\":0.12}},\"light\":{\"surface-0\":{\"oklch\":[0.99,0.01,85]},\"status-done\":{\"ref\":\"palette-teal\"},\"scrim\":{\"oklch\":[0,0,0],\"alpha\":0.4},\"card-bg\":{\"ref\":\"surface-1\"},\"palette-l\":{\"n\":0.58},\"accent-contrast\":{\"oklch\":[1,0,0]}},\"dark\":{\"sidebar-bg\":{\"oklch\":[0.16,0.02,250]},\"selection-bg\":{\"ref\":\"accent-soft\"}}}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AAA",
+				"accent": {
+					"hue": 200
+				},
+				"tokens": {
+					"radius-md": {
+						"px": 8
+					},
+					"font-ui": {
+						"font": "nunito"
+					},
+					"font-heading": {
+						"ref": "font-ui"
+					},
+					"dur-panel": {
+						"ms": 240
+					},
+					"ease": {
+						"bezier": [
+							0.2,
+							-0.5,
+							0.3,
+							1.4
+						]
+					},
+					"ease-spring": {
+						"ease": "spring"
+					},
+					"leading": {
+						"n": 1.5
+					},
+					"hue-red": {
+						"hue": 20
+					},
+					"shadow-sm": {
+						"layers": [
+							{
+								"y": 1,
+								"blur": 3,
+								"spread": 0
+							},
+							{
+								"y": 0,
+								"blur": 0,
+								"spread": 1
+							}
+						]
+					},
+					"shadow-lg": {
+						"layers": []
+					},
+					"card-radius": {
+						"ref": "radius-sm"
+					},
+					"card-shadow": {
+						"ref": "shadow-md"
+					},
+					"palette-c": {
+						"n": 0.12
+					}
+				},
+				"light": {
+					"surface-0": {
+						"oklch": [
+							0.99,
+							0.01,
+							85
+						]
+					},
+					"status-done": {
+						"ref": "palette-teal"
+					},
+					"scrim": {
+						"oklch": [
+							0,
+							0,
+							0
+						],
+						"alpha": 0.4
+					},
+					"card-bg": {
+						"ref": "surface-1"
+					},
+					"palette-l": {
+						"n": 0.58
+					},
+					"accent-contrast": {
+						"oklch": [
+							1,
+							0,
+							0
+						]
+					}
+				},
+				"dark": {
+					"sidebar-bg": {
+						"oklch": [
+							0.16,
+							0.02,
+							250
+						]
+					},
+					"selection-bg": {
+						"ref": "accent-soft"
+					}
+				}
+			}
+		},
+		{
+			"name": "manual accent",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"accent\":{\"manual\":true},\"light\":{\"accent\":{\"oklch\":[0.5,0.2,30]},\"accent-hover\":{\"oklch\":[0.46,0.2,30]},\"accent-text\":{\"oklch\":[0.45,0.2,30]}}}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AA",
+				"accent": {
+					"manual": true
+				},
+				"tokens": {},
+				"light": {
+					"accent": {
+						"oklch": [
+							0.5,
+							0.2,
+							30
+						]
+					},
+					"accent-hover": {
+						"oklch": [
+							0.46,
+							0.2,
+							30
+						]
+					},
+					"accent-text": {
+						"oklch": [
+							0.45,
+							0.2,
+							30
+						]
+					}
+				},
+				"dark": {}
+			}
+		},
+		{
+			"name": "control characters leave the name",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night\\u0000 shift\\u001b\",\"base\":\"calm\"}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {},
+				"light": {},
+				"dark": {}
+			}
+		},
+		{
+			"name": "spaces around the name go",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"  Night shift  \",\"base\":\"calm\"}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {},
+				"light": {},
+				"dark": {}
+			}
+		},
+		{
+			"name": "markup in a name is only text",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"</style><script>alert(1)</script>\",\"base\":\"calm\"}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "</style><script>alert(1)</script>",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {},
+				"light": {},
+				"dark": {}
+			}
+		},
+		{
+			"name": "a 60-character name",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé\",\"base\":\"calm\"}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {},
+				"light": {},
+				"dark": {}
+			}
+		},
+		{
+			"name": "bounds are inclusive",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"px\":32},\"hue-blue\":{\"hue\":360},\"celebrate\":{\"n\":0}},\"light\":{\"surface-0\":{\"oklch\":[1,0.4,0]}}}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {
+					"radius-md": {
+						"px": 32
+					},
+					"hue-blue": {
+						"hue": 360
+					},
+					"celebrate": {
+						"n": 0
+					}
+				},
+				"light": {
+					"surface-0": {
+						"oklch": [
+							1,
+							0.4,
+							0
+						]
+					}
+				},
+				"dark": {}
+			}
+		},
+		{
+			"name": "three shadow layers",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"shadow-md\":{\"layers\":[{\"y\":-32,\"blur\":0,\"spread\":-32},{\"y\":64,\"blur\":128,\"spread\":32},{\"y\":0,\"blur\":1,\"spread\":0}]}}}",
+			"normalized": {
+				"mila": "theme",
+				"version": 1,
+				"id": "5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b",
+				"name": "Night shift",
+				"base": "calm",
+				"target": "AA",
+				"accent": {},
+				"tokens": {
+					"shadow-md": {
+						"layers": [
+							{
+								"y": -32,
+								"blur": 0,
+								"spread": -32
+							},
+							{
+								"y": 64,
+								"blur": 128,
+								"spread": 32
+							},
+							{
+								"y": 0,
+								"blur": 1,
+								"spread": 0
+							}
+						]
+					}
+				},
+				"light": {},
+				"dark": {}
+			}
+		}
+	],
+	"invalid": [
+		{
+			"name": "not an object",
+			"raw": "[1, 2]",
+			"import": "reject"
+		},
+		{
+			"name": "not JSON",
+			"raw": "{\"mila\": \"theme\",",
+			"import": "reject"
+		},
+		{
+			"name": "not a theme",
+			"raw": "{\"mila\":\"view\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"import": "reject"
+		},
+		{
+			"name": "no base",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"x\"}",
+			"import": "reject"
+		},
+		{
+			"name": "an unknown base",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"sepia\"}",
+			"import": "reject"
+		},
+		{
+			"name": "version as a string",
+			"raw": "{\"mila\":\"theme\",\"version\":\"1\",\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"import": "reject"
+		},
+		{
+			"name": "version zero",
+			"raw": "{\"mila\":\"theme\",\"version\":0,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"import": "reject"
+		},
+		{
+			"name": "a newer version",
+			"raw": "{\"mila\":\"theme\",\"version\":2,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"import": "notes"
+		},
+		{
+			"name": "an id that is no uuid",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"night\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"import": "clean"
+		},
+		{
+			"name": "an id in capitals",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5D0C6B8E-2F4A-4C1E-9B7D-3A2F1E0C9D8B\",\"name\":\"Night shift\",\"base\":\"calm\"}",
+			"import": "clean"
+		},
+		{
+			"name": "no name",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"base\":\"calm\"}",
+			"import": "clean"
+		},
+		{
+			"name": "a name of control characters only",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"\\u0001\\u0002\",\"base\":\"calm\"}",
+			"import": "clean"
+		},
+		{
+			"name": "a 61-character name",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"base\":\"calm\"}",
+			"import": "clean"
+		},
+		{
+			"name": "a name that is a number",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":7,\"base\":\"calm\"}",
+			"import": "clean"
+		},
+		{
+			"name": "an unknown field",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"extra\":true}",
+			"import": "notes"
+		},
+		{
+			"name": "an unknown target",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"target\":\"AAAA\"}",
+			"import": "notes"
+		},
+		{
+			"name": "both accent kinds",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"accent\":{\"hue\":200,\"manual\":true}}",
+			"import": "notes"
+		},
+		{
+			"name": "manual false",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"accent\":{\"manual\":false}}",
+			"import": "notes"
+		},
+		{
+			"name": "an accent hue past 360",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"accent\":{\"hue\":361}}",
+			"import": "notes"
+		},
+		{
+			"name": "an unknown accent field",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"accent\":{\"hue\":20,\"l\":0.5}}",
+			"import": "notes"
+		},
+		{
+			"name": "tokens as a list",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":[]}",
+			"import": "notes"
+		},
+		{
+			"name": "an unknown token",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"sparkle-bg\":{\"oklch\":[0.5,0.1,20]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "__proto__ as a token",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"x\",\"base\":\"calm\",\"light\":{\"__proto__\":{\"oklch\":[0.5,0.1,20]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "constructor as a token",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"constructor\":{\"px\":1}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a token name that is CSS",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"x;}body{background:red\":{\"oklch\":[0.5,0.1,20]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a per-scheme token for both schemes",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"surface-0\":{\"oklch\":[0.5,0.1,20]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a token for both schemes in one",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"radius-md\":{\"px\":4}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a color as a name",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":\"red\"}}",
+			"import": "notes"
+		},
+		{
+			"name": "a color as a string",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":{\"oklch\":\"0.5 0.1 20\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a color with two numbers",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":{\"oklch\":[0.5,0.1]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a number as a string",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"px\":\"8\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a number too large to hold",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"px\":1e999}}}",
+			"import": "notes"
+		},
+		{
+			"name": "lightness past 1",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":{\"oklch\":[1.5,0.1,20]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "chroma past 0.4",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":{\"oklch\":[0.5,0.41,20]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a negative hue",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"hue-red\":{\"hue\":-1}}}",
+			"import": "notes"
+		},
+		{
+			"name": "alpha where none is allowed",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":{\"oklch\":[0.5,0.1,20],\"alpha\":0.5}}}",
+			"import": "notes"
+		},
+		{
+			"name": "alpha past 1",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"scrim\":{\"oklch\":[0,0,0],\"alpha\":2}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a px past its max",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"px\":33}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a px under its min",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"row-base\":{\"px\":10}}}",
+			"import": "notes"
+		},
+		{
+			"name": "the wrong unit",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"ms\":8}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a value with two kinds",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"px\":8,\"ref\":\"radius-sm\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a value with an extra field",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"radius-md\":{\"px\":8,\"important\":true}}}",
+			"import": "notes"
+		},
+		{
+			"name": "an unknown font",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"font-ui\":{\"font\":\"comic-sans\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a font as CSS",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"font-ui\":{\"font\":\"x;} html{background:url(//e.example)}\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "an unknown ease",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"ease\":{\"ease\":\"bounce\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a bezier x past 1",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"ease\":{\"bezier\":[1.5,0,0.2,1]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a bezier y past 2",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"ease\":{\"bezier\":[0.2,2.5,0.2,1]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "four shadow layers",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"shadow-sm\":{\"layers\":[{\"y\":1,\"blur\":2,\"spread\":0},{\"y\":1,\"blur\":2,\"spread\":0},{\"y\":1,\"blur\":2,\"spread\":0},{\"y\":1,\"blur\":2,\"spread\":0}]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a shadow layer with a color",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"shadow-sm\":{\"layers\":[{\"y\":1,\"blur\":2,\"spread\":0,\"color\":\"red\"}]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a shadow blur past 128",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"shadow-sm\":{\"layers\":[{\"y\":1,\"blur\":129,\"spread\":0}]}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref to an unknown token",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"card-bg\":{\"ref\":\"nothing\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref that is CSS",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"card-bg\":{\"ref\":\"surface-0);}html{background:red\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref to the same rank",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"text-primary\":{\"ref\":\"text-muted\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref to a higher rank",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"surface-0\":{\"ref\":\"card-bg\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref to itself",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"card-bg\":{\"ref\":\"card-bg\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref to another type",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"tokens\":{\"card-radius\":{\"ref\":\"dur-micro\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a ref across scheme kinds",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"card-bg\":{\"ref\":\"neutral-hue\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "a solid color from a see-through one",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"Night shift\",\"base\":\"calm\",\"light\":{\"card-bg\":{\"ref\":\"scrim\"}}}",
+			"import": "notes"
+		},
+		{
+			"name": "over 16 KiB",
+			"raw": "{\"mila\":\"theme\",\"version\":1,\"id\":\"5d0c6b8e-2f4a-4c1e-9b7d-3a2f1e0c9d8b\",\"name\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"base\":\"calm\",\"tokens\":{\"neutral-hue\":{\"hue\":123.45678901234567},\"hue-red\":{\"hue\":123.45678901234567},\"hue-orange\":{\"hue\":123.45678901234567},\"hue-amber\":{\"hue\":123.45678901234567},\"hue-yellow\":{\"hue\":123.45678901234567},\"hue-lime\":{\"hue\":123.45678901234567},\"hue-green\":{\"hue\":123.45678901234567},\"hue-teal\":{\"hue\":123.45678901234567},\"hue-cyan\":{\"hue\":123.45678901234567},\"hue-blue\":{\"hue\":123.45678901234567},\"hue-indigo\":{\"hue\":123.45678901234567},\"hue-purple\":{\"hue\":123.45678901234567},\"hue-pink\":{\"hue\":123.45678901234567}},\"light\":{\"surface-0\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"surface-1\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"surface-2\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"surface-3\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"scrim\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"selection-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"text-primary\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"text-secondary\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"text-muted\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"border-strong\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"border-control\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-contrast\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"danger\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-backlog\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-todo\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-in-progress\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-done\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-canceled\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-none\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-low\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-medium\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-high\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-urgent\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-l\":{\"n\":0.1234567890123456},\"palette-soft-l\":{\"n\":0.1234567890123456},\"palette-soft-c\":{\"n\":0.1234567890123456},\"palette-red\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-orange\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-amber\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-yellow\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-lime\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-green\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-teal\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-cyan\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-blue\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-indigo\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-purple\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-pink\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-red-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-orange-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-amber-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-yellow-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-lime-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-green-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-teal-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-cyan-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-blue-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-indigo-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-purple-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-pink-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-text-active\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-item-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-item-active\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-hover-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-selected-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-divider\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-meta-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"group-header-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"card-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"card-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"board-column-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"calendar-today-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-primary-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-primary-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-primary-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-secondary-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-secondary-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-secondary-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-ghost-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-danger\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-placeholder\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"checkbox-on-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"checkbox-mark\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"menu-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"menu-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"panel-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"dialog-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"toast-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"toast-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"tabbar-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"tabbar-active\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"focus-ring-color\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"shadow-color\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]}},\"dark\":{\"surface-0\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"surface-1\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"surface-2\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"surface-3\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"scrim\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"selection-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"text-primary\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"text-secondary\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"text-muted\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"border-strong\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"border-control\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"accent-contrast\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"danger\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-backlog\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-todo\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-in-progress\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-done\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"status-canceled\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-none\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-low\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-medium\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-high\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"priority-urgent\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-l\":{\"n\":0.1234567890123456},\"palette-soft-l\":{\"n\":0.1234567890123456},\"palette-soft-c\":{\"n\":0.1234567890123456},\"palette-red\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-orange\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-amber\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-yellow\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-lime\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-green\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-teal\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-cyan\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-blue\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-indigo\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-purple\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-pink\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-red-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-orange-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-amber-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-yellow-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-lime-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-green-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-teal-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-cyan-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-blue-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-indigo-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-purple-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"palette-pink-soft\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-text-active\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-item-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-item-active\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"sidebar-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-hover-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-selected-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-divider\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"row-meta-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"group-header-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"card-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"card-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"board-column-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"calendar-today-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-primary-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-primary-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-primary-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-secondary-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-secondary-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-secondary-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-ghost-hover\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"button-danger\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"input-placeholder\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"checkbox-on-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"checkbox-mark\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"menu-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"menu-border\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"panel-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"dialog-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"toast-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"toast-text\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"tabbar-bg\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"tabbar-active\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"focus-ring-color\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]},\"shadow-color\":{\"oklch\":[0.1234567890123456,0.1234567890123456,123.45678901234567]}}}",
+			"import": "reject"
+		}
+	]
+}

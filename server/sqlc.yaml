@@ -1,0 +1,22 @@
+# One query file, generated once per dialect. Both migrations use the same
+# column types, so the two packages have the same shapes, and a generated
+# adapter (store/gen) presents Postgres through the SQLite package's types.
+version: "2"
+sql:
+  - engine: sqlite
+    schema: internal/db/migrations/sqlite
+    queries: internal/store/queries/queries.sql
+    gen:
+      go:
+        package: sqlitedb
+        out: internal/store/sqlitedb
+        emit_interface: true
+  - engine: postgresql
+    schema: internal/db/migrations/postgres
+    queries: internal/store/queries/queries.sql
+    gen:
+      go:
+        package: pgdb
+        out: internal/store/pgdb
+        sql_package: database/sql
+        emit_interface: true

@@ -1,0 +1,83 @@
+name: Image
+
+# Builds Mila's image into ghcr.io/locodarwin/mila, private while the
+# repository is. CI calls it for every commit on main whose tests pass,
+# then deploys the image to staging (the staging job in ci.yml). A version
+# tag (v1.2.3) runs it on its own and builds a release image for amd64 and
+# arm64, which production pulls when Shawn chooses (docs/PLAN.md
+# section 8).
+
+on:
+  workflow_call:
+    outputs:
+      digest:
+        value: ${{ jobs.image.outputs.digest }}
+      version:
+        value: ${{ jobs.image.outputs.version }}
+  push:
+    tags: ["v*"]
+
+# Nothing unless the job says so.
+permissions: {}
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          # The job's token stays out of .git/config, where npm ci's install
+          # scripts could read it.
+          persist-credentials: false
+      - name: Version, tags and platforms
+        id: meta
+        run: |
+          image=ghcr.io/locodarwin/mila
+          commit=$(git rev-parse --short HEAD)
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            # A release's tag is vX.Y.Z and nothing else, since it moves :latest.
+            [[ $GITHUB_REF_NAME =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] ||
+              { echo "::error::A release's tag is vX.Y.Z, such as v3.0.0; this one is not."; exit 1; }
+            version=${GITHUB_REF_NAME#v}
+            echo "tags=$image:$version,$image:latest" >> "$GITHUB_OUTPUT"
+            echo "platforms=linux/amd64,linux/arm64" >> "$GITHUB_OUTPUT"
+          else
+            version=$(git describe --tags --always)
+            echo "tags=$image:main,$image:sha-$commit" >> "$GITHUB_OUTPUT"
+            echo "platforms=linux/amd64" >> "$GITHUB_OUTPUT"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: build
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
+        with:
+          context: .
+          push: true
+          platforms: ${{ steps.meta.outputs.platforms }}
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            VERSION=${{ steps.meta.outputs.version }}
+            COMMIT=${{ steps.meta.outputs.commit }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ steps.meta.outputs.commit }}
+            org.opencontainers.image.version=${{ steps.meta.outputs.version }}
+          # A release image is built from nothing: a run on main writes the cache, and a
+          # layer from it would go into the release unchecked.
+          no-cache: ${{ startsWith(github.ref, 'refs/tags/') }}
+          cache-from: ${{ !startsWith(github.ref, 'refs/tags/') && 'type=gha' || '' }}
+          cache-to: ${{ !startsWith(github.ref, 'refs/tags/') && 'type=gha,mode=max' || '' }}
+

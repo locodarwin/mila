@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="color-scheme" content="light dark" />
+		<!-- The page color (surface-0) of the Standard theme in each scheme;
+		     apply() in appearance.svelte.ts keeps them in step with the theme. -->
+		<meta name="theme-color" content="#fbfeff" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)" />
+		<meta name="text-scale" content="scale" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="%sveltekit.assets%/apple-touch-icon.png" />
+		<link rel="manifest" href="%sveltekit.assets%/manifest.json" />
+		<title>Mila</title>
+		<script>
+			// Applies the saved theme before first paint. Keep in step with
+			// apply() in src/lib/theme/appearance.svelte.ts.
+			try {
+				var a = JSON.parse(localStorage.getItem('mila.appearance') || '{}') || {};
+				var d = document.documentElement.dataset;
+				var s = a.scheme === 'light' || a.scheme === 'dark' ? a.scheme : null;
+				d.theme = a.character || 'standard';
+				d.scheme = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+				d.density = a.density || 'comfortable';
+				d.fontSize = a.fontSize || 'm';
+				var x = a.accent && a.accent[d.scheme];
+				var hue = a.accentHue;
+				// A custom theme, as apply() last built it (CACHE_VERSION 1).
+				var c = a.custom;
+				if (c && c.v === 1 && typeof c.css === 'string') {
+					var el = document.createElement('style');
+					el.id = 'mila-theme';
+					el.textContent = c.css;
+					document.head.appendChild(el);
+					d.theme = c.base || d.theme;
+					d.customTheme = c.id;
+					hue = c.hue;
+					x = c.accent && c.accent[d.scheme];
+					var p = c.page && c.page[d.scheme];
+					if (p)
+						document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+							m.content = p;
+						});
+				}
+				if (x) {
+					var st = document.documentElement.style;
+					if (typeof hue === 'number') st.setProperty('--accent-hue', hue);
+					st.setProperty('--accent-l', x.l);
+					st.setProperty('--accent-c', x.c);
+					st.setProperty('--accent-text-l', x.textL);
+					st.setProperty('--accent-text-c', x.textC);
+				}
+				// The theme's fonts, fetched now rather than once the stylesheet
+				// and the page have asked for them, so text does not reflow when
+				// they arrive. scripts/fonts.mjs fills in the files.
+				var fonts = /* mila:fonts */ {};
+				var want = { calm: ['inter', 'serif'], playful: ['nunito'] }[d.theme] || ['inter'];
+				want.forEach(function (f) {
+					if (!fonts[f]) return;
+					var l = document.createElement('link');
+					l.rel = 'preload';
+					l.as = 'font';
+					l.type = 'font/woff2';
+					l.crossOrigin = 'anonymous';
+					l.href = fonts[f];
+					document.head.appendChild(l);
+				});
+				// The app's frame (#mila-frame), on the app's own pages, with the
+				// sidebar as wide as layout.svelte.ts will make it.
+				if (!/^\/(dev|login|setup|invite|auth|api)(\/|$)/.test(location.pathname)) {
+					var saved = localStorage.getItem('mila.sidebar.width');
+					var w = saved !== null && isFinite(Number(saved)) ? Number(saved) : 248;
+					w = Math.round(Math.min(420, Math.max(180, w)));
+					if (localStorage.getItem('mila.sidebar.collapsed') === '1') w = 56;
+					d.frame = 'app';
+					document.documentElement.style.setProperty('--frame-sidebar', w + 'px');
+				}
+			} catch (e) {}
+			// Who is signed in, and their workspaces, asked for now so the
+			// answers cross the network while the scripts do (src/lib/api/early.ts).
+			(function () {
+				// Only on the app's own pages: a sign-in page would sign someone
+				// in after the answers were given.
+				if (/^\/(dev|login|setup|invite|auth)(\/|$)/.test(location.pathname) || !window.fetch)
+					return;
+				var get = function (p) {
+					var r = fetch('/api/v1' + p, { credentials: 'same-origin' });
+					r.catch(function () {});
+					return r;
+				};
+				window.milaEarly = { '/auth/state': get('/auth/state'), '/workspaces': get('/workspaces') };
+			})();
+		</script>
+		%sveltekit.head%
+		<style>
+			/* The app's frame, painted from this page while the scripts load:
+			   the sidebar, or on a phone the tab bar, and Mila's mark. The
+			   root layout removes it once the app has drawn
+			   (src/routes/+layout.svelte). */
+			#mila-frame {
+				display: none;
+			}
+			[data-frame='app'] #mila-frame {
+				position: fixed;
+				inset: 0;
+				display: grid;
+				grid-template-columns: var(--frame-sidebar, 248px) 1fr;
+			}
+			#mila-frame .side {
+				background: var(--sidebar-bg);
+				border-right: var(--border-width) solid var(--sidebar-border);
+			}
+			#mila-frame .main {
+				display: grid;
+				place-items: center;
+			}
+			#mila-frame svg {
+				width: 40px;
+				height: 40px;
+				opacity: 0.6;
+			}
+			/* Mila's mark (static/favicon.svg) in the theme's accent. */
+			#mila-frame rect {
+				fill: var(--accent);
+			}
+			#mila-frame path {
+				fill: none;
+				stroke: var(--accent-contrast);
+				stroke-width: 3;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			@media (max-width: 720px) {
+				[data-frame='app'] #mila-frame {
+					grid-template-columns: 1fr;
+					grid-template-rows: 1fr calc(var(--tabbar-height) + env(safe-area-inset-bottom));
+				}
+				#mila-frame .side {
+					grid-row: 2;
+					background: var(--tabbar-bg);
+					border-right: none;
+					border-top: var(--border-width) solid var(--border);
+				}
+			}
+		</style>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div id="mila-frame" aria-hidden="true">
+			<div class="side"></div>
+			<div class="main">
+				<svg viewBox="0 0 32 32">
+					<rect width="32" height="32" rx="8" />
+					<path d="M8 23V10l8 8 8-8v13" />
+				</svg>
+			</div>
+		</div>
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

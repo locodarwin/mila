@@ -1,0 +1,10 @@
+# Generates routing, parameter binding and types from shared/openapi.yaml.
+# Handlers decode bodies themselves (std-http mode), which the passkey
+# endpoints need.
+package: api
+output: api.gen.go
+generate:
+  std-http-server: true
+  models: true
+output-options:
+  skip-prune: true

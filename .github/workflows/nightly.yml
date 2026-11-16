@@ -1,0 +1,224 @@
+name: Nightly
+
+# The tests too slow, or too far from what a commit usually touches, to
+# run on every push (ci.yml): the long sync fuzz run, the Go tests under
+# the race detector with the server budgets, the Go tests on Windows, the
+# browser tests on the phone layout, the performance budgets in the
+# browser and visual regression of the style guide. Run by hand (Actions,
+# Nightly, Run workflow) before a release when a change touches what they
+# cover; nothing runs it on a schedule (Shawn, 2026-11-07: GitHub's
+# minutes, which a public repository no longer spends). Every job runs on
+# GitHub's machines. The desktop app is built and tried by its own workflow
+# on every version tag.
+on:
+  workflow_dispatch:
+
+# Nothing unless a job says so; each asks for the least it needs.
+permissions: {}
+
+jobs:
+  # The long run of the sync convergence fuzz test (docs/PLAN.md section
+  # 13): many more rounds than every build runs, on both databases, five
+  # times over, since each run starts from the clock and plays out
+  # differently.
+  fuzz:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: mila
+          POSTGRES_PASSWORD: mila
+          POSTGRES_DB: mila
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U mila" --health-interval 2s --health-timeout 5s --health-retries 15
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - name: Convergence fuzz, 20,000 rounds
+        env:
+          MILA_FUZZ_ROUNDS: "20000"
+          MILA_TEST_POSTGRES_URL: postgres://mila:mila@localhost:5432/mila?sslmode=disable
+          MILA_TEST_REQUIRE_POSTGRES: "1"
+        run: go test -count=5 -timeout 90m -run TestConvergence -v ./internal/syncer/
+
+  go-race:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: mila
+          POSTGRES_PASSWORD: mila
+          POSTGRES_DB: mila
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U mila" --health-interval 2s --health-timeout 5s --health-retries 15
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - name: Tests on SQLite and Postgres, under the race detector
+        env:
+          MILA_TEST_POSTGRES_URL: postgres://mila:mila@localhost:5432/mila?sslmode=disable
+          MILA_TEST_REQUIRE_POSTGRES: "1"
+        run: go test -race ./...
+      - name: Server budgets (API p95, bootstrap) on SQLite and Postgres
+        env:
+          MILA_TEST_POSTGRES_URL: postgres://mila:mila@localhost:5432/mila?sslmode=disable
+          MILA_TEST_REQUIRE_POSTGRES: "1"
+          MILA_BUDGETS: "1"
+          # A shared runner, with Postgres in a service container beside it:
+          # held at twice the budget, as the browser's budgets are below.
+          MILA_BUDGET_SCALE: "2"
+        run: go test -count=1 -run TestBudgets -v ./internal/httpapi/
+
+  e2e-phone:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: cd web && npm ci && npx playwright install --with-deps chromium
+      - run: cd web && npx playwright test --project=phone
+        env:
+          CI: "1"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: failure()
+        with:
+          name: playwright-results-phone
+          path: web/test-results
+
+  # The Go tests again on Windows, which test builds run on too: it differs
+  # from Linux in file handling (flushing, renaming, locking). SQLite only,
+  # since the Postgres paths are the same on every platform.
+  go-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      # Keep the checkout byte-for-byte, as the shared test vectors are.
+      - run: git config --global core.autocrlf false
+        working-directory: .
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - run: go test ./...
+
+  # The performance budgets that need the whole app (docs/PLAN.md section
+  # 13). Shared runners are slower and noisier than a desk machine, so the
+  # browser's timed budgets are held at twice their value here
+  # (MILA_BUDGET_SCALE) and tried twice; `make budgets` holds them to the
+  # budget itself. Idle memory is held as it is. Lighthouse only reports
+  # here: its simulated phone slows the machine's own CPU fourfold, so on
+  # a runner several times slower than a desk machine it is a much weaker
+  # phone than the budget means, and `make budgets` gates it instead.
+  budgets:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: cd web && npm ci && npx playwright install --with-deps chromium
+      - run: make build
+      - name: Idle memory
+        run: scripts/budget-memory.sh
+      - name: First sync, warm start, interactions, board drag
+        env:
+          CI: "1"
+          MILA_BUDGET_SCALE: "2"
+        run: cd web && npx playwright test -c playwright.budgets.config.ts
+      - name: Lighthouse (first loads on a simulated mid-range phone, report only)
+        continue-on-error: true
+        run: cd web && node scripts/lighthouse.mjs
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: always()
+        with:
+          name: budgets
+          path: |
+            tmp/lighthouse/reports
+            web/test-results
+
+  # Visual regression of the style guide in every theme, in the same
+  # Playwright image the baselines were made in (make visual-update), whose
+  # browsers it uses (the image sets PLAYWRIGHT_BROWSERS_PATH).
+  visual:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - name: Build bin/mila with the app in it
+        run: |
+          cd web && npm ci && npm run build && cd ..
+          find server/internal/webui/dist -mindepth 1 ! -name .gitkeep -delete
+          cp -r web/build/. server/internal/webui/dist/
+          # The image's git refuses the runner's checkout (another owner),
+          # so no version stamp; the screenshots do not show one.
+          cd server && CGO_ENABLED=0 go build -buildvcs=false -o ../bin/mila ./cmd/mila
+      - run: cd web && npx playwright test -c playwright.visual.config.ts
+        env:
+          CI: "1"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: failure()
+        with:
+          name: visual-diffs
+          path: web/test-results

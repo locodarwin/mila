@@ -1,0 +1,129 @@
+/* Markdown in task notes and wiki pages (docs/PLAN.md section 3): headings,
+   links, lists, code, quotes, tables and dividers, in the theme's Pages
+   colors. The editor (DocEditor.svelte) and the theme preview share it, so
+   the preview shows what those colors do. A page (.paper) reads as a
+   document, with larger headings; notes keep the same steps a size down. */
+
+.doc-text {
+	font-family: var(--doc-font, var(--font-page));
+}
+
+/* Headings: six steps, each smaller than the one before. */
+.doc-text :is(h1, h2, h3, h4, h5, h6) {
+	font-family: var(--doc-heading-font, var(--font-page-heading));
+	font-weight: var(--heading-weight);
+	line-height: 1.3;
+	margin: 0;
+}
+.doc-text h1 {
+	color: var(--page-heading-1);
+	font-size: var(--text-xl);
+}
+.doc-text h2 {
+	color: var(--page-heading-2);
+	font-size: var(--text-lg);
+}
+.doc-text :is(h3, h4, h5, h6) {
+	color: var(--page-heading-3);
+}
+.doc-text h3 {
+	font-size: var(--text-md);
+}
+.doc-text h4 {
+	font-size: var(--text-sm);
+}
+.doc-text :is(h5, h6) {
+	font-size: var(--text-xs);
+	letter-spacing: 0.02em;
+}
+.doc-text.paper h1 {
+	font-size: var(--text-2xl);
+}
+.doc-text.paper h2 {
+	font-size: var(--text-xl);
+}
+.doc-text.paper h3 {
+	font-size: var(--text-lg);
+}
+.doc-text.paper h4 {
+	font-size: var(--text-md);
+}
+.doc-text.paper :is(h5, h6) {
+	font-size: var(--text-sm);
+}
+.doc-text a {
+	color: var(--page-link);
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+	cursor: pointer;
+}
+.doc-text a:hover {
+	text-decoration-thickness: 2px;
+}
+
+.doc-text :is(ul, ol) {
+	padding-left: 1.4em;
+}
+.doc-text li::marker {
+	color: var(--page-list-marker);
+}
+
+.doc-text code {
+	padding: 1px 4px;
+	border-radius: var(--radius-sm);
+	background: var(--page-code-bg);
+	color: var(--page-code-text);
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+}
+.doc-text pre {
+	padding: var(--space-3);
+	border-radius: var(--radius-md);
+	background: var(--page-code-bg);
+	color: var(--page-code-text);
+	overflow-x: auto;
+}
+.doc-text pre code {
+	padding: 0;
+	background: none;
+	font-size: inherit;
+}
+
+.doc-text blockquote {
+	margin: 0;
+	padding-left: var(--space-3);
+	border-left: 3px solid var(--page-quote-edge);
+	color: var(--page-quote-text);
+}
+
+.doc-text hr {
+	margin: 1em 0;
+	border: none;
+	border-top: var(--border-width) solid var(--page-rule);
+}
+
+/* Tables: ruled cells, the header row set apart, every other row after it
+   striped (on the row, so a selected cell's own color shows over it), and a
+   wide one scrolls. */
+.doc-text .tableWrapper {
+	overflow-x: auto;
+}
+.doc-text table {
+	border-collapse: collapse;
+	min-width: 50%;
+}
+.doc-text :is(th, td) {
+	min-width: 4em;
+	padding: var(--space-1) var(--space-2);
+	border: var(--border-width) solid var(--page-table-border);
+	text-align: left;
+	vertical-align: top;
+}
+.doc-text th {
+	background: var(--page-table-head-bg);
+	color: var(--page-table-head-text);
+	font-weight: 600;
+}
+.doc-text tr:nth-child(odd):not(:first-child) {
+	background: var(--page-table-stripe);
+}

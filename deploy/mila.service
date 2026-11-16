@@ -1,0 +1,51 @@
+# systemd unit for running the bare binary on a home server. From a release's download,
+# the paths are mila and mila.service; from the repository, as below.
+#   sudo useradd --system --home /var/lib/mila mila
+#   sudo install -m 755 bin/mila /usr/local/bin/mila
+#   sudo cp deploy/mila.service /etc/systemd/system/ && sudo systemctl enable --now mila
+[Unit]
+Description=Mila
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=mila
+ExecStart=/usr/local/bin/mila serve
+Environment=MILA_DATA_DIR=/var/lib/mila
+Environment=MILA_LISTEN=127.0.0.1:8080
+Environment=MILA_BASE_URL=https://mila.example.com
+StateDirectory=mila
+# The data directory holds everything, webhook secrets among it: nobody
+# else on the computer reads it, nor anything Mila writes.
+StateDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+ProcSubset=pid
+PrivateUsers=true
+RemoveIPC=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target

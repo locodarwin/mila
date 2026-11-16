@@ -1,0 +1,54 @@
+{
+	"ci": {
+		"collect": {
+			"numberOfRuns": 3,
+			"settings": {
+				"chromeFlags": "--headless=new --no-sandbox"
+			}
+		},
+		"assert": {
+			"assertMatrix": [
+				{
+					"matchingUrlPattern": ".*",
+					"assertions": {
+						"resource-summary:script:size": ["error", { "maxNumericValue": 307200 }],
+						"cumulative-layout-shift": [
+							"error",
+							{ "maxNumericValue": 0.1, "aggregationMethod": "median-run" }
+						],
+						"first-contentful-paint": [
+							"error",
+							{ "maxNumericValue": 1500, "aggregationMethod": "median-run" }
+						]
+					}
+				},
+				{
+					"matchingUrlPattern": "/login$",
+					"assertions": {
+						"largest-contentful-paint": [
+							"error",
+							{ "maxNumericValue": 2000, "aggregationMethod": "median-run" }
+						],
+						"total-blocking-time": [
+							"error",
+							{ "maxNumericValue": 200, "aggregationMethod": "median-run" }
+						]
+					}
+				},
+				{
+					"matchingUrlPattern": "ws=",
+					"assertions": {
+						"largest-contentful-paint": [
+							"error",
+							{ "maxNumericValue": 4000, "aggregationMethod": "median-run" }
+						],
+						"total-blocking-time": [
+							"error",
+							{ "maxNumericValue": 600, "aggregationMethod": "median-run" }
+						]
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,4 @@
+{$MILA_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy mila:8080
+}

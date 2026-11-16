@@ -1,0 +1,30 @@
+# Mila's settings, as the package installed them. docs/self-hosting.md lists
+# every one. A setting can also be an environment variable (MILA_...) in a
+# drop-in, sudo systemctl edit mila, which wins over this file; but systemd
+# shows those to anyone on the computer, so keep passwords here.
+# After a change: sudo systemctl restart mila
+
+# The address people use: a domain or subdomain of its own.
+base_url = "https://mila.example.com"
+
+# Where Mila listens, for a proxy in front of it: this computer alone.
+listen = "127.0.0.1:8080"
+
+# The proxy on this computer is the only one trusted to say who is asking, so
+# each visitor has a sign-in limit of their own. For a proxy on another
+# computer, its address instead; with Mila's own HTTPS, take this line out.
+trusted_proxies = "127.0.0.1/32,::1/128"
+
+# Mila's own HTTPS, with no proxy: the domain to get a Let's Encrypt
+# certificate for, and an address for Let's Encrypt's notices. base_url then
+# follows the domain, so take the base_url line above out. Mila must also be
+# let to bind ports 80 and 443:
+#   sudo install -D -m 644 /usr/share/mila/own-https.conf /etc/systemd/system/mila.service.d/own-https.conf
+#   sudo systemctl daemon-reload
+# tls_domain = "mila.example.com"
+# tls_email = "you@example.com"
+
+# Email for sign-in links, invitations and reminders. Without it, sign-in
+# links are written to the log (journalctl -u mila).
+# smtp_url = "smtps://user:password@smtp.example.com:465"
+# mail_from = "Mila <mila@example.com>"

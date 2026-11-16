@@ -1,0 +1,13 @@
+{
+	"board": [1398, 765],
+	"calendar": [1128, 1080],
+	"list": [1128, 705],
+	"quick-add": [840, 153],
+	"table": [1398, 855],
+	"task-boxes": [588, 840],
+	"task-summary": [588, 840],
+	"theme-picker": [1068, 518],
+	"timeline": [1128, 1080],
+	"upcoming": [1128, 960],
+	"wiki": [1128, 1080]
+}

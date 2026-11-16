@@ -1,0 +1,46 @@
+#!/bin/bash
+# Deploys one image of Mila to the staging server. GitHub Actions runs it
+# over SSH as the deploy user, whose key may run nothing else (a forced
+# command in its authorized_keys):
+#
+#   ssh deploy@<host> "<image> <registry user>" < <registry token>
+#
+# The image must be ghcr.io/locodarwin/mila, by tag or digest. The token
+# is the workflow's own, good for that run only; the login lives in a
+# folder that is deleted when the deploy ends, so no credential stays on
+# the server.
+set -euo pipefail
+
+read -r image user extra <<<"${SSH_ORIGINAL_COMMAND:-}"
+if [[ -n ${extra:-} || ! $image =~ ^ghcr\.io/locodarwin/mila(:[A-Za-z0-9._-]{1,128}|@sha256:[0-9a-f]{64})$ || ! $user =~ ^[A-Za-z0-9-]{1,39}$ ]]; then
+	echo "usage: <ghcr.io/locodarwin/mila:tag> <registry user>, token on stdin" >&2
+	exit 2
+fi
+
+cd /srv/mila
+DOCKER_CONFIG=$(mktemp -d)
+export DOCKER_CONFIG
+trap 'rm -rf "$DOCKER_CONFIG"' EXIT
+
+docker login ghcr.io -u "$user" --password-stdin >/dev/null
+docker pull -q "$image" >/dev/null
+docker logout ghcr.io >/dev/null
+
+# The image stays named in .env, so a reboot or a manual
+# `docker compose up -d` brings back this one.
+sed -i "s|^MILA_IMAGE=.*|MILA_IMAGE=$image|" .env
+docker compose up -d --remove-orphans --quiet-pull
+docker image prune -f >/dev/null
+
+domain=$(sed -n 's/^MILA_DOMAIN=//p' .env)
+for _ in $(seq 30); do
+	if curl -fsS --resolve "$domain:443:127.0.0.1" "https://$domain/readyz" >/dev/null 2>&1; then
+		echo "deployed $image"
+		exit 0
+	fi
+	sleep 2
+done
+# Not the log itself: this goes to the workflow's log, and Mila's log can
+# hold sign-in links.
+echo "$image is not answering on https://$domain/readyz; see docker compose logs mila on the server" >&2
+exit 1

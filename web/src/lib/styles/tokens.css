@@ -1,0 +1,477 @@
+/*
+ * Design tokens, in three layers.
+ *
+ * 1. Primitives: spacing, type scale, radii, motion, palette hues.
+ * 2. Semantic tokens: surfaces, text, borders, accent, status, priority.
+ *    These are what components use. A theme overrides only this layer.
+ * 3. Component tokens: the parts that give Mila its look (the sidebar,
+ *    rows, cards, buttons, fields, menus), each set from a semantic token,
+ *    so a theme can change one part alone.
+ *
+ * A theme is a character (standard, calm, playful, contrast) in a scheme
+ * (light, dark), set on <html> as data-theme and data-scheme. Density and
+ * font size are separate attributes, so every combination works.
+ *
+ * Every rule is keyed on those attributes rather than on :root alone, so
+ * any element that carries all four (a theme preview) works out the whole
+ * set for itself, derived tokens included. A custom theme's own values
+ * come after these (theme/css.ts), from html[data-custom-theme].
+ *
+ * Every token a theme may change is listed in shared/theme-tokens.json;
+ * components use no others (tokens.spec.ts checks).
+ */
+
+:root,
+[data-theme] {
+	/* Spacing */
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 24px;
+	--space-6: 32px;
+	--space-7: 48px;
+
+	/* Density: comfortable rows are 36px, dense rows 28px. The font size
+	   (S to XXL) scales controls with the text through --ui-scale, so a
+	   control sized by --control-scale grows with its label. */
+	--density: 1;
+	--dense-factor: 0.778;
+	--ui-scale: 1;
+	--control-scale: calc(var(--density) * var(--ui-scale));
+	--row-base: 36px;
+	--row-height: calc(var(--row-base) * var(--control-scale));
+	--pad-y: calc(var(--space-2) * var(--control-scale));
+	--pad-x: var(--space-3);
+
+	/* Type. Base size 14 comfortable, 13 dense, scaled by the font size setting.
+	   A theme changes the steps (--type-*); the sizes components use
+	   (--text-*) multiply them by the font size preference. */
+	--type-xs: 12px;
+	--type-sm: 13px;
+	--type-base: 14px;
+	--type-base-dense: 13px;
+	--type-lg: 16px;
+	--type-xl: 20px;
+	--type-2xl: 24px;
+	--type-3xl: 32px;
+	--text-base-px: var(--type-base);
+	--text-xs: calc(var(--type-xs) * var(--ui-scale));
+	--text-sm: calc(var(--type-sm) * var(--ui-scale));
+	--text-md: calc(var(--text-base-px) * var(--ui-scale));
+	--text-lg: calc(var(--type-lg) * var(--ui-scale));
+	--text-xl: calc(var(--type-xl) * var(--ui-scale));
+	--text-2xl: calc(var(--type-2xl) * var(--ui-scale));
+	--text-3xl: calc(var(--type-3xl) * var(--ui-scale));
+	--leading: 1.45;
+	--font-ui: 'Inter Variable', system-ui, sans-serif;
+	--font-heading: var(--font-ui);
+	--font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+	/* Pages and task notes: their own font, heading font, size and line
+	   height, each the interface's until a theme says otherwise. */
+	--font-page: var(--font-ui);
+	--font-page-heading: var(--font-heading);
+	--type-page: var(--type-base);
+	--leading-page: 1.65;
+	/* Highlighted words: the soft label colors, which text reads on. */
+	--highlight-yellow: var(--palette-yellow-soft);
+	--highlight-green: var(--palette-green-soft);
+	--highlight-blue: var(--palette-blue-soft);
+	--highlight-pink: var(--palette-pink-soft);
+	--highlight-gray: var(--surface-3);
+	/* Markdown in task notes and wiki pages: each the color it has always
+	   been until a theme sets it (docs/PLAN.md section 3). */
+	--page-heading-1: var(--text-primary);
+	--page-heading-2: var(--text-primary);
+	--page-heading-3: var(--text-primary);
+	--page-link: var(--accent-text);
+	--page-list-marker: var(--text-primary);
+	--page-code-bg: var(--surface-2);
+	--page-code-text: var(--text-primary);
+	--page-quote-edge: var(--border-strong);
+	--page-quote-text: var(--text-secondary);
+	--page-table-border: var(--border-strong);
+	--page-table-head-bg: var(--surface-2);
+	--page-table-head-text: var(--text-primary);
+	--page-table-stripe: var(--surface-0);
+	--page-rule: var(--border);
+	--heading-weight: 600;
+
+	/* Shape */
+	--radius-sm: 4px;
+	--radius-md: 6px;
+	--radius-lg: 10px;
+	--radius-full: 999px;
+	--border-width: 1px;
+
+	/* Motion: micro-interactions, panels, view changes. */
+	--dur-micro: 120ms;
+	--dur-panel: 200ms;
+	--dur-view: 320ms;
+	--dur-fade: 150ms;
+	--ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--ease-spring: var(--ease);
+	/* How far things move, as a multiplier: keyframes and transforms scale
+	   their distances by it, so with reduced motion (0) they only fade. */
+	--motion: 1;
+	/* Confetti when a project is finished (confetti.ts): 1 on, 0 off. */
+	--celebrate: 0;
+
+	/* Phones: the smallest comfortable thing to tap, and the tab bar's
+	   height (without the safe area under it). */
+	--touch-target: 44px;
+	--tabbar-height: 56px;
+	/* The least a control may measure under this pointer: nothing with a
+	   mouse, --touch-target with a finger (below). For components that set
+	   a min-height or min-width of their own: max(var(--tap-min), ...). */
+	--tap-min: 0px;
+
+	/* Palette hues for labels and projects, stored by name, never as hex. */
+	--hue-red: 25;
+	--hue-orange: 55;
+	--hue-amber: 80;
+	--hue-yellow: 100;
+	--hue-lime: 130;
+	--hue-green: 150;
+	--hue-teal: 185;
+	--hue-cyan: 215;
+	--hue-blue: 250;
+	--hue-indigo: 275;
+	--hue-purple: 305;
+	--hue-pink: 345;
+
+	/* Theme inputs, overridden per character and scheme below. */
+	--neutral-hue: 260;
+	--neutral-chroma: 0.006;
+	--accent-hue: 262;
+	--accent-l: 0.53;
+	--accent-c: 0.17;
+	--palette-l: 0.6;
+	--palette-c: 0.15;
+	--palette-soft-l: 0.94;
+	--palette-soft-c: 0.045;
+}
+
+/* Density and font size */
+[data-density='dense'] {
+	--density: var(--dense-factor);
+	--text-base-px: var(--type-base-dense);
+}
+[data-font-size='s'] {
+	--ui-scale: 0.93;
+}
+[data-font-size='l'] {
+	--ui-scale: 1.12;
+}
+/* XL and XXL go on in L's step, about 12% each. */
+[data-font-size='xl'] {
+	--ui-scale: 1.25;
+}
+[data-font-size='xxl'] {
+	--ui-scale: 1.4;
+}
+
+/* A finger needs more room than a mouse: rows and controls grow to it. */
+@media (pointer: coarse) {
+	:root,
+	[data-theme] {
+		--tap-min: var(--touch-target);
+		--row-height: max(var(--touch-target), calc(var(--row-base) * var(--control-scale)));
+	}
+}
+
+/* Characters: the parts of a theme that hold in both schemes. */
+[data-theme='calm'] {
+	--neutral-hue: 75;
+	--neutral-chroma: 0.014;
+	--accent-hue: 165;
+	--font-heading: 'Source Serif 4 Variable', Georgia, serif;
+	--heading-weight: 560;
+	--radius-sm: 3px;
+	--radius-md: 5px;
+	--radius-lg: 8px;
+	--dur-micro: 150ms;
+	--dur-panel: 260ms;
+	--dur-view: 400ms;
+	--ease: cubic-bezier(0.25, 0.6, 0.3, 1);
+	--palette-c: 0.1;
+}
+[data-theme='playful'] {
+	--neutral-hue: 295;
+	--neutral-chroma: 0.012;
+	--accent-hue: 340;
+	--font-ui: 'Nunito Variable', system-ui, sans-serif;
+	--heading-weight: 750;
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 18px;
+	/* A spring: overshoots slightly, then settles. */
+	--ease-spring: linear(0, 0.18 6%, 0.6 18%, 0.98 32%, 1.08 42%, 1.06 52%, 1.01 66%, 0.995 80%, 1);
+	--palette-c: 0.19;
+	--celebrate: 1;
+}
+[data-theme='contrast'] {
+	--neutral-chroma: 0;
+	--accent-hue: 262;
+	--border-width: 2px;
+	--radius-sm: 2px;
+	--radius-md: 3px;
+	--radius-lg: 4px;
+}
+
+/* Semantic tokens, light scheme. */
+:root,
+[data-scheme='light'] {
+	color-scheme: light;
+	--surface-0: oklch(0.995 var(--neutral-chroma) var(--neutral-hue));
+	--surface-1: oklch(0.975 var(--neutral-chroma) var(--neutral-hue));
+	--surface-2: oklch(0.955 var(--neutral-chroma) var(--neutral-hue));
+	--surface-3: oklch(0.925 var(--neutral-chroma) var(--neutral-hue));
+	--text-primary: oklch(0.24 var(--neutral-chroma) var(--neutral-hue));
+	--text-secondary: oklch(0.44 var(--neutral-chroma) var(--neutral-hue));
+	--text-muted: oklch(0.51 var(--neutral-chroma) var(--neutral-hue));
+	--border: oklch(0.9 var(--neutral-chroma) var(--neutral-hue));
+	--border-strong: oklch(0.82 var(--neutral-chroma) var(--neutral-hue));
+	/* The edge of a control that has nothing else to show where it is (an
+	   empty checkbox, a text field): 3:1 against the surfaces it sits on
+	   (WCAG 1.4.11; surfaces.spec.ts checks it). */
+	--border-control: oklch(0.6 var(--neutral-chroma) var(--neutral-hue));
+	--shadow-color: oklch(0.3 0.02 var(--neutral-hue) / 0.12);
+	--accent-contrast: oklch(0.995 0 0);
+	--accent-text-shift: -0.12;
+	--danger: oklch(0.55 0.19 var(--hue-red));
+	/* Reports' chart series (blue, orange, aqua, yellow, magenta, green), in
+	   this order: neighbors apart for every kind of color blindness and to
+	   normal sight (checked with the palette checker), and 3:1 on surface-0
+	   and surface-1 in every character (surfaces.spec.ts checks). */
+	--chart-series-1: oklch(0.57 0.163 255);
+	--chart-series-2: oklch(0.63 0.175 41);
+	--chart-series-3: oklch(0.6 0.13 163);
+	--chart-series-4: oklch(0.62 0.13 78);
+	--chart-series-5: oklch(0.58 0.17 352);
+	--chart-series-6: oklch(0.55 0.15 142);
+	--palette-l: 0.6;
+	--palette-soft-l: 0.94;
+	--palette-soft-c: 0.045;
+}
+[data-scheme='light'][data-theme='calm'] {
+	--surface-0: oklch(0.985 0.012 85);
+	--surface-1: oklch(0.965 0.016 82);
+	--surface-2: oklch(0.945 0.018 80);
+	--surface-3: oklch(0.915 0.02 78);
+	--text-primary: oklch(0.3 0.02 60);
+	--text-secondary: oklch(0.45 0.02 60);
+	/* A shade darker than the others' so it reads on the warmer surface-3. */
+	--text-muted: oklch(0.5 var(--neutral-chroma) var(--neutral-hue));
+	--border: oklch(0.89 0.02 78);
+}
+[data-scheme='light'][data-theme='contrast'] {
+	--surface-0: oklch(1 0 0);
+	--surface-1: oklch(1 0 0);
+	--surface-2: oklch(0.96 0 0);
+	--surface-3: oklch(0.92 0 0);
+	--text-primary: oklch(0 0 0);
+	--text-secondary: oklch(0.2 0 0);
+	--text-muted: oklch(0.3 0 0);
+	--border: oklch(0.35 0 0);
+	--border-strong: oklch(0 0 0);
+	--border-control: oklch(0 0 0);
+	/* Dark enough for 7:1 on white (AAA). */
+	--danger: oklch(0.46 0.17 var(--hue-red));
+	--palette-l: 0.45;
+}
+
+/* Semantic tokens, dark scheme. */
+[data-scheme='dark'] {
+	color-scheme: dark;
+	--surface-0: oklch(0.18 var(--neutral-chroma) var(--neutral-hue));
+	--surface-1: oklch(0.21 var(--neutral-chroma) var(--neutral-hue));
+	--surface-2: oklch(0.245 var(--neutral-chroma) var(--neutral-hue));
+	--surface-3: oklch(0.285 var(--neutral-chroma) var(--neutral-hue));
+	--text-primary: oklch(0.94 var(--neutral-chroma) var(--neutral-hue));
+	--text-secondary: oklch(0.77 var(--neutral-chroma) var(--neutral-hue));
+	--text-muted: oklch(0.68 var(--neutral-chroma) var(--neutral-hue));
+	--border: oklch(0.31 var(--neutral-chroma) var(--neutral-hue));
+	--border-strong: oklch(0.4 var(--neutral-chroma) var(--neutral-hue));
+	--border-control: oklch(0.56 var(--neutral-chroma) var(--neutral-hue));
+	--shadow-color: oklch(0 0 0 / 0.45);
+	--accent-l: 0.72;
+	--accent-c: 0.14;
+	--accent-contrast: oklch(0.18 0.01 var(--accent-hue));
+	--accent-text-shift: 0.08;
+	--danger: oklch(0.7 0.17 var(--hue-red));
+	--chart-series-1: oklch(0.622 0.161 255);
+	--chart-series-2: oklch(0.622 0.173 40);
+	--chart-series-3: oklch(0.621 0.128 163);
+	--chart-series-4: oklch(0.67 0.143 73);
+	--chart-series-5: oklch(0.622 0.171 1);
+	--chart-series-6: oklch(0.529 0.18 142);
+	--palette-l: 0.74;
+	--palette-soft-l: 0.32;
+	--palette-soft-c: 0.06;
+}
+[data-scheme='dark'][data-theme='calm'] {
+	--surface-0: oklch(0.2 0.012 70);
+	--surface-1: oklch(0.225 0.014 70);
+	--surface-2: oklch(0.255 0.016 70);
+	--surface-3: oklch(0.29 0.018 70);
+	--text-primary: oklch(0.9 0.02 80);
+	--text-secondary: oklch(0.75 0.02 80);
+}
+[data-scheme='dark'][data-theme='contrast'] {
+	--surface-0: oklch(0 0 0);
+	--surface-1: oklch(0 0 0);
+	--surface-2: oklch(0.16 0 0);
+	--surface-3: oklch(0.24 0 0);
+	--text-primary: oklch(1 0 0);
+	--text-secondary: oklch(0.92 0 0);
+	--text-muted: oklch(0.85 0 0);
+	--border: oklch(0.75 0 0);
+	--border-strong: oklch(1 0 0);
+	--border-control: oklch(1 0 0);
+	/* Hovered goes lighter, away from the dark text on it, which keeps
+	   7:1 (AAA); a step darker would fall below it. */
+	--accent-hover: oklch(calc(var(--accent-l) + 0.04) var(--accent-c) var(--accent-hue));
+	--palette-l: 0.82;
+}
+
+/* Tokens derived from the inputs above; the same in every theme. */
+:root,
+[data-theme] {
+	--accent: oklch(var(--accent-l) var(--accent-c) var(--accent-hue));
+	--accent-hover: oklch(calc(var(--accent-l) - 0.04) var(--accent-c) var(--accent-hue));
+	--accent-soft: color-mix(in oklch, var(--accent) 14%, var(--surface-0));
+	/* The accent as text or a link on a surface; --accent itself is tuned
+	   for text on top of it, not for being read. apply() in
+	   appearance.svelte.ts sets the lightness and chroma that read on every
+	   surface of the theme; these are the fallback without it. */
+	--accent-text-l: calc(var(--accent-l) + var(--accent-text-shift));
+	--accent-text-c: var(--accent-c);
+	--accent-text: oklch(var(--accent-text-l) var(--accent-text-c) var(--accent-hue));
+	--selection-bg: var(--accent-soft);
+	/* Words with comments on them: a tint, and a line for those who can't see the tint.
+	   Mixed in oklab: amber and a page's near-white are far apart in hue, and oklch would pass through green. */
+	--comment-mark: color-mix(in oklab, var(--palette-amber) 22%, var(--surface-0));
+	--comment-mark-active: color-mix(in oklab, var(--palette-amber) 46%, var(--surface-0));
+	--comment-mark-edge: var(--palette-amber);
+	/* Behind dialogs, and a little darker behind a phone's sheets. */
+	--scrim: oklch(0 0 0 / 0.25);
+	--scrim-sheet: oklch(0 0 0 / 0.3);
+
+	/* The focus ring: a gap in the page color, then the ring. */
+	--focus-ring-color: var(--accent);
+	--focus-ring-width: 2px;
+	--focus-ring-gap: 2px;
+	--focus-ring:
+		0 0 0 var(--focus-ring-gap) var(--surface-0),
+		0 0 0 calc(var(--focus-ring-gap) + var(--focus-ring-width)) var(--focus-ring-color);
+	/* Every layer of every shadow is drawn in --shadow-color. */
+	--shadow-sm: 0 1px 2px var(--shadow-color);
+	--shadow-md: 0 2px 6px var(--shadow-color), 0 1px 2px var(--shadow-color);
+	--shadow-lg: 0 12px 32px var(--shadow-color), 0 2px 6px var(--shadow-color);
+
+	--palette-red: oklch(var(--palette-l) var(--palette-c) var(--hue-red));
+	--palette-orange: oklch(var(--palette-l) var(--palette-c) var(--hue-orange));
+	--palette-amber: oklch(var(--palette-l) var(--palette-c) var(--hue-amber));
+	--palette-yellow: oklch(var(--palette-l) var(--palette-c) var(--hue-yellow));
+	--palette-lime: oklch(var(--palette-l) var(--palette-c) var(--hue-lime));
+	--palette-green: oklch(var(--palette-l) var(--palette-c) var(--hue-green));
+	--palette-teal: oklch(var(--palette-l) var(--palette-c) var(--hue-teal));
+	--palette-cyan: oklch(var(--palette-l) var(--palette-c) var(--hue-cyan));
+	--palette-blue: oklch(var(--palette-l) var(--palette-c) var(--hue-blue));
+	--palette-indigo: oklch(var(--palette-l) var(--palette-c) var(--hue-indigo));
+	--palette-purple: oklch(var(--palette-l) var(--palette-c) var(--hue-purple));
+	--palette-pink: oklch(var(--palette-l) var(--palette-c) var(--hue-pink));
+	/* The same hues, soft, behind text: label chips and avatars. */
+	--palette-red-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-red));
+	--palette-orange-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-orange));
+	--palette-amber-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-amber));
+	--palette-yellow-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-yellow));
+	--palette-lime-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-lime));
+	--palette-green-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-green));
+	--palette-teal-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-teal));
+	--palette-cyan-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-cyan));
+	--palette-blue-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-blue));
+	--palette-indigo-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-indigo));
+	--palette-purple-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-purple));
+	--palette-pink-soft: oklch(var(--palette-soft-l) var(--palette-soft-c) var(--hue-pink));
+
+	/* Status categories and priorities also differ by shape (see the icons). */
+	--status-backlog: var(--text-muted);
+	--status-todo: var(--text-secondary);
+	--status-in-progress: var(--palette-amber);
+	--status-done: var(--palette-green);
+	--status-canceled: var(--text-muted);
+	--priority-urgent: var(--palette-red);
+	--priority-high: var(--palette-orange);
+	--priority-medium: var(--palette-amber);
+	--priority-low: var(--palette-blue);
+	--priority-none: var(--text-muted);
+
+	/* Component tokens. Each starts as a semantic token, so a theme that
+	   never names one still has it follow its surfaces and accent. */
+	--sidebar-bg: var(--surface-1);
+	--sidebar-text: var(--text-secondary);
+	--sidebar-text-active: var(--text-primary);
+	--sidebar-item-hover: var(--surface-3);
+	--sidebar-item-active: var(--accent-soft);
+	--sidebar-border: var(--border);
+
+	--row-hover-bg: var(--surface-1);
+	--row-selected-bg: var(--accent-soft);
+	--row-divider: var(--border);
+	--row-meta-text: var(--text-secondary);
+	--group-header-text: var(--text-secondary);
+
+	--card-bg: var(--surface-0);
+	--card-border: var(--border);
+	--card-radius: var(--radius-lg);
+	--card-shadow: var(--shadow-sm);
+	--card-shadow-lifted: var(--shadow-lg);
+	--board-column-bg: var(--surface-1);
+	--calendar-today-bg: var(--accent);
+
+	--button-radius: var(--radius-md);
+	--button-primary-bg: var(--accent);
+	--button-primary-hover: var(--accent-hover);
+	--button-primary-text: var(--accent-contrast);
+	--button-secondary-bg: var(--surface-0);
+	--button-secondary-border: var(--border-strong);
+	--button-secondary-text: var(--text-primary);
+	--button-ghost-hover: var(--surface-2);
+	--button-danger: var(--danger);
+
+	--input-bg: var(--surface-0);
+	--input-text: var(--text-primary);
+	--input-border: var(--border-control);
+	--input-radius: var(--radius-md);
+	--input-placeholder: var(--text-muted);
+	--checkbox-radius: calc(var(--radius-sm) + 1px);
+	--checkbox-on-bg: var(--accent);
+	--checkbox-mark: var(--accent-contrast);
+
+	--menu-bg: var(--surface-0);
+	--menu-border: var(--border);
+	--menu-radius: var(--radius-lg);
+	--panel-bg: var(--surface-0);
+	--dialog-bg: var(--surface-0);
+	--toast-bg: var(--text-primary);
+	--toast-text: var(--surface-0);
+	--tabbar-bg: var(--surface-1);
+	--tabbar-active: var(--accent-text);
+}
+
+/* Reduced motion: nothing moves, and every change becomes a quick
+   crossfade. Two attributes outrank the characters' own durations, and a
+   custom theme's (html[data-custom-theme]). */
+@media (prefers-reduced-motion: reduce) {
+	:root,
+	[data-theme][data-scheme] {
+		--motion: 0;
+		--dur-micro: var(--dur-fade);
+		--dur-panel: var(--dur-fade);
+		--dur-view: var(--dur-fade);
+		--ease: linear;
+		--ease-spring: linear;
+	}
+}
