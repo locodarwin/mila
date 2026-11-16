@@ -93,7 +93,7 @@ func TestSlugIsASCII(t *testing.T) {
 			t.Errorf("slugFor(%q) = %q", name, slug)
 		}
 		for _, r := range slug {
-			if !(r >= 'a' && r <= 'z' || r >= '0' && r <= '9' || r == '-') {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
 				t.Errorf("slugFor(%q) = %q, which holds %q", name, slug, r)
 				break
 			}

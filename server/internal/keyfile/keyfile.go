@@ -146,7 +146,7 @@ func (k *Key) mayMake() error {
 		return nil
 	}
 	if me := euid(); me >= 0 && me != owner {
-		return fmt.Errorf("%s belongs to user %d, but this runs as user %d, so the key it would make there (%s) is one the server couldn't read: run this as the server's user, such as sudo -u mila mila ...", k.dir, owner, me, Name)
+		return fmt.Errorf("%s belongs to user %d, but this runs as user %d, so the key it would make there (%s) is one the server couldn't read: run it as the server's user, as with sudo -u mila", k.dir, owner, me, Name)
 	}
 	return nil
 }
