@@ -17,7 +17,7 @@ func TestEndpoints(t *testing.T) {
 		"http://fcm.googleapis.com/fcm/send/abc":                 false,
 		"https://evil.example/fcm.googleapis.com":                false,
 		"https://fcm.googleapis.com.evil.example/x":              false,
-		"https://nas.example.com/admin":                       false,
+		"https://nas.example.com/admin":                          false,
 		"https://user:pass@fcm.googleapis.com/fcm/send/abc":      false,
 		"https://192.168.1.10/":                                  false,
 	} {
