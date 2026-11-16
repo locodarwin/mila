@@ -29,6 +29,9 @@ test('tasks persist across a reload', async ({ page }) => {
 	await taskRow(page, 'Plant tomatoes')
 		.getByRole('button', { name: 'Plant tomatoes', exact: true })
 		.click();
+	// Wait for the panel's own title, or a slow machine fills the field
+	// after the typing and keeps none of it.
+	await expect(page.getByLabel('Task title')).toHaveValue('Plant tomatoes');
 	await page.getByLabel('Task title').fill('Plant cherry tomatoes');
 	await page.getByLabel('Task title').press('Enter');
 	await expect(taskRow(page, 'Plant cherry tomatoes')).toBeVisible();
@@ -79,6 +82,7 @@ test('two devices stay in step, and an offline one catches up', async ({ page, b
 	await laptop.evaluate(() => window.dispatchEvent(new Event('offline')));
 	await addTask(laptop, 'Written offline');
 	await laptop.getByRole('button', { name: 'Seen everywhere', exact: true }).click();
+	await expect(laptop.getByLabel('Task title')).toHaveValue('Seen everywhere');
 	await laptop.getByLabel('Task title').fill('Renamed offline');
 	await laptop.getByLabel('Task title').press('Enter');
 
@@ -86,6 +90,7 @@ test('two devices stay in step, and an offline one catches up', async ({ page, b
 	await taskRow(page, 'Added live')
 		.getByRole('button', { name: 'Added live', exact: true })
 		.click();
+	await expect(page.getByLabel('Task title')).toHaveValue('Added live');
 	await page.getByLabel('Task title').fill('Renamed online');
 	await page.getByLabel('Task title').press('Enter');
 	await expect(taskRow(page, 'Written offline')).toBeHidden();

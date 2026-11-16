@@ -131,6 +131,7 @@ test.describe('a table', () => {
 		// The pencil renames in place.
 		await rowOf(page, 'Plant garlic').hover();
 		await page.getByRole('button', { name: 'Rename Plant garlic' }).click();
+		await expect(page.getByLabel('Task title')).toHaveValue('Plant garlic');
 		await page.getByLabel('Task title').fill('Plant the garlic');
 		await page.getByLabel('Task title').press('Enter');
 		await expect(rowOf(page, 'Plant the garlic')).toBeVisible();
