@@ -51,6 +51,35 @@ export async function linkFromEmail(to: string): Promise<string> {
 	return link;
 }
 
+/** The newest sign-in or invite link sent to an address, or '' if none. */
+function newestLink(to: string): string {
+	for (const text of emails()) {
+		const found = text.match(/https?:\/\/\S+token=[\w-]+/)?.[0];
+		if (text.includes(`To: ${to}\r\n`) && found) return found;
+	}
+	return '';
+}
+
+/**
+ * Signs an existing account in afresh, in a context of its own, by an
+ * emailed link: for what needs a sign-in from the last ten minutes, which
+ * the session made when the run began may no longer be on a slow machine.
+ */
+export async function freshSignIn(context: BrowserContext, email: string): Promise<Page> {
+	const page = await context.newPage();
+	const before = newestLink(email);
+	await page.goto('/login');
+	await page.getByLabel(/email/i).fill(email);
+	await page.getByRole('button', { name: 'Email me a sign-in link' }).click();
+	await expect(page.getByRole('heading', { name: 'Check your email' })).toBeVisible();
+	await expect
+		.poll(() => newestLink(email), { message: `a new link to ${email}` })
+		.not.toBe(before);
+	await page.goto(newestLink(email));
+	await expect(page.getByRole('heading', { name: 'Inbox', exact: true })).toBeVisible();
+	return page;
+}
+
 /**
  * Waits for an email to an address whose subject matches, and whose text
  * holds some words if given, and returns it.

@@ -3,6 +3,7 @@ import { axe } from './axe';
 import {
 	apiCall,
 	emailTo,
+	freshSignIn,
 	linkFromEmail,
 	newMember,
 	OWNER,
@@ -130,10 +131,14 @@ test('an admin makes someone an admin, and signs them out everywhere', async ({
 		context,
 		email
 	} = await newMember(page, () => browser.newContext(SIGNED_OUT), 'Ada');
-	await page.goto('/settings/admin');
-	const row = accounts(page).getByRole('listitem').filter({ hasText: email });
+	// Making someone an admin needs a sign-in from the last ten minutes,
+	// which the owner's session, made when the run began, may not be.
+	const ownerContext = await browser.newContext(SIGNED_OUT);
+	const owner = await freshSignIn(ownerContext, 'owner@example.com');
+	await owner.goto('/settings/admin');
+	const row = accounts(owner).getByRole('listitem').filter({ hasText: email });
 	await row.getByRole('checkbox', { name: 'Admin: Ada' }).check();
-	await expect(page.getByText('Ada is now an admin')).toBeVisible();
+	await expect(owner.getByText('Ada is now an admin')).toBeVisible();
 	await expect(row.locator('.badge', { hasText: 'Admin' })).toBeVisible();
 
 	await dana.goto('/settings');
@@ -141,12 +146,12 @@ test('an admin makes someone an admin, and signs them out everywhere', async ({
 		dana.getByRole('navigation', { name: 'Settings' }).getByRole('link', { name: 'Admin' })
 	).toBeVisible();
 	await row.getByRole('checkbox', { name: 'Admin: Ada' }).uncheck();
-	await expect(page.getByText('Ada is no longer an admin')).toBeVisible();
+	await expect(owner.getByText('Ada is no longer an admin')).toBeVisible();
 
 	// Signing out everywhere asks twice; her app leaves at its next request.
 	await row.getByRole('button', { name: 'Sign out everywhere: Ada' }).click();
 	await row.getByRole('button', { name: 'Confirm sign out: Ada' }).click();
-	await expect(page.getByText('Signed Ada out of 1 device')).toBeVisible();
+	await expect(owner.getByText('Signed Ada out of 1 device')).toBeVisible();
 	await dana.goto('/upcoming');
 	await expect(dana).toHaveURL(/\/login/);
 
@@ -164,6 +169,7 @@ test('an admin makes someone an admin, and signs them out everywhere', async ({
 	await expect(log.getByText(/^No longer an admin, by/)).toBeVisible();
 	await context.close();
 	await again.context().close();
+	await ownerContext.close();
 });
 
 test('an admin cancels any open invitation', async ({ page }) => {
