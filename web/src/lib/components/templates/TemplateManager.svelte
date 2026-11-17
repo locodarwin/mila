@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { settingsWorkspace } from '../../settingsWorkspace.svelte';
-	// Settings, Templates (docs/PLAN.md section 3): the workspace's
+	// Settings, Templates: the workspace's
 	// templates, a preview of the one chosen, and making, renaming and
 	// deleting them. Loaded only on that page.
 	import FileText from '@lucide/svelte/icons/file-text';

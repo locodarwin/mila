@@ -4,8 +4,8 @@ import { apiCall, newPerson, OWNER, SIGNED_OUT } from './helpers';
 test.use({ storageState: OWNER });
 
 // Settings in three sections, with a workspace picker in the Workspace
-// heading that chooses what the workspace pages are about (docs/PLAN.md
-// section 3). On a phone the rail, and so the picker, is the list's alone.
+// heading that chooses what the workspace pages are about. On a phone
+// the rail, and so the picker, is the list's alone.
 
 const rail = (page: Page) => page.getByRole('navigation', { name: 'Settings' });
 const switcher = (page: Page) => page.getByRole('button', { name: /^Switch workspace/ });

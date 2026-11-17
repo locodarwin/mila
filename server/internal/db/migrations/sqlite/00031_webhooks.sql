@@ -1,5 +1,5 @@
 -- +goose Up
--- Webhooks (docs/PLAN.md section 11): a workspace's addresses to tell of changes,
+-- Webhooks: a workspace's addresses to tell of changes,
 -- and each delivery with its body, so it can be tried again and resent. The secret
 -- is kept as it is, since signing needs it. No project_id means every project.
 CREATE TABLE webhooks (

@@ -1,4 +1,4 @@
-// The wiki's main pages (docs/PLAN.md section 3). A wiki's main page has
+// The wiki's main pages. A wiki's main page has
 // an ID made from its project's, or for the workspace's wiki the
 // workspace's, so whichever device first writes in a new wiki makes the
 // same row any other would. server/internal/syncer/pages.go has the same.

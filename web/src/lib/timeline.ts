@@ -1,4 +1,4 @@
-// The Timeline view's rules (docs/PLAN.md section 3), pure: zoom and
+// The Timeline view's rules, pure: zoom and
 // scale, where a task's bar or diamond goes, keyboard steps, the rows a
 // timeline shows, and the paths of the arrows between tasks. The view is
 // components/views/Timeline.svelte.

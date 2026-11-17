@@ -1,8 +1,8 @@
-// Package reports works out the weekly report's figures (docs/PLAN.md
-// section 3, Reporting) on the server, which emails it while nobody has
-// the app open. It is the arithmetic of the app's reports.ts (inScope,
-// flowReport and weeklyReport), on the same rules, and
-// shared/weekly-vectors.json holds the two to the same answers.
+// Package reports works out the weekly report's figures on the server,
+// which emails it while nobody has the app open. It is the arithmetic
+// of the app's reports.ts (inScope, flowReport and weeklyReport), on
+// the same rules, and shared/weekly-vectors.json holds the two to the
+// same answers.
 package reports
 
 import (

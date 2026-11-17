@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-	// One whole split into its parts, drawn by Mila (docs/PLAN.md section 3):
+	// One whole split into its parts, drawn by Mila:
 	// one bar, a 2px gap in the page's color between the parts, rounded at
 	// the whole bar's two ends, each part's count under its start where it
 	// fits, and a legend of their names. Hover, a tap or the arrow keys on

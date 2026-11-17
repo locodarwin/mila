@@ -1,5 +1,5 @@
 // Opening the foldable sections around something in a page, so that what a link,
-// a comment or the caret goes to is there to see (docs/PLAN.md section 3). Each
+// a comment or the caret goes to is there to see. Each
 // fold's node (nodeviews.ts) listens for the event. Small, so the wiki loads it
 // without the editor.
 

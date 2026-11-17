@@ -1,5 +1,5 @@
 <script lang="ts">
-	// A row's or card's time (docs/PLAN.md section 3): the time logged
+	// A row's or card's time: the time logged
 	// against the estimate, red past it, as the view shows them; and the
 	// person's own timer, ticking, when it runs on this task.
 	import Clock from '@lucide/svelte/icons/clock';

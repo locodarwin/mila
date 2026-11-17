@@ -1,4 +1,4 @@
-/* Markdown in task notes and wiki pages (docs/PLAN.md section 3): headings,
+/* Markdown in task notes and wiki pages: headings,
    links, lists, code, quotes, tables and dividers, in the theme's Pages
    colors. The editor (DocEditor.svelte) and the theme preview share it, so
    the preview shows what those colors do. A page (.paper) reads as a

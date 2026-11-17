@@ -22,7 +22,7 @@ import (
 	"github.com/locodarwin/mila/server/internal/syncer"
 )
 
-// The server's budgets from docs/PLAN.md section 13, on a generated
+// The server's budgets, on a generated
 // 5,000-task workspace: the API's 95th percentile under 50 ms, and the
 // server's part of a first sync (the bootstrap) well inside the 2 s the
 // whole first sync may take. They run when MILA_BUDGETS is set (`make

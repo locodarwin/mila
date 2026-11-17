@@ -1,4 +1,4 @@
-// Dependencies' rules (docs/PLAN.md section 3), pure: when a task can
+// Dependencies' rules, pure: when a task can
 // start, when it conflicts with what it waits for, and what a search for a
 // task to wait for finds. The rows and the server's loop check are in
 // sync/data.ts and server/internal/syncer/dependencies.go.

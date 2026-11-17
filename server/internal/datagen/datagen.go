@@ -1,5 +1,5 @@
 // Package datagen builds test workspaces of any size for the performance
-// budgets (docs/PLAN.md section 13): projects with their statuses, labels,
+// budgets: projects with their statuses, labels,
 // a select field, tasks with subtasks, checklists, comments, assignees,
 // due dates, repeats and My Day entries, and one project of board cards.
 // Every synced row goes in through syncer.Service.Push, as a device's

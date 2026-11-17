@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The style guide's formatting beyond Markdown (docs/PLAN.md section 3): a
+	// The style guide's formatting beyond Markdown: a
 	// page that uses it, drawn by the editor from its Markdown; a view in a page,
 	// from the sample workspace's shared board; and the two dialogs it brings.
 	import Button from '#lib/components/Button.svelte';

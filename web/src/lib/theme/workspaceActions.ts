@@ -1,4 +1,4 @@
-// What people do with workspace themes (docs/PLAN.md section 3): admins
+// What people do with workspace themes: admins
 // publish one of their own themes, update it from that theme, rename,
 // suggest and unpublish; everyone uses one, duplicates it, and answers
 // a suggestion. Loaded with Settings, Workspace themes, the theme picker, the

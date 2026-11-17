@@ -1,4 +1,4 @@
-// The `[[` menu (docs/PLAN.md section 3): typing `[[` in a task's notes or
+// The `[[` menu: typing `[[` in a task's notes or
 // a wiki page offers pages and tasks to link to, or a new subpage, and
 // narrows them as more is typed.
 import type { Editor } from '@tiptap/core';

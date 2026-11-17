@@ -2,7 +2,6 @@
 // server. Clients send operations (ops) that set fields on rows; the server
 // merges them field by field, last writer wins by HLC, records each
 // accepted change in a numbered log, and tells connected clients to pull.
-// docs/PLAN.md section 7 has the design.
 package syncer
 
 import (

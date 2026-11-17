@@ -1,5 +1,5 @@
 <script lang="ts">
-	// New project from a template (docs/PLAN.md section 3): which one, its
+	// New project from a template: which one, its
 	// name and its start date, with where the dated tasks will land.
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';

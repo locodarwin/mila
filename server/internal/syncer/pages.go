@@ -1,6 +1,6 @@
 package syncer
 
-// The wiki's pages (docs/PLAN.md section 3). Each project has a wiki, and
+// The wiki's pages. Each project has a wiki, and
 // the workspace has one, with project_id null, that guests never see. A
 // wiki's main page exists from the start, as far as anyone can tell: its
 // ID is made from its project's or workspace's, so whichever device first
@@ -80,13 +80,12 @@ func (s *Service) checkPage(ctx context.Context, tx *sql.Tx, r *row, accepted []
 	return refuse(apperr.Invalid, "parent_id", "Pages go at most %d deep.", maxPageDepth)
 }
 
-// A page's history: its body after each editing session (docs/PLAN.md
-// section 3), its newest maxVersions, and of those no more than
-// maxHistory bytes (the newest is always kept). Typing in the page
-// (through its document) joins the person's current session, while they
-// keep at it with gaps of no more than sessionGap; a body written whole (a
-// restore, a REST write) is a version of its own, so the page as it was
-// before a restore stays.
+// A page's history: its body after each editing session, its newest
+// maxVersions, and of those no more than maxHistory bytes (the newest is
+// always kept). Typing in the page (through its document) joins the
+// person's current session, while they keep at it with gaps of no more
+// than sessionGap; a body written whole (a restore, a REST write) is a
+// version of its own, so the page as it was before a restore stays.
 
 // recordVersion keeps a page's new body in its history. The first time,
 // the body it had before (made before its history began, or imported)

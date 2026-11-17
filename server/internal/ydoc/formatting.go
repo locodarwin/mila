@@ -9,7 +9,7 @@ import (
 	"github.com/yuin/goldmark/ast"
 )
 
-// The formatting beyond Markdown (docs/PLAN.md section 3): what Markdown
+// The formatting beyond Markdown: what Markdown
 // can't say is written as an HTML comment marker or a little HTML that other
 // Markdown apps show as plain words. web/src/lib/docs/formatting.ts writes and
 // reads the same, and shared/doc-vectors.json holds the two together.

@@ -20,7 +20,7 @@ export const UPGRADES: Record<number, (op: Op) => Op> = {
 	// version 1 is sent as it is: a write to a task's notes is turned into
 	// a row of its document by the server.
 	1: (op) => op,
-	// 3 is the wiki's formatting beyond Markdown (docs/PLAN.md section 3):
+	// 3 is the wiki's formatting beyond Markdown:
 	// columns, foldable sections, views and the rest, which an app of 2
 	// can't hold and would delete from any document it opened. Reads now
 	// name the version too, so an app of 2 stops before it sees one, and

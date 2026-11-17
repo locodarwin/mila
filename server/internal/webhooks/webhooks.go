@@ -1,7 +1,7 @@
-// Package webhooks tells other apps when something changes in a workspace
-// (docs/PLAN.md section 11). A change that a webhook hears about writes a
-// delivery in its own transaction, so a delivery exists exactly when the change
-// does; sending happens afterward, beside the other jobs, and is tried six times.
+// Package webhooks tells other apps when something changes in a workspace. A
+// change that a webhook hears about writes a delivery in its own transaction, so
+// a delivery exists exactly when the change does; sending happens afterward,
+// beside the other jobs, and is tried six times.
 package webhooks
 
 import (

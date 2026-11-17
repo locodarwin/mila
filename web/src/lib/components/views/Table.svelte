@@ -2,7 +2,7 @@
 	// A view's tasks as a table: one row per task with its subtasks under
 	// it, a column per shown field, groups with a summary row each. Headings
 	// sort and drag, cells edit in place, rows drag by their handle. A
-	// treegrid: one Tab stop, arrows between cells (docs/PLAN.md section 3).
+	// treegrid: one Tab stop, arrows between cells.
 	import { menu, taskActions } from '../../contextMenu.svelte';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
 	import Check from '@lucide/svelte/icons/check';
@@ -240,7 +240,7 @@
 	}
 	const rowOf = (key: string) => drawn.flatMap((g) => g.rows).find((r) => r.key === key);
 
-	// Selecting several (docs/PLAN.md section 3): the rows as drawn, then the
+	// Selecting several: the rows as drawn, then the
 	// tasks not drawn yet, each once.
 	const order = () => [
 		...new Set([

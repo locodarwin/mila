@@ -1,5 +1,5 @@
 -- +goose Up
--- Automations (docs/PLAN.md section 3): when something happens to a task, and it
+-- Automations: when something happens to a task, and it
 -- fits, the changes a person chose. rule is the rule as JSON (syncer/automation.go).
 -- Members see a workspace's rules; guests never do.
 CREATE TABLE automations (

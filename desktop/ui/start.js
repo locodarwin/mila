@@ -1,5 +1,5 @@
 // The app's own page: the Places screen, which lists every place with how it is, and
-// adds, opens, renames and removes them (docs/PLAN.md section 3, the desktop app).
+// adds, opens, renames and removes them.
 const $ = (id) => document.getElementById(id);
 const invoke = (command, args) => window.__TAURI_INTERNALS__.invoke(command, args);
 const sections = ['home', 'first', 'server', 'local', 'waiting', 'starting'];

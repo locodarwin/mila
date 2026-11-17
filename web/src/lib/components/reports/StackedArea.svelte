@@ -8,11 +8,10 @@
 </script>
 
 <script lang="ts">
-	// Bands stacked over days on one axis, drawn by Mila (docs/PLAN.md
-	// section 3): the first band at the bottom, a 1px line in the page's
-	// color between them, a recessive grid. Hovering, a tap or the arrow keys
-	// on the focused chart move a crosshair that shows every band that day,
-	// and the same is announced.
+	// Bands stacked over days on one axis, drawn by Mila: the first band at
+	// the bottom, a 1px line in the page's color between them, a recessive
+	// grid. Hovering, a tap or the arrow keys on the focused chart move a
+	// crosshair that shows every band that day, and the same is announced.
 	import { announce } from '../../announce.svelte';
 	import { labelEvery, nearest, niceScale, stepMark, largest } from '../../charts';
 	import ChartTip from './ChartTip.svelte';

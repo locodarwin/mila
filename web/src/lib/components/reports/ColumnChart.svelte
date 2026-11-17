@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Columns of one series, drawn by Mila (docs/PLAN.md section 3): thin
+	// Columns of one series, drawn by Mila: thin
 	// columns rounded at the top and square on the baseline, each value on
 	// its cap, a recessive grid. A column can take a color of its own (the
 	// overdue one, in the danger color). Hover, a tap or the arrow keys on

@@ -20,14 +20,14 @@ import (
 	"github.com/locodarwin/mila/server/internal/store/sqlitedb"
 )
 
-// OAuth for apps that connect to the MCP endpoint (docs/PLAN.md section 11,
-// Agent access, phase 4): RFC 6749's authorization code grant, with PKCE
-// (RFC 7636, S256 only) and apps registering themselves (RFC 7591), all of
-// them public clients with no secret. A person says yes in the app, signed
-// in, which makes a code good once for ten minutes; the app trades it, with
-// its PKCE verifier, for an ordinary API token marked as the app's, which
-// httpapi keeps to the MCP endpoint. There are no refresh tokens: when the
-// token ends, the person says yes again.
+// OAuth for apps that connect to the MCP endpoint: RFC 6749's authorization
+// code grant, with PKCE (RFC 7636, S256 only) and apps registering
+// themselves (RFC 7591), all of them public clients with no secret. A
+// person says yes in the app, signed in, which makes a code good once for
+// ten minutes; the app trades it, with its PKCE verifier, for an ordinary
+// API token marked as the app's, which httpapi keeps to the MCP endpoint.
+// There are no refresh tokens: when the token ends, the person says yes
+// again.
 
 const (
 	// oauthCodeLife is how long a code is good for.

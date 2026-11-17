@@ -39,7 +39,7 @@ func scrub(entity string, fields map[string]any) {
 }
 
 // Someone is what a guest sees for another guest they share no project
-// with (docs/PLAN.md section 2).
+// with.
 const Someone = "Someone"
 
 // hiddenFrom is who a viewer may not name: for a guest, the other guests

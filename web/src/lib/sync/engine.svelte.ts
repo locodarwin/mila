@@ -1,6 +1,6 @@
 // The sync engine: keeps every workspace's replica in IndexedDB, sends
 // local edits from the outbox, pulls changes when the server pokes, and
-// carries on offline. docs/PLAN.md section 7 describes the protocol.
+// carries on offline.
 import { uuid } from '../uuid';
 import { SvelteMap } from 'svelte/reactivity';
 import { api, ApiError, call } from '../api/client';
@@ -707,7 +707,7 @@ class SyncEngine {
 		};
 	}
 
-	// Presence (docs/PLAN.md section 7): devices say over the socket who
+	// Presence: devices say over the socket who
 	// has a live document open and where their cursor is. One listener per
 	// open document, by workspace/doc.
 	#presence = new Map<string, { heard: (update: string) => void; rejoin: () => void }>();

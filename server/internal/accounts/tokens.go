@@ -13,7 +13,7 @@ import (
 	"github.com/locodarwin/mila/server/internal/store/sqlitedb"
 )
 
-// API tokens (docs/PLAN.md section 11): a person's way in for a script or
+// API tokens: a person's way in for a script or
 // another app. A token acts as its owner, and httpapi.tokenRefuses keeps it to
 // the work itself, away from anything that manages the account.
 

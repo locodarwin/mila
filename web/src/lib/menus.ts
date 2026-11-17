@@ -1,7 +1,7 @@
-// What the right-click menus of a task, a view and a project hold (docs/PLAN.md
-// section 3), in the same order everywhere. Each is an action the app has
-// somewhere else already, done the same way, with the same undo. Someone who
-// can't do a thing isn't offered it. Loaded the first time a menu opens.
+// What the right-click menus of a task, a view and a project hold, in the
+// same order everywhere. Each is an action the app has somewhere else
+// already, done the same way, with the same undo. Someone who can't do a
+// thing isn't offered it. Loaded the first time a menu opens.
 import { goto } from '$app/navigation';
 import { tick } from 'svelte';
 import { resolve } from '$app/paths';

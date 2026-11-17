@@ -80,7 +80,7 @@
 	--highlight-pink: var(--palette-pink-soft);
 	--highlight-gray: var(--surface-3);
 	/* Markdown in task notes and wiki pages: each the color it has always
-	   been until a theme sets it (docs/PLAN.md section 3). */
+	   been until a theme sets it. */
 	--page-heading-1: var(--text-primary);
 	--page-heading-2: var(--text-primary);
 	--page-heading-3: var(--text-primary);

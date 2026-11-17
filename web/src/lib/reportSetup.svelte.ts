@@ -1,7 +1,7 @@
 // How the Reports page is set up on this device, per workspace: the tab,
-// the project, the period and the saved-view filter (docs/PLAN.md section 3, Release
-// 3.0). Kept in localStorage under mila.reports.<ws>, as Inbox, My Day and
-// Upcoming keep theirs (listViews.svelte.ts); signing out clears it.
+// the project, the period and the saved-view filter. Kept in
+// localStorage under mila.reports.<ws>, as Inbox, My Day and Upcoming
+// keep theirs (listViews.svelte.ts); signing out clears it.
 import { PERIOD_KINDS, REPORT_TABS, type PeriodKind, type ReportTab } from './reportKinds';
 import type { ViewEdit } from './sync/data';
 import type { ViewDisplay, ViewFilter } from './sync/entities';
@@ -67,8 +67,8 @@ function setupOf(raw: unknown): ReportSetup {
 
 /**
  * A report view's setup: its tab, period and project from its display's
- * report part, its filter the view's own (docs/PLAN.md section 3, Release
- * 3.0). A view of a project reports on that project alone.
+ * report part, its filter the view's own. A view of a project reports
+ * on that project alone.
  */
 export function viewReport(view: {
 	projectId: string | null;

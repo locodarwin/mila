@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Settings, Automations (docs/PLAN.md section 3): a workspace's rules, the builder,
+	// Settings, Automations: a workspace's rules, the builder,
 	// a test against the tasks there, and what they did lately.
 	import { resolve } from '$app/paths';
 	import { api, call, type Role, type Schemas } from '../../api/client';

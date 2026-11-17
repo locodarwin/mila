@@ -1,6 +1,6 @@
 package syncer
 
-// Live documents (docs/PLAN.md section 7). A task's notes and a wiki
+// Live documents. A task's notes and a wiki
 // page's body are Yjs documents: devices push their edits as rows
 // (doc_update, page_update), and the server keeps the notes or body
 // column as the document rendered to Markdown, so search, filters, export,

@@ -1,5 +1,5 @@
-// Where wiki pages live in the app, and what they are called (docs/PLAN.md
-// section 3). The workspace's wiki is /wiki; a project's is its Project Wiki tab.
+// Where wiki pages live in the app, and what they are called. The workspace's
+// wiki is /wiki; a project's is its Project Wiki tab.
 import { resolve } from '$app/paths';
 import { wikiMain } from './sync/pages';
 import type { Page, Project } from './sync/entities';

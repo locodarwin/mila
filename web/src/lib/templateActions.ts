@@ -1,4 +1,4 @@
-// Saving templates and making things from them (docs/PLAN.md section 3),
+// Saving templates and making things from them,
 // with the toasts that follow. Loaded only when a template is saved or
 // used, so no page pays for it up front; the snapshot and the rows to
 // write come from templatePlan.ts.

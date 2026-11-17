@@ -17,10 +17,9 @@ on:
 permissions: {}
 
 jobs:
-  # The long run of the sync convergence fuzz test (docs/PLAN.md section
-  # 13): many more rounds than every build runs, on both databases, five
-  # times over, since each run starts from the clock and plays out
-  # differently.
+  # The long run of the sync convergence fuzz test: many more rounds
+  # than every build runs, on both databases, five times over, since
+  # each run starts from the clock and plays out differently.
   fuzz:
     runs-on: ubuntu-24.04
     permissions:
@@ -143,14 +142,14 @@ jobs:
           cache-dependency-path: server/go.sum
       - run: go test ./...
 
-  # The performance budgets that need the whole app (docs/PLAN.md section
-  # 13). Shared runners are slower and noisier than a desk machine, so the
-  # browser's timed budgets are held at twice their value here
-  # (MILA_BUDGET_SCALE) and tried twice; `make budgets` holds them to the
-  # budget itself. Idle memory is held as it is. Lighthouse only reports
-  # here: its simulated phone slows the machine's own CPU fourfold, so on
-  # a runner several times slower than a desk machine it is a much weaker
-  # phone than the budget means, and `make budgets` gates it instead.
+  # The performance budgets that need the whole app. Shared runners are
+  # slower and noisier than a desk machine, so the browser's timed
+  # budgets are held at twice their value here (MILA_BUDGET_SCALE) and
+  # tried twice; `make budgets` holds them to the budget itself. Idle
+  # memory is held as it is. Lighthouse only reports here: its simulated
+  # phone slows the machine's own CPU fourfold, so on a runner several
+  # times slower than a desk machine it is a much weaker phone than the
+  # budget means, and `make budgets` gates it instead.
   budgets:
     runs-on: ubuntu-24.04
     permissions:

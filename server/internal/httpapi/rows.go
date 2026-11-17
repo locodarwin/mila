@@ -134,8 +134,8 @@ func rowBody(w http.ResponseWriter, r *http.Request, allowID bool) (map[string]j
 	return body, true
 }
 
-// batchHeader reads a write's Mila-Batch header (docs/PLAN.md section 11,
-// Agent access): none, or a name sync takes; anything else is refused.
+// batchHeader reads a write's Mila-Batch header: none, or a name sync takes;
+// anything else is refused.
 func batchHeader(w http.ResponseWriter, r *http.Request) (string, bool) {
 	b := r.Header.Get("Mila-Batch")
 	if b != "" && !syncer.ValidBatch(b) {

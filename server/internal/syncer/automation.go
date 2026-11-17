@@ -19,8 +19,8 @@ import (
 	"github.com/locodarwin/mila/server/internal/store"
 )
 
-// What can start a rule, what a rule can do, and how many it may hold
-// (docs/PLAN.md section 3). web/src/lib/automations.ts has the same lists.
+// What can start a rule, what a rule can do, and how many it may hold.
+// web/src/lib/automations.ts has the same lists.
 const (
 	AutomationCreated   = "created"
 	AutomationCompleted = "completed"

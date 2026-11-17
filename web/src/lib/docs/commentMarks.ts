@@ -1,4 +1,4 @@
-// Comments pinned to text in the editor (docs/PLAN.md section 3). A thread is
+// Comments pinned to text in the editor. A thread is
 // pinned by two Yjs relative positions, which follow their characters through
 // everyone's edits. Its highlight is only drawn: the document and its Markdown
 // never hold it. When the positions no longer enclose any text (the words were

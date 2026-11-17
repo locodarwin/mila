@@ -1,5 +1,5 @@
 // Taking a template's snapshot from the workspace, and the rows that
-// making something from one writes (docs/PLAN.md section 3). Pure, and
+// making something from one writes. Pure, and
 // loaded only when a template is saved or used (templates.ts is what every
 // page needs).
 import type {

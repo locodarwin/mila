@@ -1,9 +1,9 @@
 -- +goose Up
--- Apps that connect to the MCP endpoint by OAuth (docs/PLAN.md section 11,
--- Agent access, phase 4). An app registers itself, with no secret, and the
--- addresses it may be sent back to. A person saying yes makes a code good
--- for ten minutes, once, which the app trades with its PKCE verifier for an
--- API token marked as the app's: only that token reaches anything.
+-- Apps that connect to the MCP endpoint by OAuth. An app registers itself,
+-- with no secret, and the addresses it may be sent back to. A person saying
+-- yes makes a code good for ten minutes, once, which the app trades with
+-- its PKCE verifier for an API token marked as the app's: only that token
+-- reaches anything.
 CREATE TABLE oauth_clients (
     id            TEXT PRIMARY KEY,
     name          TEXT NOT NULL,

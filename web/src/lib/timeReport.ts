@@ -1,4 +1,4 @@
-// The Time page's report (docs/PLAN.md section 3), pure: the period's
+// The Time page's report, pure: the period's
 // days or weeks, the time logged in it by person, project or label, the
 // chart of it by week, and estimates against what finished tasks took.
 // Loaded only on that page.

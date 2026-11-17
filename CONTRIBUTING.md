@@ -27,7 +27,7 @@ make dev       # Go on :8790 with live reload, Vite on :5173
 make test      # Go, unit and browser tests
 make test-pg   # Go tests against Postgres in a container
 make lint
-make budgets   # the performance budgets (docs/PLAN.md section 13)
+make budgets   # the performance budgets
 make visual    # the style guide's screenshots in every theme, in a container
 make generate  # code generated from the API spec and the queries
 ```
@@ -36,7 +36,6 @@ make generate  # code generated from the API spec and the queries
 
 ## Sending a change
 
-- [docs/PLAN.md](docs/PLAN.md) is the plan of record: how Mila is built and why. Read the part your change touches first, and change it with your change when a decision changes.
 - The API is defined first in `shared/openapi.yaml`; the Go and TypeScript code is generated from it with `make generate`, and committed.
 - Every database change needs a migration for both SQLite and Postgres.
 - A change in what people see or do updates its help topic (`web/src/lib/help/topics/`) and the user guide (`docs/guide/`) in the same change.

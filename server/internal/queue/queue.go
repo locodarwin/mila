@@ -1,10 +1,10 @@
-// Package queue is `mila queue`: Mila as a work queue for an agent
-// (docs/PLAN.md section 11, Agent access, phase 4). People assign tasks to
-// the agent's account; the queue takes each open one in a to-do status,
-// marks it in progress, gives it to a command, answers with what the
-// command wrote as a comment, and finishes the task. Everything one task
-// changes, the command's own writes through `mila mcp` or `mila api`
-// included, goes in one batch, so a job can be undone as a whole.
+// Package queue is `mila queue`: Mila as a work queue for an agent.
+// People assign tasks to the agent's account; the queue takes each open
+// one in a to-do status, marks it in progress, gives it to a command,
+// answers with what the command wrote as a comment, and finishes the
+// task. Everything one task changes, the command's own writes through
+// `mila mcp` or `mila api` included, goes in one batch, so a job can be
+// undone as a whole.
 package queue
 
 import (

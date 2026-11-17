@@ -1,10 +1,10 @@
 <script lang="ts">
-	// Inbox, My Day and Upcoming as lists of the app's own (docs/PLAN.md
-	// section 3): each keeps what it holds, and on this device takes a view
-	// (list, board, calendar, table or timeline), a filter that narrows it and a
-	// display, as a saved view does; Save as view makes one of what is set,
-	// and Reset puts the list back as it comes. The page gives its heading,
-	// its tasks, its own sections and its own list.
+	// Inbox, My Day and Upcoming as lists of the app's own: each keeps what it
+	// holds, and on this device takes a view (list, board, calendar, table or
+	// timeline), a filter that narrows it and a display, as a saved view does;
+	// Save as view makes one of what is set, and Reset puts the list back as it
+	// comes. The page gives its heading, its tasks, its own sections and its own
+	// list.
 	import type { Snippet } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';

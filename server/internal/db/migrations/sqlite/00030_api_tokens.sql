@@ -1,5 +1,5 @@
 -- +goose Up
--- Personal API tokens (docs/PLAN.md section 11): a person's way in for a script
+-- Personal API tokens: a person's way in for a script
 -- or another app. Only the token's SHA-256 is kept. No workspace_id means every
 -- workspace the person is in, now and later.
 CREATE TABLE api_tokens (

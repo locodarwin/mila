@@ -1,5 +1,5 @@
 -- +goose Up
--- Dependencies (docs/PLAN.md section 3): task_id waits for blocker_id
+-- Dependencies: task_id waits for blocker_id
 -- to be done. A row is named by its pair (PairID of task_id and
 -- blocker_id), so adding one again undeletes it.
 CREATE TABLE task_dependencies (

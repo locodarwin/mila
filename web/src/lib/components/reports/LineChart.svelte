@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-	// Lines over weeks on one axis, drawn by Mila (docs/PLAN.md section 3):
+	// Lines over weeks on one axis, drawn by Mila:
 	// 2px lines, a ringed dot and the value at each line's end, a recessive
 	// grid. Hovering, a tap or the arrow keys on the focused chart move a
 	// crosshair that shows every series at that week, and the same is

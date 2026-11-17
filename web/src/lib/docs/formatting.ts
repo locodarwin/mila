@@ -1,4 +1,4 @@
-// The formatting beyond Markdown (docs/PLAN.md section 3): highlights, fonts
+// The formatting beyond Markdown: highlights, fonts
 // and sizes, columns, foldable sections, an image's size, side and caption, a
 // saved view in a page, and a page's own font and size. What Markdown can't
 // say is written as an HTML comment marker or a little HTML that other

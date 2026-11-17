@@ -1,4 +1,4 @@
-// The initial-JavaScript budget (docs/PLAN.md section 13): for every route,
+// The initial-JavaScript budget: for every route,
 // the scripts a first visit loads before the page shows (the entry, the
 // root layout, the route's layouts and page, and everything they import
 // statically) must come to less than 200 KB compressed. Lazy parts (the

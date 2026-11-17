@@ -1,4 +1,4 @@
-// Settings' pages in their three sections (docs/PLAN.md section 3): about
+// Settings' pages in their three sections: about
 // you, about a workspace (the one the picker in the Workspace heading
 // chooses; its pages in two groups, for everyone in it and just yours), and
 // about this Mila. Each page has an icon, so a page never reads as a

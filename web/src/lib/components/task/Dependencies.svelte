@@ -13,8 +13,7 @@
 	import { toasts } from '../../toasts.svelte';
 	import { uuid } from '../../uuid';
 
-	// A task's Blocked by and Blocking, the two parts of its Dependencies section
-	// (docs/PLAN.md section 3).
+	// A task's Blocked by and Blocking, the two parts of its Dependencies section.
 	let { ws, replica, task }: { ws: string; replica: Replica; task: Task } = $props();
 
 	const blockers = $derived(replica.blockers(task.id));

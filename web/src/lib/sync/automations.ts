@@ -1,4 +1,4 @@
-// What the app does to automations (docs/PLAN.md section 3): the rows are synced like
+// What the app does to automations: the rows are synced like
 // any other, and the server runs them. Saving what a rule does makes it the saver's,
 // since a rule runs as whoever last changed it.
 import type { Rule } from '../automations';

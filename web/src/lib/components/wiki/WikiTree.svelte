@@ -17,7 +17,7 @@
 </script>
 
 <script lang="ts">
-	// A wiki's pages as a tree (docs/PLAN.md section 3): the main page at
+	// A wiki's pages as a tree: the main page at
 	// the root, subpages under their parents. One Tab stop; the arrows walk
 	// it and fold and unfold pages; Alt and the arrows move a page; a page
 	// drags before, after or into another. The main page stays where it is.

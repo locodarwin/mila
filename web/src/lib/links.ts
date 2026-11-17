@@ -1,4 +1,4 @@
-// Links between pages and tasks (docs/PLAN.md section 3): ordinary
+// Links between pages and tasks: ordinary
 // Markdown links to an address in the app, a page's (pageHref in wiki.ts)
 // or a task's, /?task=<id>. server/internal/syncer/links.go reads them
 // the same way (LinkTarget).

@@ -1,4 +1,4 @@
-// Selecting several tasks (docs/PLAN.md section 3): what Ctrl-click, Shift-click
+// Selecting several tasks: what Ctrl-click, Shift-click
 // and the select keys do to the selection.
 import { afterEach, describe, expect, it } from 'vitest';
 import { commandSelects, selection } from './selection.svelte';

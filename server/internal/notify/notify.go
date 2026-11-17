@@ -596,7 +596,7 @@ func (s *Service) threadChanged(ctx context.Context, c change) error {
 }
 
 // unblocked tells the assignees of each open task that waited for one
-// just done (docs/PLAN.md section 3) whether it can start or what it
+// just done whether it can start or what it
 // still waits for. Someone who finished it themselves needs no telling,
 // and nobody hears of a task in a project they cannot see.
 func (s *Service) unblocked(ctx context.Context, c change, done syncer.TaskBrief, actor string) error {

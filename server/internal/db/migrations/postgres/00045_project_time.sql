@@ -1,7 +1,7 @@
 -- +goose Up
--- Time logged to a project itself, not to one of its tasks (docs/PLAN.md
--- section 3), as time_entries is to a task: typed in, or a timer, which
--- runs while running is true (its minutes are 0 until it stops).
+-- Time logged to a project itself, not to one of its tasks, as
+-- time_entries is to a task: typed in, or a timer, which runs while
+-- running is true (its minutes are 0 until it stops).
 CREATE TABLE project_time_entries (
     id           TEXT PRIMARY KEY,
     workspace_id TEXT NOT NULL REFERENCES workspaces (id) ON DELETE CASCADE,

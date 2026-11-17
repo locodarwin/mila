@@ -13,10 +13,9 @@ import (
 	"github.com/locodarwin/mila/server/internal/syncer"
 )
 
-// A task's made_at and started_at, what reports read (docs/PLAN.md section 3,
-// Release 3.0, Reporting): the server fills both in under the edit's own
-// clock, a start stays once set, and tasks from before get both from their
-// history.
+// A task's made_at and started_at, what reports read: the server fills
+// both in under the edit's own clock, a start stays once set, and tasks
+// from before get both from their history.
 func TestTaskDates(t *testing.T) {
 	dbtest.Each(t, func(t *testing.T, d *db.DB) {
 		ctx := context.Background()

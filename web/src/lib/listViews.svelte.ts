@@ -1,6 +1,6 @@
 // How Inbox, My Day and Upcoming are set up on this device: the view (list,
 // board, calendar, table or timeline), its filter and its display, per workspace,
-// as a saved view would hold them (docs/PLAN.md section 3). Kept in
+// as a saved view would hold them. Kept in
 // localStorage, like a project's table layout; signing out clears it.
 import { applyPaths, type DisplayPath } from './displayPaths';
 import type { ViewEdit } from './sync/data';

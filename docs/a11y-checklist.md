@@ -1,6 +1,6 @@
 # Accessibility checklist
 
-Mila targets WCAG 2.2 AA (plan section 13). Automated checks catch much of it; the rest needs a person with a keyboard and a screen reader. Run this list at the end of every milestone and record the results at the bottom.
+Mila targets WCAG 2.2 AA. Automated checks catch much of it; the rest needs a person with a keyboard and a screen reader. Run this list at the end of every milestone and record the results at the bottom.
 
 ## What the tests already check
 
@@ -132,7 +132,7 @@ Stage 3 (2026-11-08). Screens added since M6 and the last pass: Reports and a sa
 
 Automated: all of the above green on desktop and phone. New for these screens: axe on a saved report view and on an invitation opened while signed in as someone else, and the arrow keys inside a report in a page (a chart's points step with the keys and show their values, and the page's text is left alone).
 
-Budgets (docs/PLAN.md section 13): initial JavaScript, the API, idle memory and the browser budgets pass; Lighthouse's script check now counts the first load only (Shawn, 2026-11-09), and passes.
+Budgets: initial JavaScript, the API, idle memory and the browser budgets pass; Lighthouse's script check now counts the first load only (Shawn, 2026-11-09), and passes.
 
 After stage 3 (2026-11-15). Screens and changes added since: time by week on the Time page and its chart; the weekly report email's settings; hours logged to a project (its Time tab) and Log time on the Time page; the calendar's busy days; Inbox, My Day and Upcoming as boards, Upcoming by day; resizable board columns, timeline names and table columns; Markdown heading levels and the Pages colors; the theme editor rebuilt (search, rows that open in place, clicking the preview); Settings grouped with a workspace picker, and two sections to a row on a wide screen. The desktop app's right-click menus need the desktop app and are not checked here.
 

@@ -1,9 +1,9 @@
 -- +goose Up
--- The links a task's notes or a page's body holds to pages and tasks
--- (docs/PLAN.md section 3), one row per document and target, kept by the
--- server whenever the notes or body are written. Renaming a page or task
--- reads it to find the documents whose links take the new name. Each row
--- names its document in task_id or page_id, never both, and goes with it.
+-- The links a task's notes or a page's body holds to pages and tasks, one
+-- row per document and target, kept by the server whenever the notes or
+-- body are written. Renaming a page or task reads it to find the
+-- documents whose links take the new name. Each row names its document in
+-- task_id or page_id, never both, and goes with it.
 CREATE TABLE doc_links (
     workspace_id TEXT NOT NULL REFERENCES workspaces (id) ON DELETE CASCADE,
     task_id      TEXT REFERENCES tasks (id) ON DELETE CASCADE,

@@ -53,7 +53,7 @@
 		`${done} of ${all} ${what}${all === 1 ? '' : 's'} done`;
 
 	const replica = $derived(engine.replica(ws));
-	// Selecting several (docs/PLAN.md section 3): once anything is selected,
+	// Selecting several: once anything is selected,
 	// each row has a circle at its start; on a phone that is picking, it
 	// takes the checkbox's place and swipes are off.
 	const selecting = $derived(selection.on(ws));

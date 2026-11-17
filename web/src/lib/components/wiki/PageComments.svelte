@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The comments on a wiki page (docs/PLAN.md section 3), beside it or over its
+	// The comments on a wiki page, beside it or over its
 	// edge, or in a sheet on a phone: the open threads in the order they come in
 	// the page, those whose words are gone after them, and the resolved below.
 	// Loaded when the Comments tab or a thread first shows.

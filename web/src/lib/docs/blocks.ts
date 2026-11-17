@@ -1,4 +1,4 @@
-// The `/` menu's blocks (docs/PLAN.md section 3): what typing `/` at the
+// The `/` menu's blocks: what typing `/` at the
 // start of a line offers to insert in a task's notes or a wiki page, and
 // how the menu narrows them as more is typed.
 import type { Editor } from '@tiptap/core';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	// What links to a page or task (docs/PLAN.md section 3): the pages and
+	// What links to a page or task: the pages and
 	// task notes holding a link to it, worked out on the device from what
 	// they say, so it shows offline too.
 	import FileText from '@lucide/svelte/icons/file-text';

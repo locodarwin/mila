@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Log time to a project itself from the Time page (docs/PLAN.md section 3):
+	// Log time to a project itself from the Time page:
 	// the same entry as the project's Time tab makes, with the project chosen
 	// here. A toast says where it went, with Undo.
 	import { onMount } from 'svelte';

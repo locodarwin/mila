@@ -1,4 +1,4 @@
-// Workspace themes (docs/PLAN.md section 3): themes a workspace offers
+// Workspace themes: themes a workspace offers
 // everyone in it, guests too, and never imposes. Each is a copy of one of
 // an admin's own themes, synced as the workspace's workspace_theme rows.
 //

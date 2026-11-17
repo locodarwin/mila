@@ -1,5 +1,5 @@
 -- +goose Up
--- A wiki page's history (docs/PLAN.md section 3): its body after each
+-- A wiki page's history: its body after each
 -- editing session, kept for good. A session is one person's edits with
 -- no gap of more than five minutes; a body written whole (a restore,
 -- a REST write) is a version of its own.

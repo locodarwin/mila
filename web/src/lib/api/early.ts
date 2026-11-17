@@ -2,7 +2,7 @@
 // app's own pages (not the sign-in ones) the head script in app.html
 // starts GET /auth/state and GET /workspaces as the page loads, so they
 // cross the network while the scripts do rather than after them (the
-// first-load budget, docs/PLAN.md section 13). Each is taken once, by the
+// first-load budget). Each is taken once, by the
 // first load that wants it, and all are dropped once anyone signs in or
 // the answer says nobody is.
 import type { paths } from './schema';

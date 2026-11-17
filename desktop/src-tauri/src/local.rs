@@ -1,6 +1,6 @@
 //! A place on this computer: the same Mila program the servers run, here with SQLite,
 //! on this computer's own address, from when it is first opened until the app quits
-//! (docs/PLAN.md section 3). Each place has a folder and a port of its own.
+//!. Each place has a folder and a port of its own.
 
 use crate::signin::{challenge_of, random_token};
 use std::net::TcpListener;

@@ -1,10 +1,10 @@
 name: Desktop
 
-# Builds the desktop app and has it try itself (docs/PLAN.md section 3). Windows can only
+# Builds the desktop app and has it try itself. Windows can only
 # be built here, so this is how a build for it is tried: run it by hand, or with a version
 # tag, which also attaches the installers to that release.
 # A tag, or a run by hand, also builds the server program for each system a release
-# offers (make release-bins, docs/PLAN.md section 8), attached beside the installers.
+# offers (make release-bins), attached beside the installers.
 on:
   push:
     tags: ["v*"]
@@ -223,7 +223,7 @@ jobs:
           merge-multiple: true
       # From 3.0 the install script refuses a release without an attestation,
       # and GitHub makes them only for a public repository: a 3.0 or later tag
-      # waits until the repository is public (docs/PLAN.md section 8).
+      # waits until the repository is public.
       - name: Check that the release can be attested
         if: github.event.repository.private
         env:

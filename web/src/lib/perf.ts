@@ -1,4 +1,4 @@
-// User-timing marks for the performance budgets (docs/PLAN.md section 13).
+// User-timing marks for the performance budgets.
 // The browser budget tests (web/e2e/budgets) and Lighthouse CI read them:
 // "interactive" is measured as mila:ready, since Lighthouse no longer
 // reports a time to interactive of its own.

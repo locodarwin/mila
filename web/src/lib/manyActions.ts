@@ -1,4 +1,4 @@
-// What a selection of tasks can be changed with (docs/PLAN.md section 3): the
+// What a selection of tasks can be changed with: the
 // bar's lists, the menu of a selected task, and the task keys while anything is
 // selected. Each change to many is one undo step, its ops one batch
 // (engine.batch). Someone who can't do a thing to every selected task isn't

@@ -196,8 +196,7 @@ var entities = map[string]*entity{
 				doc: "The ID of the first task of a repeating series, which may be long gone from the trash; null on the first task itself."},
 			{name: "estimate_minutes", kind: kInt, nullable: true, max: MaxEstimate,
 				doc: "How long the task's own work should take, in minutes; its subtasks have their own. Null for no estimate."},
-			// What reports read for trends (docs/PLAN.md section 3, Release
-			// 3.0, Reporting). The server fills both in (fillTaskDates).
+			// What reports read for trends. The server fills both in (fillTaskDates).
 			{name: "made_at", kind: kTime, nullable: true, immutable: true,
 				doc: "When the task was made. The server fills it in from the edit that makes the task; an import may give the original time instead. Null only for a task whose history was lost."},
 			{name: "started_at", kind: kTime, nullable: true, serverSet: true,
@@ -375,7 +374,7 @@ func init() {
 }
 
 func init() {
-	// Time logged on a task (docs/PLAN.md section 3): typed in, or a
+	// Time logged on a task: typed in, or a
 	// timer. Its person edits it, and so do admins.
 	entities["time_entry"] = &entity{
 		name: "time_entry", table: "time_entries", parent: "task_id", guestWritable: true,
@@ -395,10 +394,9 @@ func init() {
 }
 
 func init() {
-	// Time logged to a project itself, not to one of its tasks (docs/PLAN.md
-	// section 3): a meeting, planning, travel. Typed in, or a timer, as a
-	// task's. Who sees it follows the project; its person edits it, and so
-	// do admins.
+	// Time logged to a project itself, not to one of its tasks: a meeting,
+	// planning, travel. Typed in, or a timer, as a task's. Who sees it
+	// follows the project; its person edits it, and so do admins.
 	entities["project_time_entry"] = &entity{
 		name: "project_time_entry", table: "project_time_entries", projectOf: "project_id", guestWritable: true,
 		owner: "user_id", adminsEdit: true,

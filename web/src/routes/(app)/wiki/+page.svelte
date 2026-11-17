@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The workspace's wiki (docs/PLAN.md section 3); a project's is on the
+	// The workspace's wiki; a project's is on the
 	// project's Wiki tab. The page shown is in the address, ?page=<id>.
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';

@@ -1,5 +1,5 @@
 -- +goose Up
--- Files on a wiki page (docs/PLAN.md section 3), as attachments are on a
+-- Files on a wiki page, as attachments are on a
 -- task: the images a page shows are among them.
 CREATE TABLE page_attachments (
     id           TEXT PRIMARY KEY,

@@ -4,8 +4,7 @@ name: Image
 # repository is. CI calls it for every commit on main whose tests pass,
 # then deploys the image to staging (the staging job in ci.yml). A version
 # tag (v1.2.3) runs it on its own and builds a release image for amd64 and
-# arm64, which production pulls when Shawn chooses (docs/PLAN.md
-# section 8).
+# arm64, which production pulls when Shawn chooses.
 
 on:
   workflow_call:

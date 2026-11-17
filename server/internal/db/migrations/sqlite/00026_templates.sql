@@ -1,5 +1,5 @@
 -- +goose Up
--- Templates (docs/PLAN.md section 3): a project or a task saved to make
+-- Templates: a project or a task saved to make
 -- more from. data is the snapshot as JSON (web/src/lib/templates.ts).
 -- Members and admins see a workspace's templates; guests never do.
 CREATE TABLE templates (

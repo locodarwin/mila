@@ -159,7 +159,6 @@ Once it's running, open the setup link Mila prints to make your account, press `
 - **[The user guide](docs/guide/README.md):** everything Mila does, with pictures. Mila's own Help, at the foot of the sidebar, has the same and more.
 - **[Running Mila](docs/self-hosting.md):** installing, email, backups, upgrades and every setting.
 - **[Agents and the API](docs/agents.md):** scripts, AI assistants and MCP. Every Mila server shows its API reference at `/api/docs`.
-- **[Design notes](docs/PLAN.md):** how Mila is built and why, decision by decision.
 
 ## Security
 

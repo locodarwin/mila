@@ -12,7 +12,7 @@ import (
 	"github.com/locodarwin/mila/server/internal/syncer"
 )
 
-// The API's actions (docs/PLAN.md section 11, Agent access): what the app
+// The API's actions: what the app
 // does as one action, for scripts and agents.
 
 // actionBody is the most an action's body may be: a page's text and some.

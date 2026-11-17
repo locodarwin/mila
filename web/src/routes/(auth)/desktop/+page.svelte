@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Signing in to the desktop app (docs/PLAN.md section 3): it opens this page in
+	// Signing in to the desktop app: it opens this page in
 	// the person's own browser, where passkeys work. Once they are signed in here and
 	// say yes, the browser hands a one-time code to a port on this computer, where the
 	// app is listening. It asks first, so that a link someone sends can't sign an app

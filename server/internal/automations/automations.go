@@ -1,4 +1,4 @@
-// Package automations runs people's rules (docs/PLAN.md section 3): when something
+// Package automations runs people's rules: when something
 // happens to a task, and it fits, the changes they chose. A change to a task is heard
 // inside its transaction and only queues a job; the job then checks the rule against the
 // task as it stands and makes the changes through syncer.Write, as whoever last saved

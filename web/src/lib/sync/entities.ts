@@ -74,13 +74,13 @@ export const DEFAULTS: Record<Entity, Values> = {
 		recurrence_mode: 'schedule',
 		series_id: null,
 		estimate_minutes: null,
-		// What reports read; the server fills both in (docs/PLAN.md section 3).
+		// What reports read; the server fills both in.
 		made_at: null,
 		started_at: null
 	},
 	label: { name: '', color: 'blue', sort_key: '', deleted_at: null },
 	task_label: { task_id: '', label_id: '', deleted_at: null },
-	// task_id waits for blocker_id to be done (docs/PLAN.md section 3).
+	// task_id waits for blocker_id to be done.
 	task_dependency: { task_id: '', blocker_id: '', deleted_at: null },
 	task_assignee: { task_id: '', user_id: '', deleted_at: null },
 	checklist_item: { task_id: '', text: '', done: false, sort_key: '', deleted_at: null },
@@ -296,7 +296,7 @@ export interface Task {
 }
 
 /**
- * Time logged on a task by one person (docs/PLAN.md section 3): typed in,
+ * Time logged on a task by one person: typed in,
  * or a timer, which runs while running is true and counts from startedAt;
  * its minutes are 0 until it stops.
  */

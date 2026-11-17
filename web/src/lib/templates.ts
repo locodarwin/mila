@@ -1,4 +1,4 @@
-// Templates (docs/PLAN.md section 3): a project, a task or a wiki page saved
+// Templates: a project, a task or a wiki page saved
 // to make more from. What a template holds and how the app reads one, small
 // enough for every page; taking a snapshot and making rows from one are
 // in templatePlan.ts, loaded when a template is saved or used. The server

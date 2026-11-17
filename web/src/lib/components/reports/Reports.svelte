@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The Reports page (docs/PLAN.md section 3, Release 3.0): three tabs,
+	// The Reports page: three tabs,
 	// Project status, Workload, and Throughput and cycle time, each worked
 	// out on this device from the tasks it holds (lib/reports.ts), narrowed
 	// by a saved view's filter and, where it counts weeks, a period. The tab,

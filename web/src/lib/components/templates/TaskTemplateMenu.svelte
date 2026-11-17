@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	// The menu beside New task (docs/PLAN.md section 3): a task from one of
+	// The menu beside New task: a task from one of
 	// the workspace's task templates, made in the project on screen or the
 	// inbox.
 	import { page } from '$app/state';

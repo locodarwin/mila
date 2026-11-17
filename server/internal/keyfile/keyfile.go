@@ -1,6 +1,6 @@
 // Package keyfile seals the secrets Mila keeps in its database with a key
-// kept apart from it, in the data directory (docs/PLAN.md section 11, the
-// Microsoft mailbox), so the database alone, and so every backup of it,
+// kept apart from it, in the data directory (the
+// Microsoft mailbox's sign-in), so the database alone, and so every backup of it,
 // holds nothing usable. The key is made the first time something is sealed:
 // 32 random bytes, base64, in <data dir>/secret.key, readable by its owner
 // alone. A sealed value is AES-256-GCM over the secret, bound to what it is

@@ -1,4 +1,4 @@
-// Lengths of time for estimates and time logged (docs/PLAN.md section 3):
+// Lengths of time for estimates and time logged:
 // read from what people type, and shown as "1h 30m". Pure and small, since
 // rows and cards show them.
 

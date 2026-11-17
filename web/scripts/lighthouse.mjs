@@ -1,4 +1,4 @@
-// Lighthouse CI for the first-load budgets (docs/PLAN.md section 13): the
+// Lighthouse CI for the first-load budgets: the
 // sign-in page, a signed-in inbox and a board, audited as a mid-range
 // phone on 4G (Lighthouse's mobile preset: a Moto G class screen, its CPU
 // slowed four times, the network simulated). It starts bin/mila on a

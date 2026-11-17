@@ -27,7 +27,7 @@ const (
 	weeklyNeeds    = 10
 )
 
-// SendWeekly queues the weekly report (docs/PLAN.md section 3, Reporting)
+// SendWeekly queues the weekly report
 // for everyone who has it on, on the first day of their week from their
 // digest hour: one for each workspace they are in, about the week before.
 // Each is claimed in the transaction that queues it, so it goes once. It

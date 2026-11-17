@@ -26,7 +26,7 @@ import (
 	"github.com/locodarwin/mila/server/internal/store"
 )
 
-// Lifetimes from the plan.
+// Session lifetimes.
 const (
 	SessionLifetime = 30 * 24 * time.Hour
 	// SessionMaxAge is how long a session lasts however often it is used:

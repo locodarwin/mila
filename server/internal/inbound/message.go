@@ -1,4 +1,4 @@
-// Package inbound is email to task (docs/PLAN.md section 11): reading a mailbox,
+// Package inbound is email to task: reading a mailbox,
 // telling which of its mail is addressed to someone's private address, and making
 // tasks of what they accept. Nothing here replies to anyone.
 package inbound

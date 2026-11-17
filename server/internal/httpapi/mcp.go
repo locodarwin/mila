@@ -13,7 +13,7 @@ import (
 	"github.com/locodarwin/mila/server/internal/milaclient"
 )
 
-// Mila's own MCP endpoint (docs/PLAN.md section 11, Agent access, phase 4):
+// Mila's own MCP endpoint:
 // the tools `mila mcp` serves over stdio, served at /api/v1/mcp over MCP's
 // streamable HTTP to an agent that sends an API token. It keeps no session:
 // each POST is answered by a server made for it, whose tools call the API in

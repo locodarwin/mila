@@ -1,5 +1,5 @@
 -- +goose Up
--- Live documents (docs/PLAN.md section 7): each row is one Yjs update to a
+-- Live documents: each row is one Yjs update to a
 -- task's notes, as base64. Rows are never changed, only deleted when the
 -- server merges a document's rows into one; the task's notes column holds
 -- the document rendered as Markdown.

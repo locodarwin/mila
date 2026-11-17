@@ -1,4 +1,4 @@
-//! Signing in through the person's own browser (docs/PLAN.md section 3): the Linux
+//! Signing in through the person's own browser: the Linux
 //! webview has no WebAuthn, so the app opens the browser at the server, and the
 //! browser hands a one-time code to a port on this computer only. The code is no use
 //! without the verifier, a secret that never leaves this program (RFC 7636 and 8252).

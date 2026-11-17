@@ -1,5 +1,5 @@
 <script lang="ts">
-	// A wiki page's history (docs/PLAN.md section 3): a version for each
+	// A wiki page's history: a version for each
 	// editing session, by who and when, what each changed with the words
 	// marked, and Restore. History lives on the server, so it needs a
 	// connection. Loaded only when opened.

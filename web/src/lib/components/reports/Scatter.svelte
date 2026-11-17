@@ -21,7 +21,7 @@
 
 <script lang="ts">
 	// One dot a thing, by when (along the bottom) and how much (up the side),
-	// drawn by Mila (docs/PLAN.md section 3): 4.5px dots ringed in the page's
+	// drawn by Mila: 4.5px dots ringed in the page's
 	// color, dashed lines for marks such as the median, a recessive grid.
 	// Hovering or a tap shows the nearest dot's tooltip; the arrow keys on the
 	// focused chart step through the dots in order, and the same is announced.

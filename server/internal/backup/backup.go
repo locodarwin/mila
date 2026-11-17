@@ -4,7 +4,7 @@
 // database the instance runs on: SQLite is copied with VACUUM INTO, and
 // Postgres with the copier in package db, so restoring and moving between
 // databases use the same path and no pg_dump of a matching version needs
-// to be installed. docs/PLAN.md section 12 has the design.
+// to be installed.
 package backup
 
 import (

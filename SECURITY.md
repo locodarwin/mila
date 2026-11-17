@@ -14,6 +14,6 @@ Only the latest release gets security fixes. Upgrading is described in [docs/sel
 
 Every file in a release has a checksum in `SHA256SUMS` and GitHub's attestation, in `mila.intoto.jsonl`, that Mila's release workflow built it from the release's tag. [docs/self-hosting.md](docs/self-hosting.md#option-3-the-program-on-its-own) shows how to check one.
 
-## What Mila does to stay safe
+## Running it safely
 
-How sign-in, sessions, permissions and the rest are built, and what each security review found and changed, is in [docs/PLAN.md](docs/PLAN.md), section 9.
+Serving Mila over HTTPS, trusting only your own proxy, and keeping the data directory and backups private are covered in [docs/self-hosting.md](docs/self-hosting.md#keeping-it-safe).

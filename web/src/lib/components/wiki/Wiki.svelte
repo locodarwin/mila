@@ -6,7 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { page as route } from '$app/state';
 	import { slugOf } from '../../mentions';
-	// A wiki (docs/PLAN.md section 3): the workspace's, or a project's on its
+	// A wiki: the workspace's, or a project's on its
 	// Wiki tab. Its pages in a tree beside the page shown, which folds away;
 	// the page's path, the people in it, its Markdown view and its menu
 	// above it; its title and its live document below; and, in the space
@@ -169,7 +169,7 @@
 		await tick();
 		hideSideButton?.focus();
 	}
-	// The comments on the page (docs/PLAN.md section 3): beside it when there is
+	// The comments on the page: beside it when there is
 	// room, over its edge when not, and in a sheet on a phone.
 	const pins = new CommentPins(showComments);
 	let commentsOver = $state(false);
@@ -233,7 +233,7 @@
 			}
 		});
 	});
-	// Page templates (docs/PLAN.md section 3): an empty page offers them.
+	// Page templates: an empty page offers them.
 	let pageEditor = $state<{
 		fill(md: string): boolean;
 		clear(): void;
@@ -241,7 +241,7 @@
 		pageStyle(): { font: string | null; size: string | null };
 		setPageStyle(font: string | null, size: string | null): void;
 	}>();
-	// The page's own font and size (docs/PLAN.md section 3), from its menu.
+	// The page's own font and size, from its menu.
 	let typeOpen = $state(false);
 	let typeNow = $state<{ font: string | null; size: string | null }>({ font: null, size: null });
 	let pageEmpty = $state(false);

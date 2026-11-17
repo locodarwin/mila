@@ -1,5 +1,5 @@
 <script lang="ts">
-	// A report view's page (docs/PLAN.md section 3, Release 3.0): the Reports
+	// A report view's page: the Reports
 	// page set up as the view is. What a member changes (tab, period, project,
 	// filter) is saved to the view, as its filter is; a guest's stays on their
 	// screen, as the view's page decides. Loaded only when a report view opens.

@@ -1,5 +1,5 @@
 -- +goose Up
--- One change to many tasks (selecting several, docs/PLAN.md section 3): the
+-- One change to many tasks (selecting several): the
 -- batch its ops carried. A rule's runs from one batch count once toward its
 -- hourly pause, and the assignments one batch makes are pushed as one.
 ALTER TABLE automation_runs ADD COLUMN batch TEXT;

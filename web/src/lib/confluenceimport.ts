@@ -1,4 +1,4 @@
-// Importing from Confluence (docs/PLAN.md section 3, Importers): the files
+// Importing from Confluence: the files
 // Confluence's own Export to Markdown writes, one page each, with its title
 // as the first heading, its text and its tables, and no pictures, attached
 // files or pages under it. Reading is pure; running makes the pages in the

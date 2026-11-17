@@ -1,5 +1,5 @@
 {
-	"_comment": "Live documents (docs/PLAN.md section 7): the editor's answers, from web/src/lib/docs/vectors.ts. parse: Markdown and what Tiptap reads from it. render: documents and the Markdown the server writes for them (md, filled by the Go tests with -update), which Tiptap must read back as the same document. yjs: updates as y-tiptap writes them and the document they merge to. Compare documents after normalizing as y-tiptap stores them: node attributes with defaults and no nulls, mark attributes with defaults, marks by name, no empty content.",
+	"_comment": "Live documents: the editor's answers, from web/src/lib/docs/vectors.ts. parse: Markdown and what Tiptap reads from it. render: documents and the Markdown the server writes for them (md, filled by the Go tests with -update), which Tiptap must read back as the same document. yjs: updates as y-tiptap writes them and the document they merge to. Compare documents after normalizing as y-tiptap stores them: node attributes with defaults and no nulls, mark attributes with defaults, marks by name, no empty content.",
 	"schema": {
 		"nodes": {
 			"blockquote": {},

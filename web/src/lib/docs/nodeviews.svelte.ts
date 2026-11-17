@@ -1,5 +1,5 @@
 // How the editor draws the formatting beyond Markdown that needs more than its
-// HTML (docs/PLAN.md section 3): a foldable section with its button, an image with
+// HTML: a foldable section with its button, an image with
 // its size, side and caption, and a saved view's tasks. Loaded with the editor.
 import { Extension, type NodeViewRenderer } from '@tiptap/core';
 import { Plugin } from '@tiptap/pm/state';

@@ -1,4 +1,4 @@
-// The Reports page (docs/PLAN.md section 3, Release 3.0), pure: what the
+// The Reports page, pure: what the
 // three tabs count, worked out on the device from the tasks it holds, so
 // they work offline and count only what the person can see. Loaded only
 // with that page.
@@ -486,7 +486,7 @@ export function flowReport(tasks: Task[], o: FlowOptions): FlowReport {
 	};
 }
 
-// The weekly report (docs/PLAN.md section 3, added 2026-11-11). It is an
+// The weekly report (added 2026-11-11). It is an
 // email, so the server works it out, in Go (server/internal/reports); this
 // is the same arithmetic on the app's own rules, and
 // shared/weekly-vectors.json holds the two to the same answers.

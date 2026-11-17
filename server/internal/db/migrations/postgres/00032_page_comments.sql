@@ -1,5 +1,5 @@
 -- +goose Up
--- Comments pinned to text in a wiki page (docs/PLAN.md section 3): a thread
+-- Comments pinned to text in a wiki page: a thread
 -- holds where it is pinned and whether it is resolved, which anyone who can
 -- comment may change; its comments are their authors' alone.
 CREATE TABLE page_threads (

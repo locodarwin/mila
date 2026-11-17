@@ -1,5 +1,5 @@
 <script lang="ts">
-	// A saved view in a wiki page or a task's notes (docs/PLAN.md section 3): its
+	// A saved view in a wiki page or a task's notes: its
 	// tasks as the view lays them out (a list, a board or a table), or as the page
 	// asked for, worked out on this device from its copy, as the view's own page
 	// does, so it works offline and stays current. Anyone sees only the tasks they

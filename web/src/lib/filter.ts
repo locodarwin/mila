@@ -26,11 +26,11 @@ export interface FilterContext {
 	fieldType?: (fieldId: string) => FieldType | undefined;
 	/** A task's stored value for a field, or undefined for none. */
 	value?: (taskId: string, fieldId: string) => FieldValue | undefined;
-	/** Whether a task waits for one not done (docs/PLAN.md section 3). */
+	/** Whether a task waits for one not done. */
 	blocked?: (taskId: string) => boolean;
 	/** Whether an open task holds up one not done. */
 	blocking?: (taskId: string) => boolean;
-	/** The time logged on a task (docs/PLAN.md section 3). */
+	/** The time logged on a task. */
 	entries?: (taskId: string) => TimeFact[];
 	/** Whether the viewer picked a task for My Day, today or on an earlier day. */
 	inMyDay?: (taskId: string) => boolean;

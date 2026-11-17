@@ -16,12 +16,12 @@ import (
 	"github.com/locodarwin/mila/server/internal/httpapi/api"
 )
 
-// OAuth for apps that connect to the MCP endpoint (docs/PLAN.md section 11,
-// Agent access, phase 4), when the server lets them (MILA_OAUTH): the two
-// metadata documents apps look for first (RFC 9728 for the endpoint, RFC
-// 8414 for the server), registration (RFC 7591), the token endpoint, and the
-// app's page at /oauth/authorize, where the person says yes or no through
-// the consent endpoints. accounts/oauth.go holds the rules.
+// OAuth for apps that connect to the MCP endpoint, when the server lets them
+// (MILA_OAUTH): the two metadata documents apps look for first (RFC 9728 for
+// the endpoint, RFC 8414 for the server), registration (RFC 7591), the token
+// endpoint, and the app's page at /oauth/authorize, where the person says
+// yes or no through the consent endpoints. accounts/oauth.go holds the
+// rules.
 
 const (
 	prmPath      = "/.well-known/oauth-protected-resource"

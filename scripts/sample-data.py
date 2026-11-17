@@ -532,7 +532,7 @@ class Workspace:
         return aid
 
     def depend(self, task: str, blocker: str, created_days: float = 2) -> str:
-        """Makes task wait for blocker (docs/PLAN.md section 3)."""
+        """Makes task wait for blocker."""
         rid = self.row("task_dependency", pair_id(task, blocker), at=self.ago(created_days), task_id=task, blocker_id=blocker, deleted_at=None)
         self.history(task, "task_dependency", rid, "created", self.ago(created_days),
                      task_id=task, blocker_id=blocker, deleted_at=None)

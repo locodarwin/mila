@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-	// Columns of several series stacked, drawn by Mila (docs/PLAN.md section 3):
+	// Columns of several series stacked, drawn by Mila:
 	// the first series at the bottom, a 1px line in the page's color between
 	// parts, the top part rounded, each column's total on its cap, a recessive
 	// grid. A column still under way is drawn lighter. Hover, a tap or the arrow

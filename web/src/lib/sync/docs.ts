@@ -1,4 +1,4 @@
-// Live documents on the device (docs/PLAN.md section 7): a task's notes as
+// Live documents on the device: a task's notes as
 // a Yjs document, built from the task's doc_update rows. Edits made here go
 // out as new rows, at most one every half second while someone types and
 // at once when the editor closes; rows that arrive from elsewhere are

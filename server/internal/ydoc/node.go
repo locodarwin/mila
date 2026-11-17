@@ -2,9 +2,8 @@
 // page's body, held as Yjs updates in the shape y-tiptap gives them (the
 // XML fragment "default" of ProseMirror nodes). It merges and compacts
 // updates, reads them as a document, writes the Yjs update that turns one
-// document into another, and reads and writes Markdown (docs/PLAN.md
-// section 7). shared/doc-vectors.json holds all of it to the editor's own
-// answers.
+// document into another, and reads and writes Markdown.
+// shared/doc-vectors.json holds all of it to the editor's own answers.
 package ydoc
 
 import (

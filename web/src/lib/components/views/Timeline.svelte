@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The Timeline view (docs/PLAN.md section 3): each task a row, a bar
+	// The Timeline view: each task a row, a bar
 	// from its start to its due date (a diamond for one date), arrows from
 	// what it waits for, and an Unscheduled tray for tasks with no dates.
 	// Bars drag, their ends stretch, the dots beside them make a task wait

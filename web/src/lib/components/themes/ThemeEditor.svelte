@@ -69,7 +69,7 @@
 	// and dark, with a live preview of the app's own parts, contrast
 	// problems with Fix, and undo. Changes save as they are made; the app
 	// follows when this is the theme in use, as long as its text stays
-	// readable. (docs/PLAN.md section 3, Shawn's direction A of 2026-11-15:
+	// readable. (Shawn's direction A of 2026-11-15:
 	// the preview first, at the middle, showing the part being edited; the
 	// settings a row each, opening in place; a click on the preview finds
 	// the setting.) Wide, three columns that each scroll: parts, preview,

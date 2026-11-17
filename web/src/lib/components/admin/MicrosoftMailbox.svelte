@@ -1,8 +1,8 @@
 <script lang="ts">
-	// Settings, Admin: Mila's sign-in to a Microsoft mailbox for email to task
-	// (docs/PLAN.md section 11), which takes no password. Connect asks the
-	// server for a code, which an admin enters at Microsoft; the page reads the
-	// status again until the sign-in is made, refused or runs out.
+	// Settings, Admin: Mila's sign-in to a Microsoft mailbox for email to task,
+	// which takes no password. Connect asks the server for a code, which an
+	// admin enters at Microsoft; the page reads the status again until the
+	// sign-in is made, refused or runs out.
 	import { untrack } from 'svelte';
 	import { announce } from '../../announce.svelte';
 	import { api, call, messageOf, type Schemas } from '../../api/client';

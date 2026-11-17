@@ -153,7 +153,7 @@ func TestCheckSchema(t *testing.T) {
 // update the current one.
 var fingerprints = map[int]string{
 	1: "0a5dd67342f6fd2f",
-	// 2: doc_update, the rows of live documents (docs/PLAN.md section 7);
+	// 2: doc_update, the rows of live documents;
 	// then page, page_update and page_attachment, the wiki, which apps of
 	// 2 never send and keep without reading; then task_dependency,
 	// dependencies (section 3), the same; and the timeline view type,

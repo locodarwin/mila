@@ -1,11 +1,10 @@
 <script lang="ts">
-	// One chart of a shared report view in a wiki page or a task's notes
-	// (docs/PLAN.md section 3, Release 3.0): worked out on this device from its
-	// copy, as the Reports page does, so it works offline, stays current, and
-	// counts only the tasks this reader can see. It follows the view: a change
-	// to the view's period or filter changes every page showing it. Drawn by
-	// the editor's node for it (nodeviews.svelte.ts); the Reports component
-	// loads only when one shows.
+	// One chart of a shared report view in a wiki page or a task's notes:
+	// worked out on this device from its copy, as the Reports page does, so it
+	// works offline, stays current, and counts only the tasks this reader can
+	// see. It follows the view: a change to the view's period or filter
+	// changes every page showing it. Drawn by the editor's node for it
+	// (nodeviews.svelte.ts); the Reports component loads only when one shows.
 	import { resolve } from '$app/paths';
 	import { viewReport, type ReportSource } from '../../reportSetup.svelte';
 	import { chartOf, type ReportChart } from '../../reportKinds';

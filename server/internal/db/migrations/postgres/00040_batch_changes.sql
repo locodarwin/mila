@@ -1,9 +1,8 @@
 -- +goose Up
--- What each op of a batch written through the API changed from (docs/PLAN.md
--- section 11, Agent access), so the batch can be undone as a whole: the
--- fields' values before it, the clock it stamped them with, whether it made
--- the row, and its change number, which orders them. Kept as long as the
--- trash keeps rows.
+-- What each op of a batch written through the API changed from, so the
+-- batch can be undone as a whole: the fields' values before it, the clock
+-- it stamped them with, whether it made the row, and its change number,
+-- which orders them. Kept as long as the trash keeps rows.
 CREATE TABLE batch_changes (
     op_id        TEXT PRIMARY KEY,
     workspace_id TEXT NOT NULL REFERENCES workspaces (id) ON DELETE CASCADE,

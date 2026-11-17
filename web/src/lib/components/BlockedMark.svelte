@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Ban from '@lucide/svelte/icons/ban';
 
-	// The Blocked mark (docs/PLAN.md section 3): a task waiting for one
+	// The Blocked mark: a task waiting for one
 	// that is not done. The names say what it waits for.
 	let { names }: { names: string[] } = $props();
 	const label = $derived(`Blocked by ${names.join(', ')}`);

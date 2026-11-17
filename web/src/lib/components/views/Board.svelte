@@ -111,7 +111,7 @@
 		return out;
 	});
 
-	// Selecting several (docs/PLAN.md section 3): the cards in board order,
+	// Selecting several: the cards in board order,
 	// column by column.
 	const order = () => columns.flatMap((c) => c.tasks.map((t) => t.id));
 	$effect(() => selection.register(order));

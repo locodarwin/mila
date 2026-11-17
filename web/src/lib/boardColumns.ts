@@ -1,4 +1,4 @@
-// A board's columns (docs/PLAN.md section 3): a project's statuses, the
+// A board's columns: a project's statuses, the
 // priorities, due dates or a field's choices, each with what moving a card
 // into it writes. Apart from viewDisplay.ts, so a page loads it only once a
 // board shows.

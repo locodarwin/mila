@@ -1,7 +1,7 @@
 <script lang="ts">
-	// A wiki page's own font and size, for everyone who reads it (docs/PLAN.md
-	// section 3), from the page's menu. Without them each reader's theme decides.
-	// Each choice is an edit to the page, made as it's chosen.
+	// A wiki page's own font and size, for everyone who reads it, from
+	// the page's menu. Without them each reader's theme decides. Each
+	// choice is an edit to the page, made as it's chosen.
 	import { FONT_NAMES, FONT_STACKS, PAGE_FONTS, PAGE_SIZES } from '../../docs/formatting';
 	import Announcer from '../Announcer.svelte';
 

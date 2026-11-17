@@ -4,7 +4,7 @@
 // workspace. Both are slow jobs (jobs.SlowLane), so a large one never
 // delays a reminder; the export zips and the uploads waiting to be
 // imported live in folders of their own beside the attachments, and
-// expire. docs/PLAN.md section 12 has the design.
+// expire.
 package ownership
 
 import (

@@ -1,4 +1,4 @@
-// Automations (docs/PLAN.md section 3): what a rule holds, and saying it in words.
+// Automations: what a rule holds, and saying it in words.
 // Pure, for the page and its tests. The server reads rules in syncer/automation.go and
 // runs them in internal/automations; these lists are the same as its own.
 import { matches, type FilterContext } from './filter';

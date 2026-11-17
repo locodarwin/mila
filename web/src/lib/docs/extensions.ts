@@ -1,4 +1,4 @@
-// What a live document may hold (docs/PLAN.md section 3): the editor's
+// What a live document may hold: the editor's
 // nodes and marks, the same for task notes and wiki pages, with how each
 // reads and writes Markdown. The editor, its read-only view and the test
 // vectors (vectors.ts) all build from this list, so the schema the server

@@ -464,7 +464,7 @@ export function setAssignee(ws: string, taskId: string, userId: string, on: bool
 	});
 }
 
-// Dependencies (docs/PLAN.md section 3)
+// Dependencies
 
 /**
  * Why taskId cannot wait for blockerId, or null when it can: itself, a
@@ -972,7 +972,7 @@ export function shareView(ws: string, view: SavedView): Promise<string> {
 	});
 }
 
-// Wiki pages (docs/PLAN.md section 3)
+// Wiki pages
 
 /**
  * Makes a wiki's main page if this device has not seen it: as far as

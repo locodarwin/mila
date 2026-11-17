@@ -22,12 +22,12 @@ import (
 )
 
 // A Microsoft mailbox (Outlook.com, Microsoft 365) takes no password over
-// IMAP. Mila signs in to it through Microsoft instead (docs/PLAN.md section
-// 11): an instance admin enters a code at Microsoft once, and the refresh
-// token that comes back is kept here, in instance_setting, never shown, and
-// sealed with the data directory's key (keyfile), so a backup of the
-// database alone holds nothing usable. Each check trades it for an access
-// token, which signs in to IMAP with XOAUTH2.
+// IMAP. Mila signs in to it through Microsoft instead: an instance admin
+// enters a code at Microsoft once, and the refresh token that comes back is
+// kept here, in instance_setting, never shown, and sealed with the data
+// directory's key (keyfile), so a backup of the database alone holds
+// nothing usable. Each check trades it for an access token, which signs in
+// to IMAP with XOAUTH2.
 
 // microsoftKey holds the sign-in.
 const microsoftKey = "inbound_microsoft"

@@ -495,7 +495,7 @@ export class Replica {
 		return this.#liveIn(this.#byTask, `${entity}/${taskId}`);
 	}
 
-	/** The tasks this one waits for (docs/PLAN.md section 3), done ones too. */
+	/** The tasks this one waits for, done ones too. */
 	blockers(taskId: string): Task[] {
 		const out: Task[] = [];
 		for (const r of this.#children('task_dependency', taskId)) {

@@ -1,4 +1,4 @@
-// Right-click menus (docs/PLAN.md section 3): what can be done to a task, a view, a
+// Right-click menus: what can be done to a task, a view, a
 // project or another thing, at the pointer, beside what has focus (Shift+F10 or the
 // Menu key), or from a held finger as a sheet. Everything in one is somewhere else
 // too. This is the small part every page loads: what's open, and the `menu` action

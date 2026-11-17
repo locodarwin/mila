@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { BUDGET_DATA, BUDGET_SERVER } from '../../playwright.budgets.config';
 
-// The browser's budgets from docs/PLAN.md section 13, on the generated
+// The browser's budgets, on the generated
 // 5,000-task workspace (playwright.budgets.config.ts):
 //
 // - first sync: a first visit, signed in on a device with nothing stored,

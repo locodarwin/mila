@@ -1,5 +1,5 @@
 -- +goose Up
--- The weekly report by email (docs/PLAN.md section 3, Reporting): the last
+-- The weekly report by email: the last
 -- week reported to each person for each workspace, the day it began, so a
 -- restart or a second server never sends one twice.
 CREATE TABLE weekly_reports (

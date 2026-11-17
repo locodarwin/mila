@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Connecting an app by OAuth (docs/PLAN.md section 11, Agent access): an app such
+	// Connecting an app by OAuth: an app such
 	// as a hosted assistant sends the person here to say whether it may use Mila's
 	// tools as them. The server checks the app and where it will send them before
 	// anything shows, and never sends anyone to an address the app didn't register.

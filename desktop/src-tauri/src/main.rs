@@ -1,4 +1,4 @@
-// Mila in a window of its own (docs/PLAN.md section 3). A thin shell: a window showing
+// Mila in a window of its own. A thin shell: a window showing
 // a server's pages or those of a copy of Mila it runs on this computer, the Places screen
 // and a menu to choose between them, signing in through the browser, a shortcut and
 // desktop notifications, also for a place on this computer whose window is elsewhere.

@@ -1,5 +1,5 @@
 -- +goose Up
--- The wiki (docs/PLAN.md section 3): pages of a project, or of the whole
+-- The wiki: pages of a project, or of the whole
 -- workspace when project_id is null. A wiki's main page has no parent and
 -- an ID made from its project's or workspace's; every other page has a
 -- parent. body is the page's live document rendered as Markdown; the

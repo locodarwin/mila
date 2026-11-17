@@ -6,7 +6,7 @@
 #   make test-pg    Go tests against a throwaway Postgres in podman/docker
 #   make lint       gofmt, go vet, prettier, eslint, svelte-check
 #   make generate   regenerate query code, the API server and the API types
-#   make budgets    the performance budgets (docs/PLAN.md section 13)
+#   make budgets    the performance budgets
 #   make visual     the style guide's screenshots against their baselines,
 #                   in the pinned Playwright image (visual-update remakes them)
 #   make shots      the pictures in help and the user guide, from a seeded

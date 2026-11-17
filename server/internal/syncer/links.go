@@ -1,6 +1,6 @@
 package syncer
 
-// Links between pages and tasks (docs/PLAN.md section 3). A link is an
+// Links between pages and tasks. A link is an
 // ordinary Markdown link to its address in the app: a page's
 // (/wiki?page=<id>, or /projects/<id>?tab=wiki&page=<id>) or a task's
 // (?task=<id> on any page). When a page or task is renamed, the links to

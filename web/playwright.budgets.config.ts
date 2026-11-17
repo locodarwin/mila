@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// The browser's performance budgets (docs/PLAN.md section 13), measured on
+// The browser's performance budgets, measured on
 // a server of their own holding a generated 5,000-task workspace, so its
 // data never meets the functional tests'. It runs the binary `make build`
 // made; `make budgets` builds it first. One test at a time, so nothing

@@ -1,6 +1,6 @@
-// What a template holds, in a line, and whether one is too large to keep
-// (docs/PLAN.md section 3): for the dialogs and Settings, Templates,
-// which load apart. templates.ts, which every page reads, stays small.
+// What a template holds, in a line, and whether one is too large to
+// keep: for the dialogs and Settings, Templates, which load apart.
+// templates.ts, which every page reads, stays small.
 import { MAX_BYTES, MAX_PAGES, MAX_TASKS, type Template, type TemplateData } from './templates';
 
 /** The size of a snapshot as stored, and what is wrong with it, if anything. */

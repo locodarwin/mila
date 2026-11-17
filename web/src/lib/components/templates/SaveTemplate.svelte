@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Save as a template (docs/PLAN.md section 3): a project, a task or a page, as
+	// Save as a template: a project, a task or a page, as
 	// a new template or over one of the same kind, and what comes along.
 	import Announcer from '../Announcer.svelte';
 	import Button from '../Button.svelte';

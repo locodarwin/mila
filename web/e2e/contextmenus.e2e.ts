@@ -1,4 +1,4 @@
-// Right-click menus (docs/PLAN.md section 3): a task's, a view's and a project's, from
+// Right-click menus: a task's, a view's and a project's, from
 // the pointer and from the keyboard, and on a phone from a held finger.
 import { expect, test, type Page } from '@playwright/test';
 import { axe } from './axe';

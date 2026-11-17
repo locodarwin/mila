@@ -15,7 +15,7 @@
 </script>
 
 <script lang="ts">
-	// Horizontal bars of one series, drawn by Mila (docs/PLAN.md section 3):
+	// Horizontal bars of one series, drawn by Mila:
 	// a name before each, its value after it, rounded at the end and square
 	// at the axis. Hover, a tap or the arrow keys on the focused chart show a
 	// bar's tooltip, and the same is announced.

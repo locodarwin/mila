@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# The server's idle-memory budget (docs/PLAN.md section 13): bin/mila,
+# The server's idle-memory budget: bin/mila,
 # serving a generated 5,000-task workspace, must sit under 100 MB of
 # resident memory once it has served that workspace's bootstrap and gone
 # quiet. Linux only (it reads /proc). Run after `make build`, or through

@@ -1,11 +1,11 @@
 <script lang="ts">
 	// A live document in the editor: a task's notes or a wiki page's body,
-	// a Yjs document that merges what everyone types (docs/PLAN.md section
-	// 7, lib/sync/docs.ts), with the others who have it open shown by
-	// their faces and cursors. Text from before live documents shows as it
-	// is until the server has made its document, which arrives with the
-	// next sync. In the Markdown view the document is edited as Markdown,
-	// which goes into it as an edit like any other.
+	// a Yjs document that merges what everyone types (lib/sync/docs.ts),
+	// with the others who have it open shown by their faces and cursors.
+	// Text from before live documents shows as it is until the server has
+	// made its document, which arrives with the next sync. In the Markdown
+	// view the document is edited as Markdown, which goes into it as an
+	// edit like any other.
 	import type { Editor } from '@tiptap/core';
 	import { goto } from '$app/navigation';
 	import { untrack, type Component } from 'svelte';
@@ -475,7 +475,7 @@
 {/if}
 
 <style>
-	/* A document's own type (docs/PLAN.md section 3): the theme's page font, or
+	/* A document's own type: the theme's page font, or
 	   the page's own. Its Markdown (headings, links, lists, code, quotes, tables)
 	   is styles/doctext.css, which the theme preview shares. */
 	.doc {

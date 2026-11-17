@@ -125,7 +125,7 @@
 				</div>
 			{/if}
 			<!-- Wide, a page's sections marked half pair up two to a row; the rest
-			     keep the whole width (docs/PLAN.md section 3, Settings). -->
+			     keep the whole width. -->
 			<div class="grid">{@render children()}</div>
 		</div>
 	{/if}

@@ -1,4 +1,4 @@
-// The desktop app's few features, for the pages it shows (docs/PLAN.md section 3).
+// The desktop app's few features, for the pages it shows.
 // In a browser none of this exists and every call does nothing. The app allows
 // these named commands to Mila's own server and to nothing else.
 

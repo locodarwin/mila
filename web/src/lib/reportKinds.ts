@@ -1,6 +1,6 @@
-// The tabs, periods and charts of a report (docs/PLAN.md section 3, Release
-// 3.0), apart from reports.ts so a saved report view's page and the editor can
-// name them without loading what the reports work out.
+// The tabs, periods and charts of a report, apart from reports.ts so a
+// saved report view's page and the editor can name them without loading
+// what the reports work out.
 export type ReportTab = 'status' | 'workload' | 'flow';
 export const REPORT_TABS: ReportTab[] = ['status', 'workload', 'flow'];
 

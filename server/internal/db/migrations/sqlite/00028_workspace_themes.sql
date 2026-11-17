@@ -1,5 +1,5 @@
 -- +goose Up
--- Workspace themes (docs/PLAN.md section 3): themes a workspace offers
+-- Workspace themes: themes a workspace offers
 -- its members and guests, never imposes. body is the theme document as
 -- JSON (web/src/lib/theme/document.ts), a copy of one of the publisher's
 -- own themes; source_id is that theme's id, for Update from my theme.

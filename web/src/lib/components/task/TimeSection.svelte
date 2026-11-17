@@ -1,5 +1,5 @@
 <script lang="ts">
-	// A task's Time (docs/PLAN.md section 3): its own estimate, the time
+	// A task's Time: its own estimate, the time
 	// logged on it and what is left, its subtasks' added in, the person's
 	// timer, Log time, and every entry, which its person (or an admin)
 	// changes in place.

@@ -1,5 +1,5 @@
 // Package milaclient talks to a Mila server's API with a personal API token,
-// for `mila mcp` and `mila api` (docs/PLAN.md section 11, Agent access): the
+// for `mila mcp` and `mila api`: the
 // API's actions, its reads, and undoing a batch, in one workspace.
 package milaclient
 

@@ -1,8 +1,8 @@
 <script lang="ts">
-	// Choosing a saved view to show in a wiki page or a task's notes (docs/PLAN.md
-	// section 3), or a report view to show a chart of. Only shared views are
-	// offered: someone's own would show everyone else an empty box. Loaded with
-	// the editor's tools (DocTools).
+	// Choosing a saved view to show in a wiki page or a task's notes, or a
+	// report view to show a chart of. Only shared views are offered: someone's
+	// own would show everyone else an empty box. Loaded with the editor's tools
+	// (DocTools).
 	import { session } from '../../session.svelte';
 	import { engine } from '../../sync/engine.svelte';
 	import Announcer from '../Announcer.svelte';

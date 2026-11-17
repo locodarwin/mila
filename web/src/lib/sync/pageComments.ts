@@ -1,4 +1,4 @@
-// Comments pinned to text in a wiki page (docs/PLAN.md section 3): what the panel
+// Comments pinned to text in a wiki page: what the panel
 // beside the page may do. Apart from data.ts, so first loads do not carry it.
 import { uuid } from '../uuid';
 import { engine } from './engine.svelte';

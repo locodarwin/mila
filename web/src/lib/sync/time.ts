@@ -1,4 +1,4 @@
-// Time (docs/PLAN.md section 3): estimates, time logged and timers.
+// Time: estimates, time logged and timers.
 // Apart from data.ts so a page's first load does not carry them; the task
 // panel, the timer and the palette load them when they are used.
 import { MAX_ENTRY, minutesBetween } from '../duration';

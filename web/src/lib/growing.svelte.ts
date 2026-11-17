@@ -1,7 +1,7 @@
 // Long lists are drawn a screenful at a time: the first rows at once, then
 // more as the reader scrolls near the end of what is drawn. A view of a
 // thousand tasks so opens, and closes, as fast as one of fifty (the budget
-// for switching views is 50 ms, docs/PLAN.md section 13). Headings keep
+// for switching views is 50 ms). Headings keep
 // the full counts, so nobody is misled about what is further down.
 
 import { untrack } from 'svelte';

@@ -178,7 +178,7 @@ let crowd: { n: number } | null = null;
  * fades in, or only fades with reduced motion, while everything around it
  * holds still. An animation of the page itself, not a view transition:
  * one of those holds the new view back two frames to capture the old one,
- * over the 50 ms budget for switching views (docs/PLAN.md section 13), and
+ * over the 50 ms budget for switching views, and
  * keeps taps from the page while it runs.
  */
 export function arrive(node: HTMLElement): Animation | undefined {

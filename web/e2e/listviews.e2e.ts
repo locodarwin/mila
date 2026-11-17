@@ -1,6 +1,5 @@
 // Inbox, My Day and Upcoming take a view, a filter and a display, kept on the
-// device for each list, a way back (Reset) and Save as view (docs/PLAN.md
-// section 3).
+// device for each list, a way back (Reset) and Save as view.
 import { expect, test } from '@playwright/test';
 import { axe } from './axe';
 import { pairId, SYNC_SCHEMA } from '../src/lib/sync/entities';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	// A project's Time tab (docs/PLAN.md section 3): this month's time on it
+	// A project's Time tab: this month's time on it
 	// in all, on its tasks and on the project itself; the person's timer for
 	// the project and Log time, which go to the project itself; and every
 	// entry, both kinds, newest first. An entry on the project itself is

@@ -1,4 +1,4 @@
-// The wiki's formatting beyond Markdown (docs/PLAN.md section 3): highlights and
+// The wiki's formatting beyond Markdown: highlights and
 // fonts from the formatting bar, columns, a foldable section and a view from the
 // `/` menu, and the page's own font and size from its menu, each kept as the
 // Markdown the page is saved in.

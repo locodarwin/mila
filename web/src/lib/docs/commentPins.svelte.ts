@@ -1,4 +1,4 @@
-// Where a page's comment threads sit in its text (docs/PLAN.md section 3): what
+// Where a page's comment threads sit in its text: what
 // the panel beside the page and the editor's highlights share. Small, since the
 // page loads it; the highlights themselves are commentMarks.ts, which loads with
 // the editor, and the panel is PageComments.svelte.

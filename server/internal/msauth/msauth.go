@@ -1,10 +1,9 @@
 // Package msauth signs Mila in to a Microsoft mailbox (Outlook.com, Microsoft
-// 365) for email to task, which these take no password for over IMAP
-// (docs/PLAN.md section 11). It is OAuth 2.0's device code flow against
-// Microsoft's identity platform, with an app the server's admin registered in
-// Microsoft Entra: a public client, so there is no secret to keep. Mila asks
-// to read the mailbox over IMAP, to stay signed in, and for the account's name
-// to show who signed in; nothing else.
+// 365) for email to task, which these take no password for over IMAP. It is
+// OAuth 2.0's device code flow against Microsoft's identity platform, with an
+// app the server's admin registered in Microsoft Entra: a public client, so
+// there is no secret to keep. Mila asks to read the mailbox over IMAP, to stay
+// signed in, and for the account's name to show who signed in; nothing else.
 package msauth
 
 import (

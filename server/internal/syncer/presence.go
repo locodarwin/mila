@@ -1,6 +1,6 @@
 package syncer
 
-// Presence (docs/PLAN.md section 7): who has a live document open, and
+// Presence: who has a live document open, and
 // where their cursor is. Devices send Yjs awareness updates over the
 // WebSocket; the server passes them to the other devices that have the
 // same document open and may see it, and stores nothing.

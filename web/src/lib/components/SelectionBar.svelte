@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The bar that changes the selected tasks (docs/PLAN.md section 3): floating at
+	// The bar that changes the selected tasks: floating at
 	// the bottom of the page on a computer; on a phone in place of the tabs, with a
 	// strip at the top for the count, All and Done. Each button's list is a menu
 	// (manyActions.ts), above it, or a sheet on a phone. Loaded once something is

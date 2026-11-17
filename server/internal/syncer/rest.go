@@ -20,7 +20,7 @@ import (
 	"github.com/locodarwin/mila/server/internal/recur"
 )
 
-// The REST endpoints for synced rows (docs/PLAN.md section 11): lists,
+// The REST endpoints for synced rows: lists,
 // reads and writes of one row at a time. A write is one op through the
 // same merge as a push, with the same checks, log, history and pokes;
 // what differs is that the server stamps its HLC, and that it can ask

@@ -1,5 +1,5 @@
 -- +goose Up
--- Email to task (docs/PLAN.md section 11): a person's private addresses, each
+-- Email to task: a person's private addresses, each
 -- going to the Inbox or a project, and the mail that reached them. An address
 -- can only add tasks, so its token stays readable for the person to copy again.
 -- senders is a JSON list of the addresses accepted beside the person's own.

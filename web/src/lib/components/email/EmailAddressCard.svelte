@@ -1,5 +1,5 @@
 <script lang="ts">
-	// One of a person's addresses for email to task (docs/PLAN.md section 11): the
+	// One of a person's addresses for email to task: the
 	// address to copy, where its tasks go, and who it accepts mail from.
 	import X from '@lucide/svelte/icons/x';
 	import type { Schemas } from '../../api/client';

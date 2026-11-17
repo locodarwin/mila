@@ -1,6 +1,6 @@
 package syncer
 
-// Dependencies (docs/PLAN.md section 3): a task_dependency row says its
+// Dependencies: a task_dependency row says its
 // task waits for its blocker to be done. Either may be in any project of
 // the workspace; the row's scope is both projects (bothScope), so a guest
 // sees it only when they see both tasks. A dependency that would close a

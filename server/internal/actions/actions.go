@@ -1,5 +1,5 @@
 // Package actions is what the app does as one action, for scripts and agents
-// through the API (docs/PLAN.md section 11, Agent access): the ops the app
+// through the API: the ops the app
 // would make, one after another through syncer.Write as the caller, with the
 // same checks, history and notifications as any write of theirs. Wherever an
 // action takes a project, status, label or person it takes a name too,

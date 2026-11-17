@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The person's running timer (docs/PLAN.md section 3): at the foot of
+	// The person's running timer: at the foot of
 	// the sidebar, or a bar above the tabs on a phone, on every page. It
 	// notes that they are about while it runs, and after 10 hours asks
 	// whether to stop it when they were last active, at a time they

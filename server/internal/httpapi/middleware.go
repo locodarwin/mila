@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// securityHeaders sets the strict policy from the plan: no inline scripts
+// securityHeaders sets a strict policy: no inline scripts
 // except the app's own bootstrap (allowed by hash), nothing from third
 // parties, no framing.
 func securityHeaders(next http.Handler, scriptHashes []string, https bool) http.Handler {

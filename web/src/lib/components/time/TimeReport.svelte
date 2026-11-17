@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The Time page (docs/PLAN.md section 3): what was logged in a week, a
+	// The Time page: what was logged in a week, a
 	// month, weeks, a quarter or a range, by person, project or label, a column
 	// a day or a week, with a chart of it by week for a longer period, and
 	// estimates against what finished tasks took. A guest sees only their own

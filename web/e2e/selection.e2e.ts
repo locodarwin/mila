@@ -1,4 +1,4 @@
-// Selecting several tasks (docs/PLAN.md section 3): by Ctrl-click, Shift-click and
+// Selecting several tasks: by Ctrl-click, Shift-click and
 // keys in a list, on a board and in a table; the bar's changes as one undo step; a
 // selected task's menu; and on a phone, picking from a held finger's menu.
 import { expect, test, type Page } from '@playwright/test';

@@ -1,5 +1,5 @@
 {
-  "about": "The weekly report's figures (docs/PLAN.md section 3). web/src/lib/reports.weekly.spec.ts runs each case through weeklyReport and server/internal/reports through Weekly; both must give expect. Entries are on a task, or with taskId null on a project itself, which counts while the project is in use. Tasks are every live task the person sees: fields left out are null, mine is false. Days fall in zone. WEEKLY_VECTORS=write npx vitest run reports.weekly in web/ fills in expect from the app's answers: look at what changed.",
+  "about": "The weekly report's figures. web/src/lib/reports.weekly.spec.ts runs each case through weeklyReport and server/internal/reports through Weekly; both must give expect. Entries are on a task, or with taskId null on a project itself, which counts while the project is in use. Tasks are every live task the person sees: fields left out are null, mine is false. Days fall in zone. WEEKLY_VECTORS=write npx vitest run reports.weekly in web/ fills in expect from the app's answers: look at what changed.",
   "cases": [
     {
       "name": "a week in a workspace",

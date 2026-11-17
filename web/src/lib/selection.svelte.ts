@@ -1,4 +1,4 @@
-// Selecting several tasks (docs/PLAN.md section 3): which tasks are selected,
+// Selecting several tasks: which tasks are selected,
 // in the lists, boards and tables that show tasks. This is the small part every
 // list loads; what a selection can be changed with (manyActions.ts) and the bar
 // (components/SelectionBar.svelte) load once something is selected.

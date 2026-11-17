@@ -1,5 +1,5 @@
 -- +goose Up
--- Time tracking and estimates (docs/PLAN.md section 3). A task's estimate
+-- Time tracking and estimates. A task's estimate
 -- is its own work in minutes, or null for none. Each piece of time logged
 -- is a row: typed in, or a timer, which runs while running is true (its
 -- minutes are 0 until it stops) and counts from started_at. active_at is

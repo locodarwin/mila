@@ -1,5 +1,5 @@
 <script lang="ts">
-	// The editor's tools (docs/PLAN.md section 3), loaded with the editor:
+	// The editor's tools, loaded with the editor:
 	// the formatting bar over selected text (and in a table, the table's
 	// actions), which Alt+F10 reaches from the keyboard; the `/` menu at
 	// the start of a line and the `[[` menu of links; and the image picker. DocEditor passes key

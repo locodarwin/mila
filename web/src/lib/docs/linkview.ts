@@ -1,4 +1,4 @@
-// How links show and behave in the editor (docs/PLAN.md section 3): a
+// How links show and behave in the editor: a
 // click follows a link, and a link to a task or page in the app is
 // followed by a short note of what it points at now, the task's status or
 // "In the trash". Only the view: the document holds the links as they are.

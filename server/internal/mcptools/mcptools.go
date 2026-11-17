@@ -1,5 +1,5 @@
 // Package mcptools is `mila mcp`: Mila's API as tools for an agent harness,
-// over MCP (docs/PLAN.md section 11, Agent access). Each tool is one of the
+// over MCP. Each tool is one of the
 // API's actions or reads, through milaclient, in one workspace, and every
 // write of a session goes in one batch, so the session can be undone.
 package mcptools
