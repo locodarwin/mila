@@ -9,6 +9,15 @@
 	import { toasts } from '../toasts.svelte';
 
 	let menu = $state<HTMLElement>();
+	let trigger = $state<HTMLElement>();
+	// The room between the button and the bottom of the window: the list
+	// grows into it and scrolls only past it.
+	let room = $state<number>();
+
+	function measure() {
+		if (!trigger) return;
+		room = Math.max(120, innerHeight - trigger.getBoundingClientRect().bottom - 4 - 8);
+	}
 	let creating = $state(false);
 	let name = $state('');
 
@@ -34,7 +43,10 @@
 	}
 </script>
 
+<svelte:window onresize={() => menu?.matches(':popover-open') && measure()} />
+
 <button
+	bind:this={trigger}
 	class="trigger"
 	type="button"
 	popovertarget="workspace-menu"
@@ -46,7 +58,14 @@
 	<ChevronDown size={14} />
 </button>
 
-<div id="workspace-menu" class="menu" popover bind:this={menu}>
+<div
+	id="workspace-menu"
+	class="menu"
+	popover
+	bind:this={menu}
+	onbeforetoggle={(e) => e.newState === 'open' && measure()}
+	style:--room={room ? `${room}px` : undefined}
+>
 	<p class="heading">Workspaces</p>
 	<ul>
 		{#each session.workspaces as ws (ws.id)}
@@ -127,6 +146,7 @@
 		top: 44px;
 		left: var(--space-2);
 		width: 240px;
+		max-height: var(--room, min(420px, 80vh));
 		margin: var(--space-1) 0 0;
 		padding: var(--space-2);
 		border: var(--border-width) solid var(--border);

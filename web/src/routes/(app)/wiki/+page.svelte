@@ -34,8 +34,9 @@
 {/if}
 
 <style>
+	/* One screen tall, less what the layout puts over it. */
 	.frame {
-		height: 100%;
+		height: calc(100% - var(--above, 0px));
 		min-height: 0;
 	}
 </style>

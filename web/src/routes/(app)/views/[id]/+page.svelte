@@ -472,10 +472,11 @@
 {/if}
 
 <style>
+	/* One screen tall, less what the layout puts over it. */
 	.frame {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		height: calc(100% - var(--above, 0px));
 	}
 	/* The header and the panels keep their height; the tasks below take
 	   what is left and scroll. */

@@ -1087,6 +1087,9 @@
 
 <style>
 	.scroll {
+		/* Holds the hidden labels in the cells, which would otherwise stretch
+		   the page behind it as tall as the table. */
+		position: relative;
 		overflow: auto;
 		height: 100%;
 		/* Room under the last group for a menu to open into. */

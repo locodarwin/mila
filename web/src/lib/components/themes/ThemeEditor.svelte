@@ -961,12 +961,12 @@
 {/snippet}
 
 <style>
-	/* The editor fills the page below the app's own bar; wide, its three
-	   columns scroll each on their own. */
+	/* The editor fills the page below the app's own bar (less what the
+	   layout puts over it); wide, its three columns scroll each on their own. */
 	.editor {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		height: calc(100% - var(--above, 0px));
 		min-height: 0;
 	}
 	.toolbar {

@@ -288,6 +288,8 @@
 	// the sidebar is hidden) in a bar above the page.
 	const phoneQuery = matchMedia('(max-width: 720px)');
 	let phone = $state(phoneQuery.matches);
+	// The height of the phone's bar and the theme notice over the page.
+	let above = $state(0);
 	$effect(() => {
 		const update = (e: MediaQueryListEvent) => (phone = e.matches);
 		phoneQuery.addEventListener('change', update);
@@ -531,27 +533,36 @@
 	</nav>
 
 	<!-- tabindex: the skip link's target, and where focus goes when what had it is gone. -->
-	<main id="main" tabindex="-1" inert={sheetOpen}>
-		{#if phone}
-			<div class="phone-bar">
-				<WorkspaceSwitcher />
-				<SyncDot state={engine.state} pending={engine.pending} compact />
-				<NotificationBell unread={notifications.unread} target="notifications" variant="icon" />
-				<a class="gear" href={helpHref} aria-label="Help" aria-current={inHelp ? 'page' : undefined}
-					><CircleQuestionMark size={20} /></a
-				>
-				<a
-					class="gear"
-					href={settingsHref}
-					aria-label="Settings"
-					aria-current={inSettings ? 'page' : undefined}><Settings size={20} /></a
-				>
+	<main id="main" tabindex="-1" inert={sheetOpen} style:--above="{phone || notice ? above : 0}px">
+		{#if phone || notice}
+			<!-- What sits over the page: a page one screen tall takes its height
+			     from what is left (--above), so main never scrolls with it. -->
+			<div class="above" bind:offsetHeight={above}>
+				{#if phone}
+					<div class="phone-bar">
+						<WorkspaceSwitcher />
+						<SyncDot state={engine.state} pending={engine.pending} compact />
+						<NotificationBell unread={notifications.unread} target="notifications" variant="icon" />
+						<a
+							class="gear"
+							href={helpHref}
+							aria-label="Help"
+							aria-current={inHelp ? 'page' : undefined}><CircleQuestionMark size={20} /></a
+						>
+						<a
+							class="gear"
+							href={settingsHref}
+							aria-label="Settings"
+							aria-current={inSettings ? 'page' : undefined}><Settings size={20} /></a
+						>
+					</div>
+				{/if}
+				{#if notice}
+					{#await import('#lib/components/themes/ThemeNotice.svelte') then { default: ThemeNotice }}
+						<ThemeNotice {notice} />
+					{/await}
+				{/if}
 			</div>
-		{/if}
-		{#if notice}
-			{#await import('#lib/components/themes/ThemeNotice.svelte') then { default: ThemeNotice }}
-				<ThemeNotice {notice} />
-			{/await}
 		{/if}
 		{@render children()}
 		{#if session.workspace && selecting}
@@ -906,6 +917,10 @@
 		font-family: var(--font-ui);
 		font-size: var(--text-xs);
 		color: var(--text-muted);
+	}
+	/* Margins inside count toward its height. */
+	.above {
+		display: flow-root;
 	}
 	.phone-bar {
 		display: flex;

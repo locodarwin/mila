@@ -68,6 +68,12 @@ export const INTERNAL: ReadonlySet<string> = new Set([
 	'track',
 	// The selection bar's height, which toasts rise above (SelectionBar.svelte).
 	'selection-bar',
+	// What the app layout puts over a page (the phone's bar, a theme notice),
+	// which a page one screen tall leaves room for (routes/(app)/+layout.svelte).
+	'above',
+	// The room under the workspace switcher, which its list grows into
+	// (WorkspaceSwitcher.svelte).
+	'room',
 	'icon-size',
 	'project-color',
 	'chip',

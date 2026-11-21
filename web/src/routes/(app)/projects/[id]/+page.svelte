@@ -519,11 +519,12 @@
 		box-shadow: var(--shadow-sm);
 		font-weight: 550;
 	}
-	/* One screen tall, so a board or calendar scrolls inside the view. */
+	/* One screen tall, less what the layout puts over it, so a board or
+	   calendar scrolls inside the view and the page itself never does. */
 	.project {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		height: calc(100% - var(--above, 0px));
 	}
 	.project > :global(.page) {
 		flex: none;
