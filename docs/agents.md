@@ -237,6 +237,8 @@ A task's `notes` and a page's `body` are Markdown, and live documents that peopl
 
 Better still, use `append-notes` or `replace-section`, which do this on the server and try again for you. Either way, add to the end or change one section rather than rewriting the whole, and keep every Mila marker as it is: `<!-- mila:... -->` comments, `<details>` blocks, `<mark>` and `<span data-...>` tags. Removing one removes the columns, view, fold or formatting it holds.
 
+A diagram is a fenced code block in the language `mermaid` (```` ```mermaid ````), which the app draws in pages and notes alike. Write Mermaid's own syntax inside it, and give it an `accTitle:` line so people using screen readers hear its name.
+
 ## Rules for agents
 
 - **Never make up an ID.** Leave `id` out of a POST and use the one the answer gives. The spec lets a client choose a new row's ID (the app does, to work offline), but an agent gains nothing by it, and some IDs Mila works out for itself and refuses one it wouldn't have made.

@@ -95,6 +95,13 @@
 	--page-table-head-text: var(--text-primary);
 	--page-table-stripe: var(--surface-0);
 	--page-rule: var(--border);
+	/* Diagrams and drawings in pages and notes. */
+	--diagram-node-bg: var(--surface-1);
+	--diagram-node-border: var(--border-strong);
+	--diagram-text: var(--text-primary);
+	--diagram-line: var(--text-secondary);
+	--diagram-group-bg: var(--surface-2);
+	--diagram-note-bg: var(--palette-yellow-soft);
 	--heading-weight: 600;
 
 	/* Shape */

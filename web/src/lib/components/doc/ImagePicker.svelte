@@ -47,7 +47,7 @@
 		e.currentTarget.value = '';
 		if (!file) return;
 		if (!IMAGE_TYPES.includes(file.type)) {
-			toasts.error('Images can be PNG, JPEG, GIF or WebP.');
+			toasts.error('Images can be PNG, JPEG, GIF, WebP or SVG.');
 			return;
 		}
 		busy = true;

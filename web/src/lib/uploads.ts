@@ -7,7 +7,7 @@ import type { DocTarget } from './sync/docs';
 export const MAX_UPLOAD = 25 * 1024 * 1024;
 
 /** The image types the server shows in the browser; the rest download. */
-export const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+export const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'];
 
 /** Where a task's or a page's file is served. */
 export const fileUrl = (ws: string, attachmentId: string) =>

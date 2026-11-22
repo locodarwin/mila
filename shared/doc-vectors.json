@@ -1071,6 +1071,27 @@
 			}
 		},
 		{
+			"name": "diagram",
+			"md": "```mermaid\nflowchart LR\n  accTitle: Request flow\n  A[Request] --> B{Approved?}\n  B -- Yes --> C[Start work]\n```",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "codeBlock",
+						"attrs": {
+							"language": "mermaid"
+						},
+						"content": [
+							{
+								"type": "text",
+								"text": "flowchart LR\n  accTitle: Request flow\n  A[Request] --> B{Approved?}\n  B -- Yes --> C[Start work]"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
 			"name": "indented code",
 			"md": "    indented code\n    more",
 			"json": {
@@ -4655,6 +4676,27 @@
 			}
 		},
 		{
+			"name": "written by the editor: diagram",
+			"md": "```mermaid\nsequenceDiagram\n  User->>App: Email\n  App-->>User: Link\n```",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "codeBlock",
+						"attrs": {
+							"language": "mermaid"
+						},
+						"content": [
+							{
+								"type": "text",
+								"text": "sequenceDiagram\n  User->>App: Email\n  App-->>User: Link"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
 			"name": "written by the editor: list in quote",
 			"md": "> - in quote\n>\n> after",
 			"json": {
@@ -6772,6 +6814,27 @@
 				]
 			},
 			"md": "```\n\n```"
+		},
+		{
+			"name": "diagram",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "codeBlock",
+						"attrs": {
+							"language": "mermaid"
+						},
+						"content": [
+							{
+								"type": "text",
+								"text": "sequenceDiagram\n  User->>App: Email\n  App-->>User: Link"
+							}
+						]
+					}
+				]
+			},
+			"md": "```mermaid\nsequenceDiagram\n  User->>App: Email\n  App-->>User: Link\n```"
 		},
 		{
 			"name": "list in quote",
@@ -9379,6 +9442,27 @@
 				]
 			},
 			"md": "```\nplain\n  indented\n```"
+		},
+		{
+			"name": "read from diagram",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "codeBlock",
+						"attrs": {
+							"language": "mermaid"
+						},
+						"content": [
+							{
+								"type": "text",
+								"text": "flowchart LR\n  accTitle: Request flow\n  A[Request] --> B{Approved?}\n  B -- Yes --> C[Start work]"
+							}
+						]
+					}
+				]
+			},
+			"md": "```mermaid\nflowchart LR\n  accTitle: Request flow\n  A[Request] --> B{Approved?}\n  B -- Yes --> C[Start work]\n```"
 		},
 		{
 			"name": "read from indented code",

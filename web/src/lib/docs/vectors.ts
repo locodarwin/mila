@@ -74,6 +74,10 @@ const HAND: [string, string][] = [
 	['nested quote', '> outer\n>\n> > inner'],
 	['code block', '```js\nconst a = 1;\nconsole.log(a);\n```'],
 	['code block without a language', '```\nplain\n  indented\n```'],
+	[
+		'diagram',
+		'```mermaid\nflowchart LR\n  accTitle: Request flow\n  A[Request] --> B{Approved?}\n  B -- Yes --> C[Start work]\n```'
+	],
 	['indented code', '    indented code\n    more'],
 	['rule', 'above\n\n---\n\nbelow'],
 	['escapes', 'Escapes: \\*not bold\\* and \\_not italic\\_ and \\# not a heading'],
@@ -309,6 +313,16 @@ const EDITOR: [string, JSONContent[]][] = [
 		[{ type: 'codeBlock', attrs: { language: null }, content: [t('x\n  y')] }]
 	],
 	['empty code', [{ type: 'codeBlock', attrs: { language: null } }]],
+	[
+		'diagram',
+		[
+			{
+				type: 'codeBlock',
+				attrs: { language: 'mermaid' },
+				content: [t('sequenceDiagram\n  User->>App: Email\n  App-->>User: Link')]
+			}
+		]
+	],
 	[
 		'list in quote',
 		[

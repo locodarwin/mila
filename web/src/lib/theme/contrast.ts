@@ -154,6 +154,13 @@ export const PAIRS: readonly Pair[] = [
 	).map(([fg, label]): Pair => ({ fg, bg: ['surface-0', 'panel-bg'], min: 'text', label })),
 	{ fg: 'page-code-text', bg: ['page-code-bg'], min: 'text', label: 'Code in pages' },
 	{
+		fg: 'diagram-text',
+		bg: ['diagram-node-bg', 'diagram-group-bg', 'diagram-note-bg', 'surface-0'],
+		min: 'text',
+		label: 'Words in diagrams'
+	},
+	{ fg: 'diagram-line', bg: ['surface-0', 'panel-bg'], min: 'ui', label: 'Lines in diagrams' },
+	{
 		fg: 'page-table-head-text',
 		bg: ['page-table-head-bg'],
 		min: 'text',

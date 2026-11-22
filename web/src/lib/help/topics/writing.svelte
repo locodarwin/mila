@@ -29,8 +29,8 @@
 <p>
 	Type <code>/</code> at the start of a line for a menu of what can go there: a heading, a bulleted
 	or numbered list, a checklist, a table, two or three columns, a foldable section, a saved view, a
-	code block, a quote, a note, tip or warning box, an image or a divider. Keep typing to narrow it,
-	choose with the arrow keys and Enter, or press Escape to keep the <code>/</code> as it is.
+	diagram, a code block, a quote, a note, tip or warning box, an image or a divider. Keep typing to
+	narrow it, choose with the arrow keys and Enter, or press Escape to keep the <code>/</code> as it is.
 </p>
 <p>
 	A checklist's boxes tick as you click them. They are part of the text: the task's own Checklist,
@@ -97,11 +97,39 @@
 	it.
 </p>
 
+<h2 id="diagrams" tabindex="-1">Diagrams</h2>
+<p>
+	Choose Diagram from the <code>/</code> menu, then a kind: a flowchart, sequence diagram, state
+	diagram, class diagram, entity relationship diagram, org chart, architecture diagram, mind map,
+	timeline, Gantt chart or pie chart. Each starts as a small example to change. Typing a kind's name
+	after the <code>/</code> finds it too.
+</p>
+<p>
+	A diagram is drawn from text in Mermaid's language, described at mermaid.js.org. While the cursor
+	is in a diagram, its text shows under the drawing, or beside it on a wide page, and the drawing
+	changes as you type. If the text has a mistake, the last drawing stays, dimmed, with the mistake
+	and its line under the text. Escape leaves the text, and Edit on the diagram goes back to it.
+</p>
+<p>
+	A line such as <code>accTitle: Request flow</code> names the diagram, for screen readers, full
+	screen and downloads, and <code>accDescr:</code> describes it.
+</p>
+<p>
+	The buttons on a diagram show it full screen, where you can zoom and move it, copy its text, or
+	download it as an SVG or PNG picture. Its colors come from your theme.
+</p>
+<p>
+	A diagram is kept as a code block in the language <code>mermaid</code>, which GitHub, Obsidian and
+	Notion draw too. People can change one together, and a page's history shows what changed in its
+	text. Diagrams are drawn on your device, so they work offline: the common kinds always, and the
+	others once one has been drawn while connected.
+</p>
+
 <h2 id="images" tabindex="-1">Images</h2>
 <p>
 	Choose Image from the <code>/</code> menu to put a picture in the text. The images already attached
 	to the task or page show to pick from, or upload a new one, which is attached for you. Images can be
-	PNG, JPEG, GIF or WebP, and uploading needs a connection.
+	PNG, JPEG, GIF, WebP or SVG, and uploading needs a connection.
 </p>
 <p>
 	Click an image and the bar gives it a size (a quarter, half, three quarters or the full width), a

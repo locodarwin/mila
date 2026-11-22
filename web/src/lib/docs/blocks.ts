@@ -2,6 +2,7 @@
 // start of a line offers to insert in a task's notes or a wiki page, and
 // how the menu narrows them as more is typed.
 import type { Editor } from '@tiptap/core';
+import { STARTERS } from './diagrams';
 
 export interface Block {
 	id: string;
@@ -10,9 +11,22 @@ export interface Block {
 	words: string[];
 	/** Inserts the block where the `/` was, or for an image, asks for one. */
 	insert?: (editor: Editor) => void;
+	/** Offered only once something typed finds it, not in the whole list. */
+	typed?: boolean;
 }
 
 const chain = (e: Editor) => e.chain().focus();
+
+/** A diagram from its source, the caret at its end so the source shows. */
+export function insertDiagram(e: Editor, source: string) {
+	chain(e)
+		.insertContent({
+			type: 'codeBlock',
+			attrs: { language: 'mermaid' },
+			content: [{ type: 'text', text: source }]
+		})
+		.run();
+}
 
 const column = () => ({ type: 'column', content: [{ type: 'paragraph' }] });
 
@@ -108,6 +122,15 @@ export const BLOCKS: Block[] = [
 	{ id: 'view', label: 'View', words: ['saved view', 'tasks', 'embed'] },
 	// So does a report, then which of its charts.
 	{ id: 'report', label: 'Report', words: ['chart', 'graph', 'burnup', 'reports'] },
+	// A diagram asks which kind to start from; each kind is found by typing too.
+	{ id: 'diagram', label: 'Diagram', words: ['mermaid', 'chart', 'flowchart', 'drawing'] },
+	...STARTERS.map((d): Block => ({
+		id: `diagram-${d.id}`,
+		label: d.label,
+		words: ['diagram', 'mermaid', ...d.words],
+		typed: true,
+		insert: (e) => insertDiagram(e, d.source)
+	})),
 	{
 		id: 'note',
 		label: 'Note box',
@@ -139,7 +162,7 @@ export const BLOCKS: Block[] = [
 /** The blocks a query finds: those whose name or words start with it, in menu order. */
 export function findBlocks(query: string): Block[] {
 	const q = query.trim().toLowerCase();
-	if (!q) return BLOCKS;
+	if (!q) return BLOCKS.filter((b) => !b.typed);
 	return BLOCKS.filter((b) =>
 		[b.label, ...b.words].some((w) =>
 			w

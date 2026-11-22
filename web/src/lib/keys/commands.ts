@@ -474,6 +474,42 @@ export const COMMANDS = [
 		help: 'On the picture in the cropper: plus zooms in and minus zooms out, about the middle.'
 	},
 	{
+		id: 'diagram.move',
+		name: 'Move a diagram shown full screen',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: [
+			'ArrowLeft',
+			'ArrowRight',
+			'ArrowUp',
+			'ArrowDown',
+			'Shift+ArrowLeft',
+			'Shift+ArrowRight',
+			'Shift+ArrowUp',
+			'Shift+ArrowDown'
+		],
+		remappable: false,
+		help: 'On a diagram shown full screen; Shift takes bigger steps.'
+	},
+	{
+		id: 'diagram.zoom',
+		name: 'Zoom a diagram shown full screen',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: ['+', '-', '0'],
+		remappable: false,
+		help: 'On a diagram shown full screen: plus zooms in, minus zooms out, and zero fits it to the window.'
+	},
+	{
+		id: 'diagram.leave',
+		name: "Leave a diagram's source",
+		scope: 'elsewhere',
+		keys: [],
+		fixed: ['Escape'],
+		remappable: false,
+		help: "In a diagram's source, in a page or notes: the diagram stays picked, and Enter goes back into its source."
+	},
+	{
 		id: 'theme.undo',
 		name: 'Undo a change in the theme editor',
 		scope: 'elsewhere',

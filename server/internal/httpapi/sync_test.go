@@ -202,6 +202,15 @@ func TestAttachmentsUploadAndDownload(t *testing.T) {
 		t.Fatalf("image download headers = %d %v", got.StatusCode, got.Header)
 	}
 
+	// An SVG shows, under a policy that runs and loads nothing.
+	_, svgRow := upload("flow.svg", "image/svg+xml", []byte(`<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script><image href="/api/v1/me"/></svg>`))
+	got = download(svgRow["id"].(string))
+	if csp := got.Header.Get("Content-Security-Policy"); got.Header.Get("Content-Type") != "image/svg+xml" ||
+		!strings.HasPrefix(got.Header.Get("Content-Disposition"), "inline") ||
+		!strings.Contains(csp, "sandbox") || !strings.Contains(csp, "default-src 'none'") || strings.Contains(csp, "img-src") {
+		t.Fatalf("svg download headers = %v", got.Header)
+	}
+
 	// An HTML file never renders as a page.
 	_, row = upload("page.html", "text/html", []byte("<script>alert(1)</script>"))
 	got = download(row["id"].(string))
@@ -223,9 +232,9 @@ func TestAttachmentsUploadAndDownload(t *testing.T) {
 		t.Fatalf("oversize upload = %d %v", resp.StatusCode, body)
 	}
 
-	// The task's history records the files.
+	// The task's history records the files: the task and its three.
 	_, events := c.doList("GET", "/workspaces/"+ws+"/tasks/"+task+"/activity")
-	if len(events) != 3 {
+	if len(events) != 4 {
 		t.Fatalf("activity = %v", events)
 	}
 }

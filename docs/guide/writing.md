@@ -84,11 +84,21 @@ The chart is worked out on each reader's device, so it is always current and wor
 
 Only shared report views can go in a page. Make one on the Reports page with Save as view, then share it.
 
+## Diagrams
+
+Choose Diagram from the `/` menu, then a kind: a flowchart, sequence diagram, state diagram, class diagram, entity relationship diagram, org chart, architecture diagram, mind map, timeline, Gantt chart or pie chart. Each starts as a small example to change. Typing a kind's name after the `/` finds it too.
+
+A diagram is drawn from text in [Mermaid](https://mermaid.js.org)'s language. While the cursor is in a diagram, its text shows under the drawing, or beside it on a wide page, and the drawing changes as you type. If the text has a mistake, the last drawing stays, dimmed, with the mistake and its line under the text. Escape leaves the text, and Edit on the diagram goes back to it.
+
+A line such as `accTitle: Request flow` names the diagram, for screen readers, full screen and downloads, and `accDescr:` describes it. The buttons on a diagram show it full screen, where you can zoom and move it, copy its text, or download it as an SVG or PNG picture. Its colors come from your theme.
+
+A diagram is kept as a code block in the language `mermaid`, which GitHub, Obsidian and Notion draw too. People can change one together, and a page's history shows what changed in its text. Diagrams are drawn on your device, so they work offline: the common kinds always, and the others once one has been drawn while connected.
+
 ## Images
 
 Choose Image from the `/` menu to put a picture in the text. The images already attached to the task or page show to pick from, or upload a new one, which is attached for you.
 
-Images can be PNG, JPEG, GIF or WebP, up to 25 MB. Uploading needs a connection.
+Images can be PNG, JPEG, GIF, WebP or SVG, up to 25 MB. Uploading needs a connection.
 
 Click an image and the bar has three more choices:
 

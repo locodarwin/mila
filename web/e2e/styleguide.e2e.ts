@@ -24,6 +24,8 @@ for (const character of characters) {
 			// And the colors and themes (ColorDemo.svelte, ThemesDemo.svelte).
 			await expect(page.getByRole('heading', { name: 'Menus, panels and toasts' })).toBeVisible();
 			await expect(page.getByRole('heading', { name: 'ThemePreview' })).toBeVisible();
+			// The diagrams draw once Mermaid has loaded (DiagramsDemo.svelte).
+			await expect(page.locator('.diagram .drawing > svg')).toHaveCount(11, { timeout: 20_000 });
 			// A page of samples, not a page of the app: its structure is not checked.
 			await axe(page, { structure: false });
 		});

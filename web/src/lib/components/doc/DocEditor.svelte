@@ -218,7 +218,8 @@
 			import('../../docs/linkview'),
 			import('../../docs/commentMarks'),
 			import('../../docs/nodeviews.svelte'),
-			import('../../docs/formatting')
+			import('../../docs/formatting'),
+			import('../../docs/diagrams')
 		]).then(
 			([
 				{ Editor },
@@ -231,8 +232,9 @@
 				{ default: DocTools },
 				{ LinkView },
 				{ CommentMarks, pinSelection, revealMark },
-				{ foldView, FoldReveal, imageView, viewEmbedView, reportEmbedView },
-				{ FONT_STACKS, PAGE_SCALE }
+				{ foldView, FoldReveal, imageView, viewEmbedView, reportEmbedView, codeBlockView },
+				{ FONT_STACKS, PAGE_SCALE },
+				{ DiagramEditing }
 			]) => {
 				if (destroyed) return;
 				stacks = FONT_STACKS;
@@ -251,10 +253,12 @@
 								fold: foldView,
 								image: imageView,
 								viewEmbed: viewEmbedView(ws),
-								reportEmbed: reportEmbedView(ws)
+								reportEmbed: reportEmbedView(ws),
+								codeBlock: codeBlockView
 							}
 						}),
 						FoldReveal,
+						DiagramEditing,
 						LinkView.configure({ noteFor, follow }),
 						CommentMarks.configure({ pins: untrack(() => pins) ?? null }),
 						Markdown,
@@ -382,7 +386,8 @@
 							fold: views.foldView,
 							image: views.imageView,
 							viewEmbed: views.viewEmbedView(ws),
-							reportEmbed: views.reportEmbedView(ws)
+							reportEmbed: views.reportEmbedView(ws),
+							codeBlock: views.codeBlockView
 						}
 					}),
 					LinkView.configure({ noteFor, follow }),
@@ -816,6 +821,34 @@
 	.doc :global(.report-embed) {
 		margin: 0.2em 0;
 	}
+	/* A diagram: its drawing, and its source while the caret is in it, under
+	   the drawing, or beside it where the block is wide enough. */
+	.doc :global(.diagram-block) {
+		container-type: inline-size;
+		margin: 0.2em 0;
+	}
+	.doc :global(.diagram-inner) {
+		display: grid;
+		gap: var(--space-2);
+	}
+	.doc :global(.diagram-source) {
+		display: none;
+		margin: 0;
+	}
+	.doc :global(.diagram-block.editing .diagram-source) {
+		display: block;
+	}
+	@container (min-width: 720px) {
+		.doc :global(.diagram-block.editing .diagram-inner) {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			align-items: start;
+		}
+		.doc :global(.diagram-block.editing .diagram-source) {
+			grid-row: 1;
+			grid-column: 1;
+		}
+	}
+	.doc :global(.diagram-block.ProseMirror-selectednode),
 	.doc :global(.view-embed.ProseMirror-selectednode),
 	.doc :global(.report-embed.ProseMirror-selectednode) {
 		outline: var(--focus-ring-width) solid var(--focus-ring-color);

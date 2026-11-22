@@ -36,7 +36,8 @@
 	import MessageSquarePlus from '@lucide/svelte/icons/message-square-plus';
 	import { announce } from '../../announce.svelte';
 	import { keymap } from '../../keys/keymap.svelte';
-	import { findBlocks, slashAt, type Block } from '../../docs/blocks';
+	import { findBlocks, insertDiagram, slashAt, type Block } from '../../docs/blocks';
+	import type { Starter } from '../../docs/diagrams';
 	import { linkAt, linkChoices } from '../../docs/mentions';
 	import { createPage } from '../../sync/data';
 	import { engine } from '../../sync/engine.svelte';
@@ -45,6 +46,7 @@
 	import { pageHref } from '../../wiki';
 	import type { DocTarget } from '../../sync/docs';
 	import ImagePicker from './ImagePicker.svelte';
+	import DiagramPicker from './DiagramPicker.svelte';
 	import ViewPicker from './ViewPicker.svelte';
 	import {
 		FONT_NAMES,
@@ -176,6 +178,7 @@
 		else if (block.id === 'image') picking = true;
 		else if (block.id === 'view') pickingView = true;
 		else if (block.id === 'report') pickingReport = true;
+		else if (block.id === 'diagram') pickingDiagram = true;
 		announce(
 			block.id === 'image'
 				? 'Choose an image'
@@ -183,7 +186,9 @@
 					? 'Choose a view'
 					: block.id === 'report'
 						? 'Choose a report'
-						: `Inserted ${block.label.toLowerCase()}`
+						: block.id === 'diagram'
+							? 'Choose a kind of diagram'
+							: `Inserted ${block.label.toLowerCase()}`
 		);
 	}
 	function insertLink(title: string, href: string) {
@@ -237,6 +242,12 @@
 		editor.chain().focus().insertContent({ type: 'viewEmbed', attrs: { id, name } }).run();
 		announce(`Inserted the view ${name}`);
 	}
+	let pickingDiagram = $state(false);
+	function insertStarter(starter: Starter) {
+		editor.commands.focus();
+		insertDiagram(editor, starter.source);
+		announce(`Inserted ${starter.label.toLowerCase()}`);
+	}
 	// A report shows the chart its view opens on first; Chart changes it.
 	const FIRST_CHART: Record<ReportTab, string> = {
 		status: 'burnup',
@@ -285,6 +296,7 @@
 			!picking &&
 			!pickingView &&
 			!pickingReport &&
+			!pickingDiagram &&
 			(barFocus ||
 				summoned ||
 				(focused && !sel.inCode && (!sel.empty || sel.inTable || sel.inFoldTitle)))
@@ -957,6 +969,9 @@
 {/if}
 {#if pickingReport}
 	<ViewPicker {ws} kind="report" bind:open={pickingReport} onpick={insertReport} />
+{/if}
+{#if pickingDiagram}
+	<DiagramPicker bind:open={pickingDiagram} onpick={insertStarter} />
 {/if}
 
 <style>

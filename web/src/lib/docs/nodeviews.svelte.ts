@@ -1,11 +1,14 @@
 // How the editor draws the formatting beyond Markdown that needs more than its
 // HTML: a foldable section with its button, an image with
-// its size, side and caption, and a saved view's tasks. Loaded with the editor.
+// its size, side and caption, a saved view's tasks, and a diagram drawn from
+// its code block. Loaded with the editor.
 import { Extension, type NodeViewRenderer } from '@tiptap/core';
 import { Plugin } from '@tiptap/pm/state';
 import { mount, unmount } from 'svelte';
+import DiagramCard from '../components/doc/Diagram.svelte';
 import ReportEmbedCard from '../components/doc/ReportEmbed.svelte';
 import ViewEmbedCard from '../components/doc/ViewEmbed.svelte';
+import { editDiagram, editingIn, isDiagram, leaveDiagram } from './diagrams';
 import { OPEN_FOLD } from './folds';
 
 const CHEVRON =
@@ -200,3 +203,77 @@ export function reportEmbedView(ws: string): NodeViewRenderer {
 		};
 	};
 }
+
+/**
+ * A code block, and a diagram when its language is `mermaid`: the drawing,
+ * and under or beside it the source, the block's own text, shown while the
+ * caret is in it (diagrams.ts marks the block `editing`).
+ */
+export const codeBlockView: NodeViewRenderer = ({ node, editor, getPos, decorations }) => {
+	let current = node;
+	const language = (n: typeof node) => (n.attrs.language as string | null) || null;
+	if (!isDiagram(node.attrs.language)) {
+		const pre = document.createElement('pre');
+		const code = document.createElement('code');
+		if (language(node)) code.className = `language-${language(node)}`;
+		pre.append(code);
+		return {
+			dom: pre,
+			contentDOM: code,
+			update(next) {
+				if (next.type !== current.type || isDiagram(next.attrs.language)) return false;
+				if (language(next) !== language(current)) return false;
+				current = next;
+				return true;
+			}
+		};
+	}
+	const dom = document.createElement('div');
+	dom.className = 'diagram-block';
+	const figure = document.createElement('div');
+	figure.className = 'diagram-figure';
+	figure.contentEditable = 'false';
+	const pre = document.createElement('pre');
+	pre.className = 'diagram-source';
+	pre.setAttribute('aria-label', 'Diagram source');
+	const code = document.createElement('code');
+	code.className = 'language-mermaid';
+	code.spellcheck = false;
+	pre.append(code);
+	const inner = document.createElement('div');
+	inner.className = 'diagram-inner';
+	inner.append(figure, pre);
+	dom.append(inner);
+	const props = $state({
+		source: node.textContent,
+		editing: editingIn(decorations),
+		editable: editor.isEditable,
+		onedit: () => {
+			const pos = typeof getPos === 'function' ? getPos() : undefined;
+			if (typeof pos === 'number') editDiagram(editor.view, pos);
+		},
+		ondone: () => {
+			const pos = typeof getPos === 'function' ? getPos() : undefined;
+			if (typeof pos === 'number') leaveDiagram(editor.view, pos);
+		}
+	});
+	const card = mount(DiagramCard, { target: figure, props });
+	return {
+		dom,
+		contentDOM: code,
+		update(next, decos) {
+			if (next.type !== current.type || !isDiagram(next.attrs.language)) return false;
+			current = next;
+			if (props.source !== next.textContent) props.source = next.textContent;
+			props.editing = editingIn(decos);
+			props.editable = editor.isEditable;
+			return true;
+		},
+		// The drawing's buttons and full screen are its own; the rest is the text.
+		stopEvent: (e) => figure.contains(e.target as Node) && e.type !== 'dragstart',
+		ignoreMutation: (m) =>
+			m.type !== 'selection' &&
+			(figure.contains(m.target) || (m.type === 'attributes' && m.target === dom)),
+		destroy: () => void unmount(card)
+	};
+};

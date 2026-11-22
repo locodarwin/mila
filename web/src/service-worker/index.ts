@@ -11,10 +11,14 @@ import { FILES_CACHE, isFilePath, overLimit } from '#lib/fileCache.js';
 import { appPath, noticeOf, openApp, readPush } from '#lib/pushNotice.js';
 
 const SHELL = '/';
+// The kinds of diagram used less load the first time one is drawn, and are
+// kept from then on: Mermaid is megabytes in all. The build fills in their
+// files (scripts/diagram-chunks.mjs).
+const LATER = new Set('mila:later'.split(','));
 // Help's pictures load when a topic is read, so nobody downloads them all for offline use.
 const PRECACHE = [
 	SHELL,
-	...immutable.map((f) => f.path),
+	...immutable.map((f) => f.path).filter((path) => !LATER.has(path)),
 	...assets.map((f) => f.path).filter((path) => !path.startsWith('help-images/'))
 ];
 
@@ -65,8 +69,24 @@ self.addEventListener('fetch', (event) => {
 		);
 		return;
 	}
-	event.respondWith(caches.match(event.request).then((hit) => hit ?? fetch(event.request)));
+	event.respondWith(caches.match(event.request).then((hit) => hit ?? fetchApp(event, url)));
 });
+
+/** A built file the worker does not hold: from the network, kept if it is one of LATER. */
+async function fetchApp(event: FetchEvent, url: URL): Promise<Response> {
+	const response = await fetch(event.request);
+	const path = url.pathname.replace(/^\/+/, '');
+	if (response.ok && LATER.has(path)) {
+		const copy = response.clone();
+		event.waitUntil(
+			caches
+				.open(CACHE)
+				.then((cache) => cache.put(event.request, copy))
+				.catch(() => undefined)
+		);
+	}
+	return response;
+}
 
 /**
  * The network first, so someone who has lost a file is told so, and what this

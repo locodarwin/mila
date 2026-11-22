@@ -134,5 +134,7 @@ export const FAMILIES: Readonly<Record<string, readonly string[]>> = {
 	'status-*': STATUS_CATEGORIES,
 	'priority-*': PRIORITIES,
 	// Highlighted words in a page (docs/formatting.ts).
-	'highlight-*': HIGHLIGHTS
+	'highlight-*': HIGHLIGHTS,
+	// A pie chart's slices in a diagram (docs/mermaid.ts).
+	'chart-series-*': ['1', '2', '3', '4', '5', '6']
 };

@@ -261,9 +261,18 @@ func (h *handlers) upload(w http.ResponseWriter, r *http.Request, userID, worksp
 	}
 }
 
-// inlineTypes are shown in the browser; everything else downloads. SVG is
-// left out on purpose: it can carry script.
-var inlineTypes = map[string]bool{"image/png": true, "image/jpeg": true, "image/gif": true, "image/webp": true}
+// inlineTypes are shown in the browser; everything else downloads. An SVG
+// can carry script and links, so it is shown only under a policy that runs
+// and loads nothing: the app draws one as an <img>, which never does, and one
+// opened on its own is sandboxed with nothing allowed.
+var inlineTypes = map[string]bool{
+	"image/png": true, "image/jpeg": true, "image/gif": true, "image/webp": true, "image/svg+xml": true,
+}
+
+const (
+	fileCSP = "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox"
+	svgCSP  = "default-src 'none'; style-src 'unsafe-inline'; sandbox"
+)
 
 func (h *handlers) DownloadAttachment(w http.ResponseWriter, r *http.Request, workspaceID api.WorkspaceId, attachmentID api.AttachmentId) {
 	a := h.requireUser(w, r)
@@ -285,7 +294,11 @@ func (h *handlers) DownloadAttachment(w http.ResponseWriter, r *http.Request, wo
 	name, _ := row.Fields["filename"].(string)
 	hdr := w.Header()
 	// Served files are never trusted as pages, whatever they claim to be.
-	hdr.Set("Content-Security-Policy", "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox")
+	if mime == "image/svg+xml" {
+		hdr.Set("Content-Security-Policy", svgCSP)
+	} else {
+		hdr.Set("Content-Security-Policy", fileCSP)
+	}
 	hdr.Set("Cache-Control", "private, max-age=3600")
 	disposition := "attachment"
 	if inlineTypes[mime] {

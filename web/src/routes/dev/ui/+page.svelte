@@ -434,6 +434,10 @@
 		<FormattingDemo />
 	{/await}
 
+	{#await import('./DiagramsDemo.svelte') then { default: DiagramsDemo }}
+		<DiagramsDemo />
+	{/await}
+
 	{#await import('./MenusDemo.svelte') then { default: MenusDemo }}
 		<MenusDemo />
 	{/await}

@@ -154,7 +154,7 @@ Fill fields in the task's panel, or in the cells of a [table](layouts.md#table).
 
 Choose Add a file, and pick one file. A file can be up to 25 MB, and adding one needs a connection.
 
-Images in PNG, JPEG, GIF or WebP open in the browser. Other files download. The X beside a file removes it.
+Images in PNG, JPEG, GIF, WebP or SVG open in the browser. Other files download. The X beside a file removes it.
 
 An image in the notes is a file attached to the task. See [Images](writing.md#images).
 

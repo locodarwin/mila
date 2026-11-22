@@ -18,6 +18,8 @@ const slug = (s: string) =>
 for (const character of characters) {
 	for (const scheme of schemes) {
 		test(`style guide in ${character} ${scheme}`, async ({ page }) => {
+			// Every section of a long page, each a screenshot of its own.
+			test.setTimeout(180_000);
 			await page.clock.setFixedTime(NOW);
 			await page.addInitScript((a) => localStorage.setItem('mila.appearance', JSON.stringify(a)), {
 				character,
@@ -43,6 +45,8 @@ for (const character of characters) {
 			// and push what is under them down when they come.
 			for (const picker of await page.locator('fieldset.picker').all())
 				await expect(picker.getByText('From Omarchy', { exact: true })).toBeVisible();
+			// The diagrams draw once Mermaid has loaded (DiagramsDemo.svelte).
+			await expect(page.locator('.diagram .drawing > svg')).toHaveCount(11, { timeout: 20_000 });
 			await expect(page.locator('html')).toHaveAttribute('data-theme', character);
 			await expect(page.locator('html')).toHaveAttribute('data-scheme', scheme);
 			await page.evaluate(() => document.fonts.ready);
