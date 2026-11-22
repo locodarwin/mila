@@ -56,10 +56,10 @@
 		task.estimateMinutes ? Math.min(100, (logged / task.estimateMinutes) * 100) : 0
 	);
 
-	// The estimate as typed, kept until it is read.
-	let estimate = $derived(
-		task.estimateMinutes === null ? '' : formatDuration(task.estimateMinutes)
-	);
+	// The estimate as typed, kept until it is read, and made again only when
+	// the saved estimate changes, not the task's other fields.
+	const savedEstimate = $derived(task.estimateMinutes);
+	let estimate = $derived(savedEstimate === null ? '' : formatDuration(savedEstimate));
 	let estimateError = $state('');
 
 	function saveEstimate() {

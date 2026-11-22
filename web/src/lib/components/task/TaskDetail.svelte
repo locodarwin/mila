@@ -106,7 +106,10 @@
 	const reminders = $derived(
 		session.user ? (replica?.reminders(session.user.id, taskId) ?? []) : []
 	);
-	let title = $derived(task?.title ?? '');
+	// The title as typed, made again only when the saved title changes: a
+	// change to the task's other fields, arriving while it is typed, keeps it.
+	const savedTitle = $derived(task?.title ?? '');
+	let title = $derived(savedTitle);
 	let showHistory = $state(false);
 	let templating = $state(false);
 	// Save as a template, asked from a right-click menu (menus.ts).

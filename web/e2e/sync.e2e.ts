@@ -42,6 +42,47 @@ test('tasks persist across a reload', async ({ page }) => {
 	await expect(taskRow(page, 'Water the beans')).toBeVisible();
 });
 
+// A title being typed is kept when a change to the task's other fields
+// arrives meanwhile (someone else's, or the server's answer to an earlier
+// edit), and saved when the typing ends.
+test('a title being typed survives a change to the task arriving', async ({ page }) => {
+	await page.goto('/');
+	const ws: string = (await apiCall(page, 'POST', '/workspaces', { name: `Typing ${Date.now()}` }))
+		.body.id;
+	const project: string = (await apiCall(page, 'POST', `/workspaces/${ws}/projects`, { name: 'P' }))
+		.body.id;
+	const status: string = (
+		await apiCall(page, 'POST', `/workspaces/${ws}/statuses`, {
+			project_id: project,
+			name: 'To do',
+			category: 'todo'
+		})
+	).body.id;
+	const task: string = (
+		await apiCall(page, 'POST', `/workspaces/${ws}/tasks`, {
+			project_id: project,
+			status_id: status,
+			title: 'Draft'
+		})
+	).body.id;
+	await page.goto(`/projects/${project}?ws=${ws}&task=${task}`);
+	const panel = page.getByRole('complementary', { name: 'Task details' });
+	const field = panel.getByLabel('Task title');
+	await expect(field).toHaveValue('Draft');
+	await field.fill('Draft, typed');
+
+	const changed = await apiCall(page, 'PATCH', `/workspaces/${ws}/tasks/${task}`, {
+		priority: 'high'
+	});
+	expect(changed.status).toBe(200);
+	await expect(panel.getByLabel('Priority', { exact: true })).toHaveValue('high');
+	await expect(field).toHaveValue('Draft, typed');
+	await expect(field).toBeFocused();
+
+	await field.press('Enter');
+	await expect(taskRow(page, 'Draft, typed')).toBeVisible();
+});
+
 test('completing holds, then moves the task to Completed, and undo-delete works', async ({
 	page
 }) => {

@@ -185,7 +185,9 @@
 	);
 	const customized = $derived(!!view && differs(resolved, view.type, look));
 
-	let name = $derived(saved?.name ?? '');
+	// The name as typed, made again only when the saved name changes.
+	const savedName = $derived(saved?.name ?? '');
+	let name = $derived(savedName);
 	function save() {
 		const n = name.trim();
 		if (saved && canSave && n && n !== saved.name) void editView(ws, saved.id, { name: n });

@@ -124,8 +124,10 @@
 	// A guest works in the project, and leaves the project itself alone.
 	const organize = $derived(!session.workspace || canOrganize(session.workspace.role));
 
-	// Follows the project's name, and holds edits until they are saved.
-	let name = $derived(project?.name ?? '');
+	// Follows the project's name, and holds edits until they are saved: made
+	// again only when the saved name changes, not the project's other fields.
+	const savedName = $derived(project?.name ?? '');
+	let name = $derived(savedName);
 
 	function save() {
 		const n = name.trim();
@@ -158,7 +160,8 @@
 	}
 
 	// The description, held while it is edited like the name.
-	let description = $derived(project?.description ?? '');
+	const savedDescription = $derived(project?.description ?? '');
+	let description = $derived(savedDescription);
 
 	function saveDescription() {
 		if (project && description.trim() !== project.description)
