@@ -959,8 +959,14 @@
 		/* Clear of the FAB, so the last row's controls can be reached, and a
 		   focused row is scrolled clear of it. */
 		main {
-			padding-bottom: calc(56px + 2 * var(--space-4));
-			scroll-padding-bottom: calc(56px + 2 * var(--space-4));
+			--fab-room: calc(56px + 2 * var(--space-4));
+			padding-bottom: var(--fab-room);
+			scroll-padding-bottom: var(--fab-room);
+		}
+		/* A page one screen tall reaches the tab bar, and leaves the FAB its
+		   room at the end of what it scrolls itself (--fab-room). */
+		main:has(> :global([data-screen])) {
+			padding-bottom: 0;
 		}
 		.shell,
 		.shell.collapsed {

@@ -71,6 +71,9 @@ export const INTERNAL: ReadonlySet<string> = new Set([
 	// What the app layout puts over a page (the phone's bar, a theme notice),
 	// which a page one screen tall leaves room for (routes/(app)/+layout.svelte).
 	'above',
+	// The phone's room for the New task button at the end of what scrolls
+	// (routes/(app)/+layout.svelte).
+	'fab-room',
 	// The room under the workspace switcher, which its list grows into
 	// (WorkspaceSwitcher.svelte).
 	'room',

@@ -1191,8 +1191,9 @@
 		cursor: pointer;
 	}
 	@media (max-width: 720px) {
+		/* The page's end scrolls clear of the FAB. */
 		.doc {
-			padding: var(--space-4);
+			padding: var(--space-4) var(--space-4) calc(var(--space-4) + var(--fab-room, 0px));
 		}
 		.tool span {
 			position: absolute;

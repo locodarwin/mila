@@ -284,7 +284,7 @@
 <svelte:head><title>{view?.name ?? 'View'} · Mila</title></svelte:head>
 
 {#if view && visible}
-	<div class="frame">
+	<div class="frame" data-screen>
 		<header class="page" use:menu={viewActions(ws, view.id)}>
 			<!-- The name is a field; the page still needs a heading named after it. -->
 			<h1 class="visually-hidden">{view.name}</h1>
@@ -592,7 +592,8 @@
 		overflow: auto;
 	}
 	.list {
-		padding: var(--space-2) var(--space-4);
+		/* The last row scrolls clear of the phone's FAB. */
+		padding: var(--space-2) var(--space-4) calc(var(--space-2) + var(--fab-room, 0px));
 	}
 	/* A task panel open takes the room from here, whatever the window's width:
 	   the rest gives up its words before the name gives up its room. */

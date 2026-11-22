@@ -28,7 +28,7 @@
 		hint="The wikis of the projects shared with you are on their Project Wiki tabs."
 	/>
 {:else if ws}
-	<div class="frame">
+	<div class="frame" data-screen>
 		<Wiki {ws} projectId={null} {pageId} onopen={open} />
 	</div>
 {/if}

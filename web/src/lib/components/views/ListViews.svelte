@@ -157,7 +157,7 @@
 	}
 </script>
 
-<div class="frame">
+<div class="frame" data-screen>
 	<header class="page">
 		<h1>{title}</h1>
 		{#if extra}{@render extra()}{/if}
@@ -249,7 +249,7 @@
 			/>
 		{/await}
 	{/if}
-	<div class="body">
+	<div class="body" class:rows={plain || setup.type === 'list'}>
 		{#if plain}
 			{@render own()}
 		{:else}
@@ -296,6 +296,10 @@
 		flex: 1;
 		min-height: 0;
 		overflow: auto;
+	}
+	/* Rows scroll clear of the phone's FAB. */
+	.body.rows {
+		padding-bottom: var(--fab-room, 0px);
 	}
 	.types {
 		display: inline-flex;

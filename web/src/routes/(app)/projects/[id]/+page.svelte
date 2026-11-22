@@ -260,7 +260,7 @@
 <svelte:head><title>{project?.name ?? 'Project'} · Mila</title></svelte:head>
 
 {#if project}
-	<div class="project">
+	<div class="project" data-screen>
 		<header class="page" use:menu={projectActions(ws, project.id)}>
 			<!-- The name is a field; the page still needs a heading named after it. -->
 			<h1 class="visually-hidden">{project.name}</h1>
@@ -431,6 +431,7 @@
 				{#await import('#lib/components/time/ProjectTime.svelte') then { default: ProjectTime }}
 					<ProjectTime {ws} projectId={project.id} logNow={page.url.hash === '#log'} />
 				{/await}
+				<div class="fab-room" aria-hidden="true"></div>
 			</div>
 		{:else if tab === 'wiki'}
 			<div class="view" id="tabpanel" role="tabpanel" aria-labelledby="tab-wiki">
@@ -481,6 +482,7 @@
 						emptyTitle="No tasks yet"
 						emptyHint="Add the first one above."
 					/>
+					<div class="fab-room" aria-hidden="true"></div>
 				{/if}
 			</div>
 		{/if}
@@ -532,6 +534,11 @@
 	.view {
 		flex: 1;
 		min-height: 0;
+	}
+	/* The list and the time run past the view and scroll the page; the last
+	   row scrolls clear of the phone's FAB. */
+	.fab-room {
+		height: var(--fab-room, 0px);
 	}
 	.tabs {
 		flex: none;

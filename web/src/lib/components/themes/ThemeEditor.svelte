@@ -494,7 +494,7 @@
 		<a class="back" href={manager}><ArrowLeft size={16} />Back to themes</a>
 	</div>
 {:else}
-	<div class="editor" class:wide class:phone bind:this={root}>
+	<div class="editor" class:wide class:phone bind:this={root} data-screen>
 		<header class="toolbar">
 			<a class="back" href={manager} aria-label={phone ? 'Back to themes' : undefined}
 				><ArrowLeft size={16} /><span class="word">Back to themes</span></a

@@ -148,8 +148,22 @@ test('a view that scrolls inside itself leaves the page still', async ({ browser
 		await kim.getByRole('group', { name: group }).getByRole('button', { name: view }).click();
 		await expect(kim.getByText('Task 39').first()).toBeAttached();
 		await expect.poll(() => nested(kim), { message: `${path} as ${view}` }).toEqual([]);
+		await expect.poll(() => gap(kim), { message: `${path} as ${view}` }).toBe(0);
 	}
+	// A page of the wiki too reaches the bottom, the tab bar on a phone.
+	await kim.goto(`/projects/${project}?ws=${ws}&tab=wiki`);
+	await expect(kim.getByLabel('Page', { exact: true })).toBeVisible();
+	await expect.poll(() => gap(kim), { message: 'the wiki' }).toBe(0);
 });
+
+/** The room left under a page one screen tall: none, whatever sits above it. */
+function gap(page: Page) {
+	return page.evaluate(() => {
+		const main = document.getElementById('main')!;
+		const screen = main.querySelector('[data-screen]')!;
+		return Math.round(main.getBoundingClientRect().bottom - screen.getBoundingClientRect().bottom);
+	});
+}
 
 // The workspace list grows down to the bottom of the window before it scrolls,
 // and never runs past it.
