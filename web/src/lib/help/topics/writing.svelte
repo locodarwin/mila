@@ -29,8 +29,9 @@
 <p>
 	Type <code>/</code> at the start of a line for a menu of what can go there: a heading, a bulleted
 	or numbered list, a checklist, a table, two or three columns, a foldable section, a saved view, a
-	diagram, a code block, a quote, a note, tip or warning box, an image or a divider. Keep typing to
-	narrow it, choose with the arrow keys and Enter, or press Escape to keep the <code>/</code> as it is.
+	diagram, a drawing (in a page), a code block, a quote, a note, tip or warning box, an image or a
+	divider. Keep typing to narrow it, choose with the arrow keys and Enter, or press Escape to keep
+	the <code>/</code> as it is.
 </p>
 <p>
 	A checklist's boxes tick as you click them. They are part of the text: the task's own Checklist,
@@ -123,6 +124,47 @@
 	Notion draw too. People can change one together, and a page's history shows what changed in its
 	text. Diagrams are drawn on your device, so they work offline: the common kinds always, and the
 	others once one has been drawn while connected.
+</p>
+
+<h2 id="drawings" tabindex="-1">Drawings</h2>
+<p>
+	Choose Drawing from the <code>/</code> menu in a wiki page, then how it starts: blank, a flowchart,
+	an org chart or an architecture. The drawing opens full screen to draw in, and Done puts it back in
+	the page. Edit, on the drawing, opens it again. Drawings are for pages; a task's notes don't offer them.
+</p>
+<p>
+	The tools along the top draw boxes, ellipses, diamonds, cylinders, text, sticky notes, arrows,
+	lines and pen strokes, and place a picture from the page's files. Click to put a shape down at its
+	usual size, or drag to size it. Double-click a shape to write in it; it grows taller for its
+	words.
+</p>
+<p>
+	Drag from one shape to another with the arrow or line tool to join them. A joined line follows its
+	shapes wherever they go. Drag either end of a picked line to join it somewhere else.
+</p>
+<p>
+	The panel at the side changes what is picked: its fill and edge color (from your theme's highlight
+	and chart colors), the size and weight of its words, a line's route (straight, elbow or curved),
+	its arrowheads and dashes. It also brings shapes to the front, sends them to the back, lines
+	several up and spaces them out.
+</p>
+<p>
+	Shapes snap to the grid and to each other's edges and middles while they move. The magnet button
+	turns snapping off, and holding Alt while dragging moves a shape freely.
+</p>
+<p>
+	From the keyboard, Tab goes from shape to shape, the arrow keys move the one picked (Shift for a
+	single pixel), Enter writes in it and Delete removes it. Undo and redo take back the last changes
+	made in the drawing.
+</p>
+<p>
+	Everyone who can edit the page can change a drawing at the same time, and changes to different
+	shapes all count. Anyone who can read the page can open it full screen. In the page a drawing
+	takes your theme's colors, and Drawing size in the formatting bar makes it narrower.
+</p>
+<p>
+	The page also keeps a picture of the drawing, made when you choose Done, so exports and other
+	Markdown apps show it as an image.
 </p>
 
 <h2 id="images" tabindex="-1">Images</h2>

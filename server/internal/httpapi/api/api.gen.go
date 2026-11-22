@@ -505,6 +505,531 @@ func (e CustomThemeTarget) Valid() bool {
 	}
 }
 
+// Defines values for DrawingShapeKind.
+const (
+	DrawingShapeKindArrow    DrawingShapeKind = "arrow"
+	DrawingShapeKindCylinder DrawingShapeKind = "cylinder"
+	DrawingShapeKindDiamond  DrawingShapeKind = "diamond"
+	DrawingShapeKindEllipse  DrawingShapeKind = "ellipse"
+	DrawingShapeKindImage    DrawingShapeKind = "image"
+	DrawingShapeKindLine     DrawingShapeKind = "line"
+	DrawingShapeKindPen      DrawingShapeKind = "pen"
+	DrawingShapeKindRect     DrawingShapeKind = "rect"
+	DrawingShapeKindSticky   DrawingShapeKind = "sticky"
+	DrawingShapeKindText     DrawingShapeKind = "text"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeKind enum.
+func (e DrawingShapeKind) Valid() bool {
+	switch e {
+	case DrawingShapeKindArrow:
+		return true
+	case DrawingShapeKindCylinder:
+		return true
+	case DrawingShapeKindDiamond:
+		return true
+	case DrawingShapeKindEllipse:
+		return true
+	case DrawingShapeKindImage:
+		return true
+	case DrawingShapeKindLine:
+		return true
+	case DrawingShapeKindPen:
+		return true
+	case DrawingShapeKindRect:
+		return true
+	case DrawingShapeKindSticky:
+		return true
+	case DrawingShapeKindText:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleDash.
+const (
+	DrawingShapeStyleDashDashed DrawingShapeStyleDash = "dashed"
+	DrawingShapeStyleDashDotted DrawingShapeStyleDash = "dotted"
+	DrawingShapeStyleDashSolid  DrawingShapeStyleDash = "solid"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleDash enum.
+func (e DrawingShapeStyleDash) Valid() bool {
+	switch e {
+	case DrawingShapeStyleDashDashed:
+		return true
+	case DrawingShapeStyleDashDotted:
+		return true
+	case DrawingShapeStyleDashSolid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleEnd.
+const (
+	DrawingShapeStyleEndArrow DrawingShapeStyleEnd = "arrow"
+	DrawingShapeStyleEndNone  DrawingShapeStyleEnd = "none"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleEnd enum.
+func (e DrawingShapeStyleEnd) Valid() bool {
+	switch e {
+	case DrawingShapeStyleEndArrow:
+		return true
+	case DrawingShapeStyleEndNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleFromSide.
+const (
+	DrawingShapeStyleFromSideBottom DrawingShapeStyleFromSide = "bottom"
+	DrawingShapeStyleFromSideLeft   DrawingShapeStyleFromSide = "left"
+	DrawingShapeStyleFromSideRight  DrawingShapeStyleFromSide = "right"
+	DrawingShapeStyleFromSideTop    DrawingShapeStyleFromSide = "top"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleFromSide enum.
+func (e DrawingShapeStyleFromSide) Valid() bool {
+	switch e {
+	case DrawingShapeStyleFromSideBottom:
+		return true
+	case DrawingShapeStyleFromSideLeft:
+		return true
+	case DrawingShapeStyleFromSideRight:
+		return true
+	case DrawingShapeStyleFromSideTop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleRoute.
+const (
+	DrawingShapeStyleRouteCurved   DrawingShapeStyleRoute = "curved"
+	DrawingShapeStyleRouteElbow    DrawingShapeStyleRoute = "elbow"
+	DrawingShapeStyleRouteStraight DrawingShapeStyleRoute = "straight"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleRoute enum.
+func (e DrawingShapeStyleRoute) Valid() bool {
+	switch e {
+	case DrawingShapeStyleRouteCurved:
+		return true
+	case DrawingShapeStyleRouteElbow:
+		return true
+	case DrawingShapeStyleRouteStraight:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleSize.
+const (
+	DrawingShapeStyleSizeL DrawingShapeStyleSize = "l"
+	DrawingShapeStyleSizeM DrawingShapeStyleSize = "m"
+	DrawingShapeStyleSizeS DrawingShapeStyleSize = "s"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleSize enum.
+func (e DrawingShapeStyleSize) Valid() bool {
+	switch e {
+	case DrawingShapeStyleSizeL:
+		return true
+	case DrawingShapeStyleSizeM:
+		return true
+	case DrawingShapeStyleSizeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleStart.
+const (
+	DrawingShapeStyleStartArrow DrawingShapeStyleStart = "arrow"
+	DrawingShapeStyleStartNone  DrawingShapeStyleStart = "none"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleStart enum.
+func (e DrawingShapeStyleStart) Valid() bool {
+	switch e {
+	case DrawingShapeStyleStartArrow:
+		return true
+	case DrawingShapeStyleStartNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeStyleToSide.
+const (
+	DrawingShapeStyleToSideBottom DrawingShapeStyleToSide = "bottom"
+	DrawingShapeStyleToSideLeft   DrawingShapeStyleToSide = "left"
+	DrawingShapeStyleToSideRight  DrawingShapeStyleToSide = "right"
+	DrawingShapeStyleToSideTop    DrawingShapeStyleToSide = "top"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeStyleToSide enum.
+func (e DrawingShapeStyleToSide) Valid() bool {
+	switch e {
+	case DrawingShapeStyleToSideBottom:
+		return true
+	case DrawingShapeStyleToSideLeft:
+		return true
+	case DrawingShapeStyleToSideRight:
+		return true
+	case DrawingShapeStyleToSideTop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateKind.
+const (
+	DrawingShapeCreateKindArrow    DrawingShapeCreateKind = "arrow"
+	DrawingShapeCreateKindCylinder DrawingShapeCreateKind = "cylinder"
+	DrawingShapeCreateKindDiamond  DrawingShapeCreateKind = "diamond"
+	DrawingShapeCreateKindEllipse  DrawingShapeCreateKind = "ellipse"
+	DrawingShapeCreateKindImage    DrawingShapeCreateKind = "image"
+	DrawingShapeCreateKindLine     DrawingShapeCreateKind = "line"
+	DrawingShapeCreateKindPen      DrawingShapeCreateKind = "pen"
+	DrawingShapeCreateKindRect     DrawingShapeCreateKind = "rect"
+	DrawingShapeCreateKindSticky   DrawingShapeCreateKind = "sticky"
+	DrawingShapeCreateKindText     DrawingShapeCreateKind = "text"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateKind enum.
+func (e DrawingShapeCreateKind) Valid() bool {
+	switch e {
+	case DrawingShapeCreateKindArrow:
+		return true
+	case DrawingShapeCreateKindCylinder:
+		return true
+	case DrawingShapeCreateKindDiamond:
+		return true
+	case DrawingShapeCreateKindEllipse:
+		return true
+	case DrawingShapeCreateKindImage:
+		return true
+	case DrawingShapeCreateKindLine:
+		return true
+	case DrawingShapeCreateKindPen:
+		return true
+	case DrawingShapeCreateKindRect:
+		return true
+	case DrawingShapeCreateKindSticky:
+		return true
+	case DrawingShapeCreateKindText:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleDash.
+const (
+	DrawingShapeCreateStyleDashDashed DrawingShapeCreateStyleDash = "dashed"
+	DrawingShapeCreateStyleDashDotted DrawingShapeCreateStyleDash = "dotted"
+	DrawingShapeCreateStyleDashSolid  DrawingShapeCreateStyleDash = "solid"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleDash enum.
+func (e DrawingShapeCreateStyleDash) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleDashDashed:
+		return true
+	case DrawingShapeCreateStyleDashDotted:
+		return true
+	case DrawingShapeCreateStyleDashSolid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleEnd.
+const (
+	DrawingShapeCreateStyleEndArrow DrawingShapeCreateStyleEnd = "arrow"
+	DrawingShapeCreateStyleEndNone  DrawingShapeCreateStyleEnd = "none"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleEnd enum.
+func (e DrawingShapeCreateStyleEnd) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleEndArrow:
+		return true
+	case DrawingShapeCreateStyleEndNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleFromSide.
+const (
+	DrawingShapeCreateStyleFromSideBottom DrawingShapeCreateStyleFromSide = "bottom"
+	DrawingShapeCreateStyleFromSideLeft   DrawingShapeCreateStyleFromSide = "left"
+	DrawingShapeCreateStyleFromSideRight  DrawingShapeCreateStyleFromSide = "right"
+	DrawingShapeCreateStyleFromSideTop    DrawingShapeCreateStyleFromSide = "top"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleFromSide enum.
+func (e DrawingShapeCreateStyleFromSide) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleFromSideBottom:
+		return true
+	case DrawingShapeCreateStyleFromSideLeft:
+		return true
+	case DrawingShapeCreateStyleFromSideRight:
+		return true
+	case DrawingShapeCreateStyleFromSideTop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleRoute.
+const (
+	DrawingShapeCreateStyleRouteCurved   DrawingShapeCreateStyleRoute = "curved"
+	DrawingShapeCreateStyleRouteElbow    DrawingShapeCreateStyleRoute = "elbow"
+	DrawingShapeCreateStyleRouteStraight DrawingShapeCreateStyleRoute = "straight"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleRoute enum.
+func (e DrawingShapeCreateStyleRoute) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleRouteCurved:
+		return true
+	case DrawingShapeCreateStyleRouteElbow:
+		return true
+	case DrawingShapeCreateStyleRouteStraight:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleSize.
+const (
+	DrawingShapeCreateStyleSizeL DrawingShapeCreateStyleSize = "l"
+	DrawingShapeCreateStyleSizeM DrawingShapeCreateStyleSize = "m"
+	DrawingShapeCreateStyleSizeS DrawingShapeCreateStyleSize = "s"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleSize enum.
+func (e DrawingShapeCreateStyleSize) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleSizeL:
+		return true
+	case DrawingShapeCreateStyleSizeM:
+		return true
+	case DrawingShapeCreateStyleSizeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleStart.
+const (
+	DrawingShapeCreateStyleStartArrow DrawingShapeCreateStyleStart = "arrow"
+	DrawingShapeCreateStyleStartNone  DrawingShapeCreateStyleStart = "none"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleStart enum.
+func (e DrawingShapeCreateStyleStart) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleStartArrow:
+		return true
+	case DrawingShapeCreateStyleStartNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapeCreateStyleToSide.
+const (
+	DrawingShapeCreateStyleToSideBottom DrawingShapeCreateStyleToSide = "bottom"
+	DrawingShapeCreateStyleToSideLeft   DrawingShapeCreateStyleToSide = "left"
+	DrawingShapeCreateStyleToSideRight  DrawingShapeCreateStyleToSide = "right"
+	DrawingShapeCreateStyleToSideTop    DrawingShapeCreateStyleToSide = "top"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapeCreateStyleToSide enum.
+func (e DrawingShapeCreateStyleToSide) Valid() bool {
+	switch e {
+	case DrawingShapeCreateStyleToSideBottom:
+		return true
+	case DrawingShapeCreateStyleToSideLeft:
+		return true
+	case DrawingShapeCreateStyleToSideRight:
+		return true
+	case DrawingShapeCreateStyleToSideTop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleDash.
+const (
+	DrawingShapePatchStyleDashDashed DrawingShapePatchStyleDash = "dashed"
+	DrawingShapePatchStyleDashDotted DrawingShapePatchStyleDash = "dotted"
+	DrawingShapePatchStyleDashSolid  DrawingShapePatchStyleDash = "solid"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleDash enum.
+func (e DrawingShapePatchStyleDash) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleDashDashed:
+		return true
+	case DrawingShapePatchStyleDashDotted:
+		return true
+	case DrawingShapePatchStyleDashSolid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleEnd.
+const (
+	DrawingShapePatchStyleEndArrow DrawingShapePatchStyleEnd = "arrow"
+	DrawingShapePatchStyleEndNone  DrawingShapePatchStyleEnd = "none"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleEnd enum.
+func (e DrawingShapePatchStyleEnd) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleEndArrow:
+		return true
+	case DrawingShapePatchStyleEndNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleFromSide.
+const (
+	DrawingShapePatchStyleFromSideBottom DrawingShapePatchStyleFromSide = "bottom"
+	DrawingShapePatchStyleFromSideLeft   DrawingShapePatchStyleFromSide = "left"
+	DrawingShapePatchStyleFromSideRight  DrawingShapePatchStyleFromSide = "right"
+	DrawingShapePatchStyleFromSideTop    DrawingShapePatchStyleFromSide = "top"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleFromSide enum.
+func (e DrawingShapePatchStyleFromSide) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleFromSideBottom:
+		return true
+	case DrawingShapePatchStyleFromSideLeft:
+		return true
+	case DrawingShapePatchStyleFromSideRight:
+		return true
+	case DrawingShapePatchStyleFromSideTop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleRoute.
+const (
+	DrawingShapePatchStyleRouteCurved   DrawingShapePatchStyleRoute = "curved"
+	DrawingShapePatchStyleRouteElbow    DrawingShapePatchStyleRoute = "elbow"
+	DrawingShapePatchStyleRouteStraight DrawingShapePatchStyleRoute = "straight"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleRoute enum.
+func (e DrawingShapePatchStyleRoute) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleRouteCurved:
+		return true
+	case DrawingShapePatchStyleRouteElbow:
+		return true
+	case DrawingShapePatchStyleRouteStraight:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleSize.
+const (
+	DrawingShapePatchStyleSizeL DrawingShapePatchStyleSize = "l"
+	DrawingShapePatchStyleSizeM DrawingShapePatchStyleSize = "m"
+	DrawingShapePatchStyleSizeS DrawingShapePatchStyleSize = "s"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleSize enum.
+func (e DrawingShapePatchStyleSize) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleSizeL:
+		return true
+	case DrawingShapePatchStyleSizeM:
+		return true
+	case DrawingShapePatchStyleSizeS:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleStart.
+const (
+	DrawingShapePatchStyleStartArrow DrawingShapePatchStyleStart = "arrow"
+	DrawingShapePatchStyleStartNone  DrawingShapePatchStyleStart = "none"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleStart enum.
+func (e DrawingShapePatchStyleStart) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleStartArrow:
+		return true
+	case DrawingShapePatchStyleStartNone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DrawingShapePatchStyleToSide.
+const (
+	DrawingShapePatchStyleToSideBottom DrawingShapePatchStyleToSide = "bottom"
+	DrawingShapePatchStyleToSideLeft   DrawingShapePatchStyleToSide = "left"
+	DrawingShapePatchStyleToSideRight  DrawingShapePatchStyleToSide = "right"
+	DrawingShapePatchStyleToSideTop    DrawingShapePatchStyleToSide = "top"
+)
+
+// Valid indicates whether the value is a known member of the DrawingShapePatchStyleToSide enum.
+func (e DrawingShapePatchStyleToSide) Valid() bool {
+	switch e {
+	case DrawingShapePatchStyleToSideBottom:
+		return true
+	case DrawingShapePatchStyleToSideLeft:
+		return true
+	case DrawingShapePatchStyleToSideRight:
+		return true
+	case DrawingShapePatchStyleToSideTop:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailReceivedOutcome.
 const (
 	EmailReceivedOutcomeFailed           EmailReceivedOutcome = "failed"
@@ -3139,6 +3664,239 @@ type DesktopCode struct {
 	Code string `json:"code"`
 }
 
+// DrawingShape A shape of a drawing: a box, ellipse, diamond, cylinder, text, sticky note, line, arrow, pen stroke or picture, with its place, words and look. A line or arrow on shapes names them in from_id and to_id and follows them. Shapes are drawn in sort_key order. A drawing holds 2,000 shapes at most.
+type DrawingShape struct {
+	// Box Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON.
+	Box struct {
+		H float32 `json:"h"`
+		W float32 `json:"w"`
+		X float32 `json:"x"`
+		Y float32 `json:"y"`
+	} `json:"box"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at"`
+
+	// DrawingId The ID of a page drawing in this workspace. Set when the row is made; it never changes.
+	DrawingId string `json:"drawing_id"`
+
+	// FromId The shape a line or arrow starts on, which it follows.
+	FromId *string `json:"from_id"`
+	Id     *string `json:"id,omitempty"`
+
+	// ImageId The page's file a picture shows.
+	ImageId *string `json:"image_id"`
+
+	// Kind Set when the row is made; it never changes.
+	Kind DrawingShapeKind `json:"kind"`
+
+	// PageId The ID of a page in this workspace. Set when the row is made; it never changes.
+	PageId string `json:"page_id"`
+
+	// Points A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON.
+	Points *[][]float32 `json:"points"`
+
+	// SortKey Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind.
+	SortKey string `json:"sort_key"`
+
+	// Style How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left"). At most 2,000 bytes as compact JSON.
+	Style struct {
+		Bold     *bool                      `json:"bold,omitempty"`
+		Dash     *DrawingShapeStyleDash     `json:"dash,omitempty"`
+		End      *DrawingShapeStyleEnd      `json:"end,omitempty"`
+		Fill     *string                    `json:"fill,omitempty"`
+		FromSide *DrawingShapeStyleFromSide `json:"fromSide,omitempty"`
+		Italic   *bool                      `json:"italic,omitempty"`
+		Rounded  *bool                      `json:"rounded,omitempty"`
+		Route    *DrawingShapeStyleRoute    `json:"route,omitempty"`
+		Size     *DrawingShapeStyleSize     `json:"size,omitempty"`
+		Start    *DrawingShapeStyleStart    `json:"start,omitempty"`
+		Stroke   *string                    `json:"stroke,omitempty"`
+		ToSide   *DrawingShapeStyleToSide   `json:"toSide,omitempty"`
+	} `json:"style"`
+	Text string `json:"text"`
+
+	// ToId The shape a line or arrow ends on, which it follows.
+	ToId      *string    `json:"to_id"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// DrawingShapeKind Set when the row is made; it never changes.
+type DrawingShapeKind string
+
+// DrawingShapeStyleDash defines model for DrawingShape.Style.Dash.
+type DrawingShapeStyleDash string
+
+// DrawingShapeStyleEnd defines model for DrawingShape.Style.End.
+type DrawingShapeStyleEnd string
+
+// DrawingShapeStyleFromSide defines model for DrawingShape.Style.FromSide.
+type DrawingShapeStyleFromSide string
+
+// DrawingShapeStyleRoute defines model for DrawingShape.Style.Route.
+type DrawingShapeStyleRoute string
+
+// DrawingShapeStyleSize defines model for DrawingShape.Style.Size.
+type DrawingShapeStyleSize string
+
+// DrawingShapeStyleStart defines model for DrawingShape.Style.Start.
+type DrawingShapeStyleStart string
+
+// DrawingShapeStyleToSide defines model for DrawingShape.Style.ToSide.
+type DrawingShapeStyleToSide string
+
+// DrawingShapeCreate defines model for DrawingShapeCreate.
+type DrawingShapeCreate struct {
+	// Box Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON.
+	Box struct {
+		H float32 `json:"h"`
+		W float32 `json:"w"`
+		X float32 `json:"x"`
+		Y float32 `json:"y"`
+	} `json:"box"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// DrawingId The ID of a page drawing in this workspace. Set when the row is made; it never changes.
+	DrawingId string `json:"drawing_id"`
+
+	// FromId The shape a line or arrow starts on, which it follows.
+	FromId *string `json:"from_id,omitempty"`
+
+	// Id A new ID of yours (letters, digits and dashes, at most 64), or left out for one the server makes. A UUID should be drawn (versions 1 to 7 of RFC 9562): one of the shapes Mila works IDs out in (version 8, or another variant) is refused unless it is the one Mila would work out for the row.
+	Id *string `json:"id,omitempty"`
+
+	// ImageId The page's file a picture shows.
+	ImageId *string `json:"image_id,omitempty"`
+
+	// Kind Set when the row is made; it never changes.
+	Kind DrawingShapeCreateKind `json:"kind"`
+
+	// PageId The ID of a page in this workspace. Set when the row is made; it never changes.
+	PageId string `json:"page_id"`
+
+	// Points A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON.
+	Points *[][]float32 `json:"points,omitempty"`
+
+	// SortKey Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind.
+	SortKey *string `json:"sort_key,omitempty"`
+
+	// Style How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left"). At most 2,000 bytes as compact JSON.
+	Style *struct {
+		Bold     *bool                            `json:"bold,omitempty"`
+		Dash     *DrawingShapeCreateStyleDash     `json:"dash,omitempty"`
+		End      *DrawingShapeCreateStyleEnd      `json:"end,omitempty"`
+		Fill     *string                          `json:"fill,omitempty"`
+		FromSide *DrawingShapeCreateStyleFromSide `json:"fromSide,omitempty"`
+		Italic   *bool                            `json:"italic,omitempty"`
+		Rounded  *bool                            `json:"rounded,omitempty"`
+		Route    *DrawingShapeCreateStyleRoute    `json:"route,omitempty"`
+		Size     *DrawingShapeCreateStyleSize     `json:"size,omitempty"`
+		Start    *DrawingShapeCreateStyleStart    `json:"start,omitempty"`
+		Stroke   *string                          `json:"stroke,omitempty"`
+		ToSide   *DrawingShapeCreateStyleToSide   `json:"toSide,omitempty"`
+	} `json:"style,omitempty"`
+	Text *string `json:"text,omitempty"`
+
+	// ToId The shape a line or arrow ends on, which it follows.
+	ToId *string `json:"to_id,omitempty"`
+}
+
+// DrawingShapeCreateKind Set when the row is made; it never changes.
+type DrawingShapeCreateKind string
+
+// DrawingShapeCreateStyleDash defines model for DrawingShapeCreate.Style.Dash.
+type DrawingShapeCreateStyleDash string
+
+// DrawingShapeCreateStyleEnd defines model for DrawingShapeCreate.Style.End.
+type DrawingShapeCreateStyleEnd string
+
+// DrawingShapeCreateStyleFromSide defines model for DrawingShapeCreate.Style.FromSide.
+type DrawingShapeCreateStyleFromSide string
+
+// DrawingShapeCreateStyleRoute defines model for DrawingShapeCreate.Style.Route.
+type DrawingShapeCreateStyleRoute string
+
+// DrawingShapeCreateStyleSize defines model for DrawingShapeCreate.Style.Size.
+type DrawingShapeCreateStyleSize string
+
+// DrawingShapeCreateStyleStart defines model for DrawingShapeCreate.Style.Start.
+type DrawingShapeCreateStyleStart string
+
+// DrawingShapeCreateStyleToSide defines model for DrawingShapeCreate.Style.ToSide.
+type DrawingShapeCreateStyleToSide string
+
+// DrawingShapePage defines model for DrawingShapePage.
+type DrawingShapePage struct {
+	Items []DrawingShape `json:"items"`
+
+	// Next Pass as after for the next page; absent when this page came back short.
+	Next *string `json:"next,omitempty"`
+}
+
+// DrawingShapePatch defines model for DrawingShapePatch.
+type DrawingShapePatch struct {
+	// Box Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON.
+	Box *struct {
+		H float32 `json:"h"`
+		W float32 `json:"w"`
+		X float32 `json:"x"`
+		Y float32 `json:"y"`
+	} `json:"box,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// FromId The shape a line or arrow starts on, which it follows.
+	FromId *string `json:"from_id,omitempty"`
+
+	// ImageId The page's file a picture shows.
+	ImageId *string `json:"image_id,omitempty"`
+
+	// Points A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON.
+	Points *[][]float32 `json:"points,omitempty"`
+
+	// SortKey Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind.
+	SortKey *string `json:"sort_key,omitempty"`
+
+	// Style How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left"). At most 2,000 bytes as compact JSON.
+	Style *struct {
+		Bold     *bool                           `json:"bold,omitempty"`
+		Dash     *DrawingShapePatchStyleDash     `json:"dash,omitempty"`
+		End      *DrawingShapePatchStyleEnd      `json:"end,omitempty"`
+		Fill     *string                         `json:"fill,omitempty"`
+		FromSide *DrawingShapePatchStyleFromSide `json:"fromSide,omitempty"`
+		Italic   *bool                           `json:"italic,omitempty"`
+		Rounded  *bool                           `json:"rounded,omitempty"`
+		Route    *DrawingShapePatchStyleRoute    `json:"route,omitempty"`
+		Size     *DrawingShapePatchStyleSize     `json:"size,omitempty"`
+		Start    *DrawingShapePatchStyleStart    `json:"start,omitempty"`
+		Stroke   *string                         `json:"stroke,omitempty"`
+		ToSide   *DrawingShapePatchStyleToSide   `json:"toSide,omitempty"`
+	} `json:"style,omitempty"`
+	Text *string `json:"text,omitempty"`
+
+	// ToId The shape a line or arrow ends on, which it follows.
+	ToId *string `json:"to_id,omitempty"`
+}
+
+// DrawingShapePatchStyleDash defines model for DrawingShapePatch.Style.Dash.
+type DrawingShapePatchStyleDash string
+
+// DrawingShapePatchStyleEnd defines model for DrawingShapePatch.Style.End.
+type DrawingShapePatchStyleEnd string
+
+// DrawingShapePatchStyleFromSide defines model for DrawingShapePatch.Style.FromSide.
+type DrawingShapePatchStyleFromSide string
+
+// DrawingShapePatchStyleRoute defines model for DrawingShapePatch.Style.Route.
+type DrawingShapePatchStyleRoute string
+
+// DrawingShapePatchStyleSize defines model for DrawingShapePatch.Style.Size.
+type DrawingShapePatchStyleSize string
+
+// DrawingShapePatchStyleStart defines model for DrawingShapePatch.Style.Start.
+type DrawingShapePatchStyleStart string
+
+// DrawingShapePatchStyleToSide defines model for DrawingShapePatch.Style.ToSide.
+type DrawingShapePatchStyleToSide string
+
 // EmailAddress defines model for EmailAddress.
 type EmailAddress struct {
 	// Address The address to send mail to.
@@ -3764,6 +4522,68 @@ type PageCreate struct {
 	// SortKey Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind.
 	SortKey *string `json:"sort_key,omitempty"`
 	Title   *string `json:"title,omitempty"`
+}
+
+// PageDrawing A drawing in a wiki page, which the page's body names with <!-- mila:drawing <id> --> and a picture of it. Its shapes are drawing_shape rows. A page holds 50 drawings at most.
+type PageDrawing struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at"`
+
+	// Grid Whether the editor shows its dot grid.
+	Grid bool    `json:"grid"`
+	Id   *string `json:"id,omitempty"`
+
+	// MadeBy The ID of the user who made it: you. Left out, it is filled in. Set when the row is made; it never changes.
+	MadeBy string `json:"made_by"`
+	Name   string `json:"name"`
+
+	// PageId The ID of a page in this workspace. Set when the row is made; it never changes.
+	PageId string `json:"page_id"`
+
+	// Snap Whether shapes snap to the grid and to each other as they move.
+	Snap      bool       `json:"snap"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// PageDrawingCreate defines model for PageDrawingCreate.
+type PageDrawingCreate struct {
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// Grid Whether the editor shows its dot grid.
+	Grid *bool `json:"grid,omitempty"`
+
+	// Id A new ID of yours (letters, digits and dashes, at most 64), or left out for one the server makes. A UUID should be drawn (versions 1 to 7 of RFC 9562): one of the shapes Mila works IDs out in (version 8, or another variant) is refused unless it is the one Mila would work out for the row.
+	Id *string `json:"id,omitempty"`
+
+	// MadeBy The ID of the user who made it: you. Left out, it is filled in. Set when the row is made; it never changes.
+	MadeBy *string `json:"made_by,omitempty"`
+	Name   *string `json:"name,omitempty"`
+
+	// PageId The ID of a page in this workspace. Set when the row is made; it never changes.
+	PageId string `json:"page_id"`
+
+	// Snap Whether shapes snap to the grid and to each other as they move.
+	Snap *bool `json:"snap,omitempty"`
+}
+
+// PageDrawingPage defines model for PageDrawingPage.
+type PageDrawingPage struct {
+	Items []PageDrawing `json:"items"`
+
+	// Next Pass as after for the next page; absent when this page came back short.
+	Next *string `json:"next,omitempty"`
+}
+
+// PageDrawingPatch defines model for PageDrawingPatch.
+type PageDrawingPatch struct {
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// Grid Whether the editor shows its dot grid.
+	Grid *bool   `json:"grid,omitempty"`
+	Name *string `json:"name,omitempty"`
+
+	// Snap Whether shapes snap to the grid and to each other as they move.
+	Snap *bool `json:"snap,omitempty"`
 }
 
 // PagePage defines model for PagePage.
@@ -5485,6 +6305,9 @@ type CustomFieldId = string
 // CustomFieldValueId defines model for CustomFieldValueId.
 type CustomFieldValueId = string
 
+// DrawingShapeId defines model for DrawingShapeId.
+type DrawingShapeId = string
+
 // ExportId defines model for ExportId.
 type ExportId = string
 
@@ -5529,6 +6352,9 @@ type PageAttachmentId = string
 
 // PageCommentId defines model for PageCommentId.
 type PageCommentId = string
+
+// PageDrawingId defines model for PageDrawingId.
+type PageDrawingId = string
 
 // PageId defines model for PageId.
 type PageId = string
@@ -6181,6 +7007,60 @@ type UpdateCustomFieldParams struct {
 	IfMatch *IfMatch `json:"If-Match,omitempty"`
 }
 
+// ListDrawingShapesParams defines parameters for ListDrawingShapes.
+type ListDrawingShapesParams struct {
+	// After The ID of the last row of the page before; the next field of that page.
+	After *ListAfter `form:"after,omitempty" json:"after,omitempty"`
+
+	// Limit How many rows, from 1 to 500.
+	Limit *ListLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeDeleted true to list deleted rows too, which the trash still holds.
+	IncludeDeleted *IncludeDeleted `form:"include_deleted,omitempty" json:"include_deleted,omitempty"`
+
+	// PageId Only rows whose page_id is this.
+	PageId *string `form:"page_id,omitempty" json:"page_id,omitempty"`
+
+	// DrawingId Only rows whose drawing_id is this.
+	DrawingId *string `form:"drawing_id,omitempty" json:"drawing_id,omitempty"`
+
+	// Kind Only rows whose kind is this.
+	Kind *string `form:"kind,omitempty" json:"kind,omitempty"`
+
+	// FromId Only rows whose from_id is this; empty for none.
+	FromId *string `form:"from_id,omitempty" json:"from_id,omitempty"`
+
+	// ToId Only rows whose to_id is this; empty for none.
+	ToId *string `form:"to_id,omitempty" json:"to_id,omitempty"`
+
+	// ImageId Only rows whose image_id is this; empty for none.
+	ImageId *string `form:"image_id,omitempty" json:"image_id,omitempty"`
+}
+
+// CreateDrawingShapeParams defines parameters for CreateDrawingShape.
+type CreateDrawingShapeParams struct {
+	// IdempotencyKey Any string of yours: sending the same request with the same key again (a retry) does not make or change it twice. Kept for 90 days.
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteDrawingShapeParams defines parameters for DeleteDrawingShape.
+type DeleteDrawingShapeParams struct {
+	// IfMatch An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412.
+	IfMatch *IfMatch `json:"If-Match,omitempty"`
+}
+
+// GetDrawingShapeParams defines parameters for GetDrawingShape.
+type GetDrawingShapeParams struct {
+	// IfNoneMatch An ETag you hold: answers 304 if the row is unchanged.
+	IfNoneMatch *IfNoneMatch `json:"If-None-Match,omitempty"`
+}
+
+// UpdateDrawingShapeParams defines parameters for UpdateDrawingShape.
+type UpdateDrawingShapeParams struct {
+	// IfMatch An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412.
+	IfMatch *IfMatch `json:"If-Match,omitempty"`
+}
+
 // CreateEmailAddressJSONBody defines parameters for CreateEmailAddress.
 type CreateEmailAddressJSONBody struct {
 	AssignToMe bool `json:"assignToMe"`
@@ -6376,6 +7256,54 @@ type GetPageCommentParams struct {
 
 // UpdatePageCommentParams defines parameters for UpdatePageComment.
 type UpdatePageCommentParams struct {
+	// IfMatch An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412.
+	IfMatch *IfMatch `json:"If-Match,omitempty"`
+}
+
+// ListPageDrawingsParams defines parameters for ListPageDrawings.
+type ListPageDrawingsParams struct {
+	// After The ID of the last row of the page before; the next field of that page.
+	After *ListAfter `form:"after,omitempty" json:"after,omitempty"`
+
+	// Limit How many rows, from 1 to 500.
+	Limit *ListLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeDeleted true to list deleted rows too, which the trash still holds.
+	IncludeDeleted *IncludeDeleted `form:"include_deleted,omitempty" json:"include_deleted,omitempty"`
+
+	// PageId Only rows whose page_id is this.
+	PageId *string `form:"page_id,omitempty" json:"page_id,omitempty"`
+
+	// Grid Only rows whose grid is this.
+	Grid *string `form:"grid,omitempty" json:"grid,omitempty"`
+
+	// Snap Only rows whose snap is this.
+	Snap *string `form:"snap,omitempty" json:"snap,omitempty"`
+
+	// MadeBy Only rows whose made_by is this.
+	MadeBy *string `form:"made_by,omitempty" json:"made_by,omitempty"`
+}
+
+// CreatePageDrawingParams defines parameters for CreatePageDrawing.
+type CreatePageDrawingParams struct {
+	// IdempotencyKey Any string of yours: sending the same request with the same key again (a retry) does not make or change it twice. Kept for 90 days.
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeletePageDrawingParams defines parameters for DeletePageDrawing.
+type DeletePageDrawingParams struct {
+	// IfMatch An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412.
+	IfMatch *IfMatch `json:"If-Match,omitempty"`
+}
+
+// GetPageDrawingParams defines parameters for GetPageDrawing.
+type GetPageDrawingParams struct {
+	// IfNoneMatch An ETag you hold: answers 304 if the row is unchanged.
+	IfNoneMatch *IfNoneMatch `json:"If-None-Match,omitempty"`
+}
+
+// UpdatePageDrawingParams defines parameters for UpdatePageDrawing.
+type UpdatePageDrawingParams struct {
 	// IfMatch An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412.
 	IfMatch *IfMatch `json:"If-Match,omitempty"`
 }
@@ -7197,6 +8125,12 @@ type CreateCustomFieldJSONRequestBody = CustomFieldCreate
 // UpdateCustomFieldJSONRequestBody defines body for UpdateCustomField for application/json ContentType.
 type UpdateCustomFieldJSONRequestBody = CustomFieldPatch
 
+// CreateDrawingShapeJSONRequestBody defines body for CreateDrawingShape for application/json ContentType.
+type CreateDrawingShapeJSONRequestBody = DrawingShapeCreate
+
+// UpdateDrawingShapeJSONRequestBody defines body for UpdateDrawingShape for application/json ContentType.
+type UpdateDrawingShapeJSONRequestBody = DrawingShapePatch
+
 // CreateEmailAddressJSONRequestBody defines body for CreateEmailAddress for application/json ContentType.
 type CreateEmailAddressJSONRequestBody CreateEmailAddressJSONBody
 
@@ -7232,6 +8166,12 @@ type CreatePageCommentJSONRequestBody = PageCommentCreate
 
 // UpdatePageCommentJSONRequestBody defines body for UpdatePageComment for application/json ContentType.
 type UpdatePageCommentJSONRequestBody = PageCommentPatch
+
+// CreatePageDrawingJSONRequestBody defines body for CreatePageDrawing for application/json ContentType.
+type CreatePageDrawingJSONRequestBody = PageDrawingCreate
+
+// UpdatePageDrawingJSONRequestBody defines body for UpdatePageDrawing for application/json ContentType.
+type UpdatePageDrawingJSONRequestBody = PageDrawingPatch
 
 // CreatePageThreadJSONRequestBody defines body for CreatePageThread for application/json ContentType.
 type CreatePageThreadJSONRequestBody = PageThreadCreate
@@ -8306,6 +9246,21 @@ type ServerInterface interface {
 	// UpdateCustomField Change a custom field
 	// (PATCH /workspaces/{workspaceId}/custom-fields/{customFieldId})
 	UpdateCustomField(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, customFieldId CustomFieldId, params UpdateCustomFieldParams)
+	// ListDrawingShapes List drawing shapes
+	// (GET /workspaces/{workspaceId}/drawing-shapes)
+	ListDrawingShapes(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, params ListDrawingShapesParams)
+	// CreateDrawingShape Make a drawing shape
+	// (POST /workspaces/{workspaceId}/drawing-shapes)
+	CreateDrawingShape(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, params CreateDrawingShapeParams)
+	// DeleteDrawingShape Delete a drawing shape
+	// (DELETE /workspaces/{workspaceId}/drawing-shapes/{drawingShapeId})
+	DeleteDrawingShape(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, drawingShapeId DrawingShapeId, params DeleteDrawingShapeParams)
+	// GetDrawingShape Get a drawing shape
+	// (GET /workspaces/{workspaceId}/drawing-shapes/{drawingShapeId})
+	GetDrawingShape(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, drawingShapeId DrawingShapeId, params GetDrawingShapeParams)
+	// UpdateDrawingShape Change a drawing shape
+	// (PATCH /workspaces/{workspaceId}/drawing-shapes/{drawingShapeId})
+	UpdateDrawingShape(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, drawingShapeId DrawingShapeId, params UpdateDrawingShapeParams)
 
 	// (GET /workspaces/{workspaceId}/email-to-task)
 	GetEmailToTask(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId)
@@ -8402,6 +9357,21 @@ type ServerInterface interface {
 	// UpdatePageComment Change a page comment
 	// (PATCH /workspaces/{workspaceId}/page-comments/{pageCommentId})
 	UpdatePageComment(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, pageCommentId PageCommentId, params UpdatePageCommentParams)
+	// ListPageDrawings List page drawings
+	// (GET /workspaces/{workspaceId}/page-drawings)
+	ListPageDrawings(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, params ListPageDrawingsParams)
+	// CreatePageDrawing Make a page drawing
+	// (POST /workspaces/{workspaceId}/page-drawings)
+	CreatePageDrawing(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, params CreatePageDrawingParams)
+	// DeletePageDrawing Delete a page drawing
+	// (DELETE /workspaces/{workspaceId}/page-drawings/{pageDrawingId})
+	DeletePageDrawing(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, pageDrawingId PageDrawingId, params DeletePageDrawingParams)
+	// GetPageDrawing Get a page drawing
+	// (GET /workspaces/{workspaceId}/page-drawings/{pageDrawingId})
+	GetPageDrawing(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, pageDrawingId PageDrawingId, params GetPageDrawingParams)
+	// UpdatePageDrawing Change a page drawing
+	// (PATCH /workspaces/{workspaceId}/page-drawings/{pageDrawingId})
+	UpdatePageDrawing(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, pageDrawingId PageDrawingId, params UpdatePageDrawingParams)
 	// ListPageThreads List page threads
 	// (GET /workspaces/{workspaceId}/page-threads)
 	ListPageThreads(w http.ResponseWriter, r *http.Request, workspaceId WorkspaceId, params ListPageThreadsParams)
@@ -13180,6 +14150,379 @@ func (siw *ServerInterfaceWrapper) UpdateCustomField(w http.ResponseWriter, r *h
 	handler.ServeHTTP(w, r)
 }
 
+// ListDrawingShapes operation middleware
+func (siw *ServerInterfaceWrapper) ListDrawingShapes(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListDrawingShapesParams
+
+	// ------------- Optional query parameter "after" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "after", r.URL.Query(), &params.After, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "after"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "after", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "limit" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "limit", r.URL.Query(), &params.Limit, runtime.BindQueryParameterOptions{Type: "integer", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "limit"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "limit", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "include_deleted" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "include_deleted", r.URL.Query(), &params.IncludeDeleted, runtime.BindQueryParameterOptions{Type: "boolean", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "include_deleted"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "include_deleted", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "page_id" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "page_id", r.URL.Query(), &params.PageId, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "page_id"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "page_id", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "drawing_id" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "drawing_id", r.URL.Query(), &params.DrawingId, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "drawing_id"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "drawing_id", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "kind" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "kind", r.URL.Query(), &params.Kind, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "kind"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "kind", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "from_id" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "from_id", r.URL.Query(), &params.FromId, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "from_id"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "from_id", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "to_id" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "to_id", r.URL.Query(), &params.ToId, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "to_id"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "to_id", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "image_id" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "image_id", r.URL.Query(), &params.ImageId, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "image_id"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "image_id", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListDrawingShapes(w, r, workspaceId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// CreateDrawingShape operation middleware
+func (siw *ServerInterfaceWrapper) CreateDrawingShape(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params CreateDrawingShapeParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "Idempotency-Key" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("Idempotency-Key")]; found {
+		var IdempotencyKey IdempotencyKey
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "Idempotency-Key", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "Idempotency-Key", valueList[0], &IdempotencyKey, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "Idempotency-Key", Err: err})
+			return
+		}
+
+		params.IdempotencyKey = &IdempotencyKey
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.CreateDrawingShape(w, r, workspaceId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// DeleteDrawingShape operation middleware
+func (siw *ServerInterfaceWrapper) DeleteDrawingShape(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "drawingShapeId" -------------
+	var drawingShapeId DrawingShapeId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "drawingShapeId", r.PathValue("drawingShapeId"), &drawingShapeId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "drawingShapeId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params DeleteDrawingShapeParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "If-Match" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("If-Match")]; found {
+		var IfMatch IfMatch
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "If-Match", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "If-Match", valueList[0], &IfMatch, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "If-Match", Err: err})
+			return
+		}
+
+		params.IfMatch = &IfMatch
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.DeleteDrawingShape(w, r, workspaceId, drawingShapeId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetDrawingShape operation middleware
+func (siw *ServerInterfaceWrapper) GetDrawingShape(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "drawingShapeId" -------------
+	var drawingShapeId DrawingShapeId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "drawingShapeId", r.PathValue("drawingShapeId"), &drawingShapeId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "drawingShapeId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetDrawingShapeParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "If-None-Match" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("If-None-Match")]; found {
+		var IfNoneMatch IfNoneMatch
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "If-None-Match", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "If-None-Match", valueList[0], &IfNoneMatch, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "If-None-Match", Err: err})
+			return
+		}
+
+		params.IfNoneMatch = &IfNoneMatch
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetDrawingShape(w, r, workspaceId, drawingShapeId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// UpdateDrawingShape operation middleware
+func (siw *ServerInterfaceWrapper) UpdateDrawingShape(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "drawingShapeId" -------------
+	var drawingShapeId DrawingShapeId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "drawingShapeId", r.PathValue("drawingShapeId"), &drawingShapeId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "drawingShapeId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params UpdateDrawingShapeParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "If-Match" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("If-Match")]; found {
+		var IfMatch IfMatch
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "If-Match", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "If-Match", valueList[0], &IfMatch, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "If-Match", Err: err})
+			return
+		}
+
+		params.IfMatch = &IfMatch
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdateDrawingShape(w, r, workspaceId, drawingShapeId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
 // GetEmailToTask operation middleware
 func (siw *ServerInterfaceWrapper) GetEmailToTask(w http.ResponseWriter, r *http.Request) {
 
@@ -14810,6 +16153,353 @@ func (siw *ServerInterfaceWrapper) UpdatePageComment(w http.ResponseWriter, r *h
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.UpdatePageComment(w, r, workspaceId, pageCommentId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListPageDrawings operation middleware
+func (siw *ServerInterfaceWrapper) ListPageDrawings(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListPageDrawingsParams
+
+	// ------------- Optional query parameter "after" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "after", r.URL.Query(), &params.After, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "after"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "after", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "limit" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "limit", r.URL.Query(), &params.Limit, runtime.BindQueryParameterOptions{Type: "integer", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "limit"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "limit", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "include_deleted" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "include_deleted", r.URL.Query(), &params.IncludeDeleted, runtime.BindQueryParameterOptions{Type: "boolean", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "include_deleted"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "include_deleted", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "page_id" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "page_id", r.URL.Query(), &params.PageId, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "page_id"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "page_id", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "grid" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "grid", r.URL.Query(), &params.Grid, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "grid"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "grid", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "snap" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "snap", r.URL.Query(), &params.Snap, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "snap"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "snap", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "made_by" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "made_by", r.URL.Query(), &params.MadeBy, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "made_by"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "made_by", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListPageDrawings(w, r, workspaceId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// CreatePageDrawing operation middleware
+func (siw *ServerInterfaceWrapper) CreatePageDrawing(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params CreatePageDrawingParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "Idempotency-Key" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("Idempotency-Key")]; found {
+		var IdempotencyKey IdempotencyKey
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "Idempotency-Key", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "Idempotency-Key", valueList[0], &IdempotencyKey, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "Idempotency-Key", Err: err})
+			return
+		}
+
+		params.IdempotencyKey = &IdempotencyKey
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.CreatePageDrawing(w, r, workspaceId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// DeletePageDrawing operation middleware
+func (siw *ServerInterfaceWrapper) DeletePageDrawing(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "pageDrawingId" -------------
+	var pageDrawingId PageDrawingId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "pageDrawingId", r.PathValue("pageDrawingId"), &pageDrawingId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "pageDrawingId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params DeletePageDrawingParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "If-Match" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("If-Match")]; found {
+		var IfMatch IfMatch
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "If-Match", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "If-Match", valueList[0], &IfMatch, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "If-Match", Err: err})
+			return
+		}
+
+		params.IfMatch = &IfMatch
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.DeletePageDrawing(w, r, workspaceId, pageDrawingId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetPageDrawing operation middleware
+func (siw *ServerInterfaceWrapper) GetPageDrawing(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "pageDrawingId" -------------
+	var pageDrawingId PageDrawingId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "pageDrawingId", r.PathValue("pageDrawingId"), &pageDrawingId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "pageDrawingId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetPageDrawingParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "If-None-Match" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("If-None-Match")]; found {
+		var IfNoneMatch IfNoneMatch
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "If-None-Match", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "If-None-Match", valueList[0], &IfNoneMatch, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "If-None-Match", Err: err})
+			return
+		}
+
+		params.IfNoneMatch = &IfNoneMatch
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetPageDrawing(w, r, workspaceId, pageDrawingId, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// UpdatePageDrawing operation middleware
+func (siw *ServerInterfaceWrapper) UpdatePageDrawing(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "workspaceId" -------------
+	var workspaceId WorkspaceId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "workspaceId", r.PathValue("workspaceId"), &workspaceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "workspaceId", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "pageDrawingId" -------------
+	var pageDrawingId PageDrawingId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "pageDrawingId", r.PathValue("pageDrawingId"), &pageDrawingId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "pageDrawingId", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params UpdatePageDrawingParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "If-Match" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("If-Match")]; found {
+		var IfMatch IfMatch
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "If-Match", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "If-Match", valueList[0], &IfMatch, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "If-Match", Err: err})
+			return
+		}
+
+		params.IfMatch = &IfMatch
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdatePageDrawing(w, r, workspaceId, pageDrawingId, params)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -20324,6 +22014,16 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 	m.HandleFunc(http.MethodDelete+" "+options.BaseURL+"/workspaces/{workspaceId}/page-attachments/{pageAttachmentId}", wrapper.DeletePageAttachment)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/workspaces/{workspaceId}/page-attachments/{pageAttachmentId}", wrapper.GetPageAttachment)
 	m.HandleFunc(http.MethodPatch+" "+options.BaseURL+"/workspaces/{workspaceId}/page-attachments/{pageAttachmentId}", wrapper.UpdatePageAttachment)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/workspaces/{workspaceId}/page-drawings", wrapper.ListPageDrawings)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/workspaces/{workspaceId}/page-drawings", wrapper.CreatePageDrawing)
+	m.HandleFunc(http.MethodDelete+" "+options.BaseURL+"/workspaces/{workspaceId}/page-drawings/{pageDrawingId}", wrapper.DeletePageDrawing)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/workspaces/{workspaceId}/page-drawings/{pageDrawingId}", wrapper.GetPageDrawing)
+	m.HandleFunc(http.MethodPatch+" "+options.BaseURL+"/workspaces/{workspaceId}/page-drawings/{pageDrawingId}", wrapper.UpdatePageDrawing)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/workspaces/{workspaceId}/drawing-shapes", wrapper.ListDrawingShapes)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/workspaces/{workspaceId}/drawing-shapes", wrapper.CreateDrawingShape)
+	m.HandleFunc(http.MethodDelete+" "+options.BaseURL+"/workspaces/{workspaceId}/drawing-shapes/{drawingShapeId}", wrapper.DeleteDrawingShape)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/workspaces/{workspaceId}/drawing-shapes/{drawingShapeId}", wrapper.GetDrawingShape)
+	m.HandleFunc(http.MethodPatch+" "+options.BaseURL+"/workspaces/{workspaceId}/drawing-shapes/{drawingShapeId}", wrapper.UpdateDrawingShape)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/workspaces/{workspaceId}/my-day-entries", wrapper.ListMyDayEntries)
 	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/workspaces/{workspaceId}/my-day-entries", wrapper.CreateMyDayEntry)
 	m.HandleFunc(http.MethodDelete+" "+options.BaseURL+"/workspaces/{workspaceId}/my-day-entries/{myDayEntryId}", wrapper.DeleteMyDayEntry)

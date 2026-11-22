@@ -195,6 +195,13 @@ const everyone = "*"
 // ID, stored as the change log's project_id.
 func privateScope(userID string) string { return "@" + userID }
 
+// maxPageDrawings bounds a page's live drawings, and maxDrawingShapes a
+// drawing's live shapes.
+const (
+	maxPageDrawings  = 50
+	maxDrawingShapes = 2_000
+)
+
 // maxTemplates bounds a workspace's live templates.
 const maxTemplates = 200
 
@@ -1112,6 +1119,20 @@ func (s *Service) checkRefs(ctx context.Context, q store.Queries, tx *sql.Tx, v 
 		text, _ := r.values["data"].(jsonText)
 		if err := json.Unmarshal([]byte(text), &data); err != nil || len(data.Pages) == 0 {
 			return refuse(apperr.Invalid, "data", "A page template must hold its pages.")
+		}
+	}
+	if e.name == "drawing_shape" {
+		if err := s.checkShape(ctx, tx, r, accepted); err != nil {
+			return err
+		}
+	}
+	if e.name == "page_drawing" && !r.exists {
+		var n int
+		if err := tx.QueryRowContext(ctx, rebind(d.Dialect, "SELECT COUNT(*) FROM page_drawings WHERE page_id = ? AND deleted_at IS NULL"), r.values["page_id"]).Scan(&n); err != nil {
+			return err
+		}
+		if n >= maxPageDrawings {
+			return refuse(apperr.Invalid, "", "A page holds %d drawings at most.", maxPageDrawings)
 		}
 	}
 	if e.name == "template" && !r.exists {

@@ -185,6 +185,10 @@ var fingerprints = map[int]string{
 	// project itself, which apps of 6 from before it never send and keep
 	// without reading.
 	6: "b35e3604732a8f76",
+	// 7: page_drawing and drawing_shape, drawings in wiki pages, and the
+	// block that names one in a page, which an app of 6 would drop from a
+	// page it edited.
+	7: "94247c651e775815",
 }
 
 func TestSchemaFingerprint(t *testing.T) {

@@ -106,7 +106,7 @@ export const HELP: Topic[] = [
 		slug: 'writing',
 		title: 'Writing in notes and pages',
 		summary:
-			'Formatting, checklists, tables, images, diagrams, boxes and Markdown, in task notes and wiki pages alike.',
+			'Formatting, checklists, tables, images, diagrams, drawings, boxes and Markdown, in task notes and wiki pages.',
 		keywords: [
 			'notes',
 			'editor',
@@ -171,6 +171,21 @@ export const HELP: Topic[] = [
 					'mind map',
 					'gantt',
 					'pie'
+				]
+			},
+			{
+				id: 'drawings',
+				title: 'Drawings',
+				keywords: [
+					'drawing',
+					'draw',
+					'sketch',
+					'whiteboard',
+					'shapes',
+					'arrows',
+					'flowchart',
+					'org chart',
+					'pen'
 				]
 			},
 			{

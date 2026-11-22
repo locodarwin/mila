@@ -36,6 +36,8 @@ var (
 	reportMarker = regexp.MustCompile(`^<!-- mila:report ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}) ([a-z][a-z0-9-]{0,39}) -->$`)
 	pageMarker   = regexp.MustCompile(`^<!-- mila:page(?: font=(inter|nunito|source-serif|jetbrains-mono|system-sans|system-serif|system-mono))?(?: size=(small|large))? -->$`)
 	imageMarker  = regexp.MustCompile(`^<!-- mila:image (25|50|75|100) (left|center|right) -->`)
+	// A drawing in a page, at a share of the page's width (all of it when none).
+	drawingMarker = regexp.MustCompile(`^<!-- mila:drawing ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?: (25|50|75|100))? -->$`)
 )
 
 const (
@@ -307,6 +309,25 @@ func readFormatted(kids []ast.Node, i int, src []byte, read func([]ast.Node) []*
 		}
 		return report, 1
 	}
+	if m := drawingMarker.FindStringSubmatch(text); m != nil {
+		drawing := &Node{Type: "drawingEmbed", Attrs: map[string]any{"id": m[1], "name": "", "src": "", "size": nil}}
+		if m[2] != "" {
+			size, _ := strconv.ParseInt(m[2], 10, 64)
+			drawing.Attrs["size"] = size
+		}
+		// The picture of it, for other apps, on the line right after.
+		if i+1 < len(kids) {
+			if p, ok := kids[i+1].(*ast.Paragraph); ok && p.Lines().Len() == 1 && blankLinesBefore(src, p.Lines().At(0).Start) == 0 {
+				if content := readInline(p, src); len(content) == 1 && content[0].Type == "image" {
+					drawing.Attrs["src"], _ = content[0].Attr("src").(string)
+					alt, _ := content[0].Attr("alt").(string)
+					drawing.Attrs["name"] = decode([]byte(alt))
+					return drawing, 2
+				}
+			}
+		}
+		return drawing, 1
+	}
 	if m := pageMarker.FindStringSubmatch(text); m != nil {
 		style := &Node{Type: "pageStyle", Attrs: map[string]any{"font": nil, "size": nil}}
 		if m[1] != "" {
@@ -434,6 +455,22 @@ func formatted(n *Node) (string, bool) {
 			return marker, true
 		}
 		return marker + "\n" + inline([]*Node{{Type: "text", Text: name, Marks: []Mark{{Type: "link", Attrs: map[string]any{"href": ViewAddress(strings.ToLower(id))}}}}}, false), true
+	case "drawingEmbed":
+		id, _ := n.Attr("id").(string)
+		marker := "<!-- mila:drawing " + strings.ToLower(id) + " -->"
+		if !drawingMarker.MatchString(marker) {
+			return "", true
+		}
+		if size, _ := n.Attr("size").(int64); slices.Contains(ImageSizes, size) && size != 100 {
+			marker = "<!-- mila:drawing " + strings.ToLower(id) + " " + strconv.FormatInt(size, 10) + " -->"
+		}
+		src, _ := n.Attr("src").(string)
+		if src == "" {
+			return marker, true
+		}
+		name, _ := n.Attr("name").(string)
+		name = strings.TrimSpace(strings.ReplaceAll(name, "\n", " "))
+		return marker + "\n" + inline([]*Node{{Type: "image", Attrs: map[string]any{"src": src, "alt": name, "title": nil}}}, false), true
 	case "pageStyle":
 		font, _ := n.Attr("font").(string)
 		size, _ := n.Attr("size").(string)

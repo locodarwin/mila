@@ -616,6 +616,18 @@ export class Replica {
 		}));
 	}
 
+	/** How many live drawings a page has. */
+	drawingCount(pageId: string): number {
+		return this.#liveIn(this.#byPage, `page_drawing/${pageId}`).length;
+	}
+
+	/** A drawing's live shapes as rows (drawing.ts reads them, loaded only with a drawing). */
+	drawingRows(pageId: string, drawingId: string): Row[] {
+		return this.#liveIn(this.#byPage, `drawing_shape/${pageId}`).filter(
+			(r) => r.values.drawing_id === drawingId
+		);
+	}
+
 	/** A wiki page's comment threads, oldest first. */
 	pageThreads(pageId: string): PageThread[] {
 		return this.#liveIn(this.#byPage, `page_thread/${pageId}`)

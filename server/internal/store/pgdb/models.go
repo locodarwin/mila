@@ -201,6 +201,26 @@ type DocUpdate struct {
 	UpdatedAt   time.Time
 }
 
+type DrawingShape struct {
+	ID          string
+	WorkspaceID string
+	PageID      string
+	DrawingID   string
+	Kind        string
+	Box         string
+	Points      sql.NullString
+	Text        string
+	Style       string
+	FromID      sql.NullString
+	ToID        sql.NullString
+	ImageID     sql.NullString
+	SortKey     string
+	DeletedAt   sql.NullTime
+	Clocks      string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
 type DueNotice struct {
 	TaskID string
 	UserID string
@@ -439,6 +459,20 @@ type PageComment struct {
 	AuthorID    string
 	Body        string
 	EditedAt    sql.NullTime
+	DeletedAt   sql.NullTime
+	Clocks      string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
+type PageDrawing struct {
+	ID          string
+	WorkspaceID string
+	PageID      string
+	Name        string
+	Grid        bool
+	Snap        bool
+	MadeBy      string
 	DeletedAt   sql.NullTime
 	Clocks      string
 	CreatedAt   time.Time

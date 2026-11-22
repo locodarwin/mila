@@ -26,6 +26,8 @@ for (const character of characters) {
 			await expect(page.getByRole('heading', { name: 'ThemePreview' })).toBeVisible();
 			// The diagrams draw once Mermaid has loaded (DiagramsDemo.svelte).
 			await expect(page.locator('.diagram .drawing > svg')).toHaveCount(11, { timeout: 20_000 });
+			// And the drawings, made in the sample workspace (DrawingsDemo.svelte).
+			await expect(page.locator('figure.drawing svg.art')).toHaveCount(2);
 			// A page of samples, not a page of the app: its structure is not checked.
 			await axe(page, { structure: false });
 		});

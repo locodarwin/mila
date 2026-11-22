@@ -22,7 +22,7 @@ import (
 // TestSchemaFingerprint fails when the fields change, as a reminder to
 // decide. 5 made a pair's ID a hash of the pair (ids.Pair) instead of the
 // two IDs XORed: an app of 4 would make pair rows under IDs refused now.
-const Schema = 6
+const Schema = 7
 
 type kind int
 
@@ -328,6 +328,40 @@ var entities = map[string]*entity{
 			{name: "deleted_at", kind: kTime, nullable: true},
 		},
 	},
+	// A drawing in a wiki page. The page's document holds a block naming
+	// it, and its shapes are rows of their own, so two people editing
+	// different shapes keep both.
+	"page_drawing": {
+		name: "page_drawing", table: "page_drawings", parent: "page_id", parentEntity: "page", guestWritable: true,
+		fields: []field{
+			{name: "page_id", kind: kRef, ref: "page", required: true, immutable: true},
+			{name: "name", kind: kString, max: 200, def: ""},
+			{name: "grid", kind: kBool, def: true, doc: "Whether the editor shows its dot grid."},
+			{name: "snap", kind: kBool, def: true, doc: "Whether shapes snap to the grid and to each other as they move."},
+			{name: "made_by", kind: kSelf, required: true, immutable: true},
+			{name: "deleted_at", kind: kTime, nullable: true},
+		},
+	},
+	"drawing_shape": {
+		name: "drawing_shape", table: "drawing_shapes", parent: "page_id", parentEntity: "page", guestWritable: true,
+		fields: []field{
+			{name: "page_id", kind: kRef, ref: "page", required: true, immutable: true},
+			{name: "drawing_id", kind: kRef, ref: "page_drawing", required: true, immutable: true},
+			{name: "kind", kind: kEnum, required: true, immutable: true, enum: shapeKinds},
+			{name: "box", kind: kJSON, required: true, max: 200, shape: boxShape, schema: boxSchema,
+				doc: `Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points.`},
+			{name: "points", kind: kJSON, nullable: true, max: 200_000, shape: pointsShape, schema: pointsSchema,
+				doc: "A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels."},
+			{name: "text", kind: kText, max: 2_000, def: ""},
+			{name: "style", kind: kJSON, max: 2_000, def: map[string]any{}, shape: drawingStyleShape, schema: drawingStyleSchema,
+				doc: `How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left").`},
+			{name: "from_id", kind: kRef, ref: "drawing_shape", nullable: true, doc: "The shape a line or arrow starts on, which it follows."},
+			{name: "to_id", kind: kRef, ref: "drawing_shape", nullable: true, doc: "The shape a line or arrow ends on, which it follows."},
+			{name: "image_id", kind: kRef, ref: "page_attachment", nullable: true, doc: "The page's file a picture shows."},
+			{name: "sort_key", kind: kString, required: true, min: 1, max: 64, check: validateKey, doc: "Which shapes are drawn over which: higher keys over lower ones. " + sortKeyDoc},
+			{name: "deleted_at", kind: kTime, nullable: true},
+		},
+	},
 	// A file on a wiki page, as an attachment is on a task.
 	"page_attachment": {
 		name: "page_attachment", table: "page_attachments", parent: "page_id", parentEntity: "page", guestWritable: true, serverCreated: true,
@@ -556,7 +590,7 @@ const displayDoc = `How the view lays out what its filter shows, or null for the
 What the app cannot use (a deleted field, a rule from a newer app) it shows as not available and otherwise ignores.`
 
 // syncOrder is the order bootstrap reads entities in: parents first.
-var syncOrder = []string{"project", "status", "label", "custom_field", "saved_view", "task", "task_label", "task_dependency", "task_assignee", "checklist_item", "comment", "doc_update", "page", "page_update", "page_thread", "page_comment", "attachment", "page_attachment", "my_day_entry", "reminder", "custom_field_value", "template", "time_entry", "project_time_entry", "workspace_theme", "automation"}
+var syncOrder = []string{"project", "status", "label", "custom_field", "saved_view", "task", "task_label", "task_dependency", "task_assignee", "checklist_item", "comment", "doc_update", "page", "page_update", "page_thread", "page_comment", "attachment", "page_attachment", "page_drawing", "drawing_shape", "my_day_entry", "reminder", "custom_field_value", "template", "time_entry", "project_time_entry", "workspace_theme", "automation"}
 
 func validID(s string) error {
 	if !idPattern.MatchString(s) {

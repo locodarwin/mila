@@ -47,6 +47,8 @@ for (const character of characters) {
 				await expect(picker.getByText('From Omarchy', { exact: true })).toBeVisible();
 			// The diagrams draw once Mermaid has loaded (DiagramsDemo.svelte).
 			await expect(page.locator('.diagram .drawing > svg')).toHaveCount(11, { timeout: 20_000 });
+			// And the drawings, made in the sample workspace (DrawingsDemo.svelte).
+			await expect(page.locator('figure.drawing svg.art')).toHaveCount(2);
 			await expect(page.locator('html')).toHaveAttribute('data-theme', character);
 			await expect(page.locator('html')).toHaveAttribute('data-scheme', scheme);
 			await page.evaluate(() => document.fonts.ready);

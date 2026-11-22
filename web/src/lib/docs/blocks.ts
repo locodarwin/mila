@@ -13,6 +13,8 @@ export interface Block {
 	insert?: (editor: Editor) => void;
 	/** Offered only once something typed finds it, not in the whole list. */
 	typed?: boolean;
+	/** Offered in wiki pages only, not in a task's notes. */
+	pageOnly?: boolean;
 }
 
 const chain = (e: Editor) => e.chain().focus();
@@ -122,6 +124,13 @@ export const BLOCKS: Block[] = [
 	{ id: 'view', label: 'View', words: ['saved view', 'tasks', 'embed'] },
 	// So does a report, then which of its charts.
 	{ id: 'report', label: 'Report', words: ['chart', 'graph', 'burnup', 'reports'] },
+	// A drawing asks how it starts, then opens to draw in.
+	{
+		id: 'drawing',
+		label: 'Drawing',
+		words: ['draw', 'sketch', 'whiteboard', 'shapes', 'canvas'],
+		pageOnly: true
+	},
 	// A diagram asks which kind to start from; each kind is found by typing too.
 	{ id: 'diagram', label: 'Diagram', words: ['mermaid', 'chart', 'flowchart', 'drawing'] },
 	...STARTERS.map((d): Block => ({

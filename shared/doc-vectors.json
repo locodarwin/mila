@@ -15,6 +15,12 @@
 				"layout": "1:1"
 			},
 			"doc": {},
+			"drawingEmbed": {
+				"id": null,
+				"name": "",
+				"size": null,
+				"src": ""
+			},
 			"fold": {
 				"open": false
 			},
@@ -4022,6 +4028,114 @@
 			}
 		},
 		{
+			"name": "drawing",
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "Request flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "drawing at half the width",
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 50 -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\nAfter it.",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "Request flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": 50
+						}
+					},
+					{
+						"type": "paragraph",
+						"content": [
+							{
+								"type": "text",
+								"text": "After it."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"name": "drawing with no picture yet",
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n\nAfter it.",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "",
+							"src": "",
+							"size": null
+						}
+					},
+					{
+						"type": "paragraph",
+						"content": [
+							{
+								"type": "text",
+								"text": "After it."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"name": "drawing with escapes in its name",
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![A \\*starred\\* flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "A *starred* flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "a drawing of another size stays text",
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 60 -->",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "paragraph",
+						"content": [
+							{
+								"type": "text",
+								"text": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 60 -->"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
 			"name": "page style",
 			"md": "<!-- mila:page font=source-serif size=large -->\n\n# Title",
 			"json": {
@@ -6196,6 +6310,42 @@
 			}
 		},
 		{
+			"name": "written by the editor: drawings",
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\n<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 75 -->\n![a \\*star\\* \\[x\\]](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\n<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "Request flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": null
+						}
+					},
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "a *star* [x]",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": 75
+						}
+					},
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "",
+							"src": "",
+							"size": null
+						}
+					}
+				]
+			}
+		},
+		{
 			"name": "written by the editor: reports",
 			"md": "<!-- mila:report 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa burnup -->\n[Launch](/views/7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa)\n\n<!-- mila:report 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa dots -->\n\n<!-- mila:report 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa cfd -->\n[a \\*star\\* \\[x\\]](/views/7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa)",
 			"json": {
@@ -8338,6 +8488,42 @@
 				]
 			},
 			"md": "<!-- mila:page font=nunito size=large -->\n\n<!-- mila:view 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n[Garden, this month](/views/7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa)\n\nbetween\n\n<!-- mila:view 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n\n<!-- mila:view 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa board -->\n[Board](/views/7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa)\n\n<!-- mila:view 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n[a \\*star\\* \\[x\\]](/views/7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa)"
+		},
+		{
+			"name": "drawings",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "Request flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": null
+						}
+					},
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "a *star* [x]",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": 75
+						}
+					},
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "",
+							"src": "",
+							"size": null
+						}
+					}
+				]
+			},
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\n<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 75 -->\n![a *star* \\[x\\]](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\n<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->"
 		},
 		{
 			"name": "reports",
@@ -12385,6 +12571,114 @@
 				]
 			},
 			"md": "<!-- mila:report 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa cfd -->\n\n[Other](/views/00000000-6a0e-4d1b-9c55-2e8b7d10f4aa)"
+		},
+		{
+			"name": "read from drawing",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "Request flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": null
+						}
+					}
+				]
+			},
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)"
+		},
+		{
+			"name": "read from drawing at half the width",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "Request flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": 50
+						}
+					},
+					{
+						"type": "paragraph",
+						"content": [
+							{
+								"type": "text",
+								"text": "After it."
+							}
+						]
+					}
+				]
+			},
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 50 -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\nAfter it."
+		},
+		{
+			"name": "read from drawing with no picture yet",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "",
+							"src": "",
+							"size": null
+						}
+					},
+					{
+						"type": "paragraph",
+						"content": [
+							{
+								"type": "text",
+								"text": "After it."
+							}
+						]
+					}
+				]
+			},
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n\nAfter it."
+		},
+		{
+			"name": "read from drawing with escapes in its name",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "drawingEmbed",
+						"attrs": {
+							"id": "7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa",
+							"name": "A *starred* flow",
+							"src": "/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file",
+							"size": null
+						}
+					}
+				]
+			},
+			"md": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![A *starred* flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)"
+		},
+		{
+			"name": "read from a drawing of another size stays text",
+			"json": {
+				"type": "doc",
+				"content": [
+					{
+						"type": "paragraph",
+						"content": [
+							{
+								"type": "text",
+								"text": "<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 60 -->"
+							}
+						]
+					}
+				]
+			},
+			"md": "&lt;!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 60 -->"
 		},
 		{
 			"name": "read from page style",

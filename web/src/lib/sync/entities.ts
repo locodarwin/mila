@@ -14,7 +14,7 @@ import { hashId } from '../hashid';
  * with update_required, and the app keeps its edits until it reloads.
  * Raising it needs an upgrade step in outbox.ts for the edits kept.
  */
-export const SYNC_SCHEMA = 6;
+export const SYNC_SCHEMA = 7;
 
 export type Entity =
 	| 'project'
@@ -31,6 +31,8 @@ export type Entity =
 	| 'page_update'
 	| 'attachment'
 	| 'page_attachment'
+	| 'page_drawing'
+	| 'drawing_shape'
 	| 'page_thread'
 	| 'page_comment'
 	| 'my_day_entry'
@@ -184,6 +186,28 @@ export const DEFAULTS: Record<Entity, Values> = {
 		size: 0,
 		storage_key: '',
 		uploaded_by: '',
+		deleted_at: null
+	},
+	page_drawing: {
+		page_id: '',
+		name: '',
+		grid: true,
+		snap: true,
+		made_by: '',
+		deleted_at: null
+	},
+	drawing_shape: {
+		page_id: '',
+		drawing_id: '',
+		kind: 'rect',
+		box: { x: 0, y: 0, w: 0, h: 0 },
+		points: null,
+		text: '',
+		style: {},
+		from_id: null,
+		to_id: null,
+		image_id: null,
+		sort_key: '',
 		deleted_at: null
 	},
 	page_thread: {

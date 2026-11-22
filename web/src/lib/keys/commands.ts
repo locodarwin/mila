@@ -510,6 +510,60 @@ export const COMMANDS = [
 		help: "In a diagram's source, in a page or notes: the diagram stays picked, and Enter goes back into its source."
 	},
 	{
+		id: 'drawing.move',
+		name: 'Move the picked shapes in a drawing',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: [
+			'ArrowLeft',
+			'ArrowRight',
+			'ArrowUp',
+			'ArrowDown',
+			'Shift+ArrowLeft',
+			'Shift+ArrowRight',
+			'Shift+ArrowUp',
+			'Shift+ArrowDown'
+		],
+		remappable: false,
+		help: 'In the drawing editor, by a step of the grid; Shift moves a single pixel.'
+	},
+	{
+		id: 'drawing.edit',
+		name: 'Write in the picked shape',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: ['Enter'],
+		remappable: false,
+		help: 'In the drawing editor. Enter again, or Escape, finishes.'
+	},
+	{
+		id: 'drawing.delete',
+		name: 'Delete the picked shapes',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: ['Delete', 'Backspace'],
+		remappable: false,
+		help: 'In the drawing editor; lines joined to them go too.'
+	},
+	{
+		id: 'drawing.undo',
+		name: 'Undo or redo in a drawing',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: ['Mod+z', 'Mod+Shift+z', 'Mod+y'],
+		remappable: false,
+		help: 'In the drawing editor: its own changes, back to when it opened.'
+	},
+	{
+		id: 'drawing.duplicate',
+		name: 'Duplicate the picked shapes, or pick them all',
+		scope: 'elsewhere',
+		keys: [],
+		fixed: ['Mod+d', 'Mod+a'],
+		remappable: false,
+		help: 'In the drawing editor.'
+	},
+	{
 		id: 'theme.undo',
 		name: 'Undo a change in the theme editor',
 		scope: 'elsewhere',

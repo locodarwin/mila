@@ -341,6 +341,50 @@ func (h *handlers) DeletePageAttachment(w http.ResponseWriter, r *http.Request, 
 	h.deleteRow(w, r, "page_attachment", ws, id)
 }
 
+// PageDrawings
+
+func (h *handlers) ListPageDrawings(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, _ api.ListPageDrawingsParams) {
+	h.listRows(w, r, "page_drawing", ws)
+}
+
+func (h *handlers) CreatePageDrawing(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, _ api.CreatePageDrawingParams) {
+	h.createRow(w, r, "page_drawing", ws, syncer.Create)
+}
+
+func (h *handlers) GetPageDrawing(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, id api.PageDrawingId, _ api.GetPageDrawingParams) {
+	h.getRow(w, r, "page_drawing", ws, id)
+}
+
+func (h *handlers) UpdatePageDrawing(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, id api.PageDrawingId, _ api.UpdatePageDrawingParams) {
+	h.patchRow(w, r, "page_drawing", ws, id)
+}
+
+func (h *handlers) DeletePageDrawing(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, id api.PageDrawingId, _ api.DeletePageDrawingParams) {
+	h.deleteRow(w, r, "page_drawing", ws, id)
+}
+
+// DrawingShapes
+
+func (h *handlers) ListDrawingShapes(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, _ api.ListDrawingShapesParams) {
+	h.listRows(w, r, "drawing_shape", ws)
+}
+
+func (h *handlers) CreateDrawingShape(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, _ api.CreateDrawingShapeParams) {
+	h.createRow(w, r, "drawing_shape", ws, syncer.Create)
+}
+
+func (h *handlers) GetDrawingShape(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, id api.DrawingShapeId, _ api.GetDrawingShapeParams) {
+	h.getRow(w, r, "drawing_shape", ws, id)
+}
+
+func (h *handlers) UpdateDrawingShape(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, id api.DrawingShapeId, _ api.UpdateDrawingShapeParams) {
+	h.patchRow(w, r, "drawing_shape", ws, id)
+}
+
+func (h *handlers) DeleteDrawingShape(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, id api.DrawingShapeId, _ api.DeleteDrawingShapeParams) {
+	h.deleteRow(w, r, "drawing_shape", ws, id)
+}
+
 // MyDayEntries
 
 func (h *handlers) ListMyDayEntries(w http.ResponseWriter, r *http.Request, ws api.WorkspaceId, _ api.ListMyDayEntriesParams) {

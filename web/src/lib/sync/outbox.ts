@@ -42,7 +42,11 @@ export const UPGRADES: Record<number, (op: Op) => Op> = {
 	},
 	// 6 added the report view and a report in a page, which an app of 5 can't
 	// show and would drop from a page it edited. What it kept is sent as it is.
-	5: (op) => op
+	5: (op) => op,
+	// 7 added drawings in pages (page_drawing and drawing_shape), and the block
+	// naming one, which an app of 6 would drop from a page it edited. What it
+	// kept is sent as it is.
+	6: (op) => op
 };
 
 /**

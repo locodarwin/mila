@@ -610,7 +610,7 @@ func TestRESTSortKeys(t *testing.T) {
 }
 
 func TestDescribeCoversEveryEntity(t *testing.T) {
-	want := []string{"project", "status", "label", "custom_field", "saved_view", "task", "task_label", "task_dependency", "task_assignee", "checklist_item", "comment", "page", "page_thread", "page_comment", "attachment", "page_attachment", "my_day_entry", "reminder", "custom_field_value", "template", "time_entry", "project_time_entry", "workspace_theme", "automation"}
+	want := []string{"project", "status", "label", "custom_field", "saved_view", "task", "task_label", "task_dependency", "task_assignee", "checklist_item", "comment", "page", "page_thread", "page_comment", "attachment", "page_attachment", "page_drawing", "drawing_shape", "my_day_entry", "reminder", "custom_field_value", "template", "time_entry", "project_time_entry", "workspace_theme", "automation"}
 	got := syncer.Describe()
 	if len(got) != len(want) {
 		t.Fatalf("Describe lists %d entities, want %d", len(got), len(want))

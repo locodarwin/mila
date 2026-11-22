@@ -66,7 +66,7 @@ var collections = map[string]string{
 	"saved_view": "saved-views", "task": "tasks", "task_label": "task-labels", "task_dependency": "task-dependencies", "task_assignee": "task-assignees",
 	"checklist_item": "checklist-items", "comment": "comments", "attachment": "attachments",
 	"my_day_entry": "my-day-entries", "reminder": "reminders", "custom_field_value": "custom-field-values",
-	"automation": "automations", "page": "pages", "page_attachment": "page-attachments", "page_thread": "page-threads", "page_comment": "page-comments", "template": "templates",
+	"automation": "automations", "page": "pages", "page_attachment": "page-attachments", "page_thread": "page-threads", "page_comment": "page-comments", "page_drawing": "page-drawings", "drawing_shape": "drawing-shapes", "template": "templates",
 	"time_entry": "time-entries", "project_time_entry": "project-time-entries", "workspace_theme": "workspace-themes",
 }
 
@@ -97,6 +97,8 @@ var entityDocs = map[string]string{
 	"workspace_theme":    "A theme the workspace offers everyone in it, guests too, as the app's Settings, Workspace themes shows them: nobody is switched to one. Owners and admins publish, change and unpublish them (set deleted_at); a workspace offers 10 at most.",
 	"page_thread":        "Comments pinned to some words of a wiki page. Anyone who can read the page can comment and can resolve or reopen a thread. Only an owner or admin can delete one that holds other people's comments.",
 	"page_comment":       "A comment in a thread on a wiki page. Only its author changes it; admins may delete it.",
+	"page_drawing":       "A drawing in a wiki page, which the page's body names with <!-- mila:drawing <id> --> and a picture of it. Its shapes are drawing_shape rows. A page holds 50 drawings at most.",
+	"drawing_shape":      "A shape of a drawing: a box, ellipse, diamond, cylinder, text, sticky note, line, arrow, pen stroke or picture, with its place, words and look. A line or arrow on shapes names them in from_id and to_id and follows them. Shapes are drawn in sort_key order. A drawing holds 2,000 shapes at most.",
 	"page_attachment":    "A file on a wiki page, as an attachment is on a task. Upload one with POST /workspaces/{workspaceId}/pages/{pageId}/attachments, and fetch its bytes from /workspaces/{workspaceId}/attachments/{attachmentId}/file, as a task's.",
 }
 

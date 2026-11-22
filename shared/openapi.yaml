@@ -134,6 +134,10 @@ tags:
     description: "A file on a task. Upload one with POST /workspaces/{workspaceId}/tasks/{taskId}/attachments, and fetch its bytes from .../attachments/{attachmentId}/file."
   - name: page-attachments
     description: "A file on a wiki page, as an attachment is on a task. Upload one with POST /workspaces/{workspaceId}/pages/{pageId}/attachments, and fetch its bytes from /workspaces/{workspaceId}/attachments/{attachmentId}/file, as a task's."
+  - name: page-drawings
+    description: "A drawing in a wiki page, which the page's body names with <!-- mila:drawing <id> --> and a picture of it. Its shapes are drawing_shape rows. A page holds 50 drawings at most."
+  - name: drawing-shapes
+    description: "A shape of a drawing: a box, ellipse, diamond, cylinder, text, sticky note, line, arrow, pen stroke or picture, with its place, words and look. A line or arrow on shapes names them in from_id and to_id and follows them. Shapes are drawn in sort_key order. A drawing holds 2,000 shapes at most."
   - name: my-day-entries
     description: "A task in the user's My Day, which only they see. Its ID is made from the task and the user."
   - name: reminders
@@ -4277,6 +4281,258 @@ paths:
           description: Deleted.
         default: { $ref: "#/components/responses/Error" }
 
+  /workspaces/{workspaceId}/page-drawings:
+    get:
+      tags: [page-drawings]
+      operationId: listPageDrawings
+      summary: "List page drawings"
+      description: "The page drawings you can see, a page at a time in ID order (not the order they were made: IDs are random). Sort by sort_key, compared byte by byte, or by created_at yourself. Filters match a field exactly; an empty value matches null. Without include_deleted, rows hanging off a deleted task are left out with it."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/ListAfter" }
+        - { $ref: "#/components/parameters/ListLimit" }
+        - { $ref: "#/components/parameters/IncludeDeleted" }
+        - name: page_id
+          in: query
+          description: "Only rows whose page_id is this."
+          schema: { type: string }
+        - name: grid
+          in: query
+          description: "Only rows whose grid is this."
+          schema: { type: string }
+        - name: snap
+          in: query
+          description: "Only rows whose snap is this."
+          schema: { type: string }
+        - name: made_by
+          in: query
+          description: "Only rows whose made_by is this."
+          schema: { type: string }
+      responses:
+        "200":
+          description: "A page of page drawings."
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PageDrawingPage" }
+        default: { $ref: "#/components/responses/Error" }
+    post:
+      tags: [page-drawings]
+      operationId: createPageDrawing
+      summary: "Make a page drawing"
+      description: "Makes a page drawing through the same merge as sync, so every device gets it. Fields left out take their defaults; sort_key, left out, puts it after every other page drawing. With an Idempotency-Key and no id, a retry names the same row and answers 200 with it."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/IdempotencyKey" }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PageDrawingCreate" }
+      responses:
+        "201":
+          description: "Made."
+          headers:
+            Location: { schema: { type: string } }
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PageDrawing" }
+        "200":
+          description: "The row was there already (a pair, or a retry with the same Idempotency-Key)."
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PageDrawing" }
+        default: { $ref: "#/components/responses/Error" }
+  /workspaces/{workspaceId}/page-drawings/{pageDrawingId}:
+    get:
+      tags: [page-drawings]
+      operationId: getPageDrawing
+      summary: "Get a page drawing"
+      description: "One page drawing. A deleted one comes back with deleted_at set until it is purged."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/PageDrawingId" }
+        - { $ref: "#/components/parameters/IfNoneMatch" }
+      responses:
+        "200":
+          description: "OK"
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PageDrawing" }
+        "304":
+          description: Not modified since the ETag given in If-None-Match.
+        default: { $ref: "#/components/responses/Error" }
+    patch:
+      tags: [page-drawings]
+      operationId: updatePageDrawing
+      summary: "Change a page drawing"
+      description: "Sets the fields given and leaves the rest. Each field is last writer wins, as on every device; send If-Match with the ETag you read to change the row only if no one has since. deleted_at: null brings a deleted one back."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/PageDrawingId" }
+        - { $ref: "#/components/parameters/IfMatch" }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PageDrawingPatch" }
+      responses:
+        "200":
+          description: "The row as it stands now."
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PageDrawing" }
+        default: { $ref: "#/components/responses/Error" }
+    delete:
+      tags: [page-drawings]
+      operationId: deletePageDrawing
+      summary: "Delete a page drawing"
+      description: "Sets deleted_at. Deleting what is deleted already changes nothing."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/PageDrawingId" }
+        - { $ref: "#/components/parameters/IfMatch" }
+      responses:
+        "204":
+          description: Deleted.
+        default: { $ref: "#/components/responses/Error" }
+
+  /workspaces/{workspaceId}/drawing-shapes:
+    get:
+      tags: [drawing-shapes]
+      operationId: listDrawingShapes
+      summary: "List drawing shapes"
+      description: "The drawing shapes you can see, a page at a time in ID order (not the order they were made: IDs are random). Sort by sort_key, compared byte by byte, or by created_at yourself. Filters match a field exactly; an empty value matches null. Without include_deleted, rows hanging off a deleted task are left out with it."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/ListAfter" }
+        - { $ref: "#/components/parameters/ListLimit" }
+        - { $ref: "#/components/parameters/IncludeDeleted" }
+        - name: page_id
+          in: query
+          description: "Only rows whose page_id is this."
+          schema: { type: string }
+        - name: drawing_id
+          in: query
+          description: "Only rows whose drawing_id is this."
+          schema: { type: string }
+        - name: kind
+          in: query
+          description: "Only rows whose kind is this."
+          schema: { type: string }
+        - name: from_id
+          in: query
+          description: "Only rows whose from_id is this; empty for none."
+          schema: { type: string }
+        - name: to_id
+          in: query
+          description: "Only rows whose to_id is this; empty for none."
+          schema: { type: string }
+        - name: image_id
+          in: query
+          description: "Only rows whose image_id is this; empty for none."
+          schema: { type: string }
+      responses:
+        "200":
+          description: "A page of drawing shapes."
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DrawingShapePage" }
+        default: { $ref: "#/components/responses/Error" }
+    post:
+      tags: [drawing-shapes]
+      operationId: createDrawingShape
+      summary: "Make a drawing shape"
+      description: "Makes a drawing shape through the same merge as sync, so every device gets it. Fields left out take their defaults; sort_key, left out, puts it after every other drawing shape. With an Idempotency-Key and no id, a retry names the same row and answers 200 with it."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/IdempotencyKey" }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/DrawingShapeCreate" }
+      responses:
+        "201":
+          description: "Made."
+          headers:
+            Location: { schema: { type: string } }
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DrawingShape" }
+        "200":
+          description: "The row was there already (a pair, or a retry with the same Idempotency-Key)."
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DrawingShape" }
+        default: { $ref: "#/components/responses/Error" }
+  /workspaces/{workspaceId}/drawing-shapes/{drawingShapeId}:
+    get:
+      tags: [drawing-shapes]
+      operationId: getDrawingShape
+      summary: "Get a drawing shape"
+      description: "One drawing shape. A deleted one comes back with deleted_at set until it is purged."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/DrawingShapeId" }
+        - { $ref: "#/components/parameters/IfNoneMatch" }
+      responses:
+        "200":
+          description: "OK"
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DrawingShape" }
+        "304":
+          description: Not modified since the ETag given in If-None-Match.
+        default: { $ref: "#/components/responses/Error" }
+    patch:
+      tags: [drawing-shapes]
+      operationId: updateDrawingShape
+      summary: "Change a drawing shape"
+      description: "Sets the fields given and leaves the rest. Each field is last writer wins, as on every device; send If-Match with the ETag you read to change the row only if no one has since. deleted_at: null brings a deleted one back."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/DrawingShapeId" }
+        - { $ref: "#/components/parameters/IfMatch" }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/DrawingShapePatch" }
+      responses:
+        "200":
+          description: "The row as it stands now."
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DrawingShape" }
+        default: { $ref: "#/components/responses/Error" }
+    delete:
+      tags: [drawing-shapes]
+      operationId: deleteDrawingShape
+      summary: "Delete a drawing shape"
+      description: "Sets deleted_at. Deleting what is deleted already changes nothing."
+      parameters:
+        - { $ref: "#/components/parameters/WorkspaceId" }
+        - { $ref: "#/components/parameters/DrawingShapeId" }
+        - { $ref: "#/components/parameters/IfMatch" }
+      responses:
+        "204":
+          description: Deleted.
+        default: { $ref: "#/components/responses/Error" }
+
   /workspaces/{workspaceId}/my-day-entries:
     get:
       tags: [my-day-entries]
@@ -5265,6 +5521,8 @@ components:
     PageThreadId: { name: pageThreadId, in: path, required: true, schema: { type: string } }
     PageCommentId: { name: pageCommentId, in: path, required: true, schema: { type: string } }
     PageAttachmentId: { name: pageAttachmentId, in: path, required: true, schema: { type: string } }
+    PageDrawingId: { name: pageDrawingId, in: path, required: true, schema: { type: string } }
+    DrawingShapeId: { name: drawingShapeId, in: path, required: true, schema: { type: string } }
     MyDayEntryId: { name: myDayEntryId, in: path, required: true, schema: { type: string } }
     ReminderId: { name: reminderId, in: path, required: true, schema: { type: string } }
     CustomFieldValueId: { name: customFieldValueId, in: path, required: true, schema: { type: string } }
@@ -8085,6 +8343,329 @@ components:
           type: string
           minLength: 1
           maxLength: 255
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    PageDrawing:
+      description: "A drawing in a wiki page, which the page's body names with <!-- mila:drawing <id> --> and a picture of it. Its shapes are drawing_shape rows. A page holds 50 drawings at most."
+      type: object
+      required: [id, page_id, name, grid, snap, made_by, deleted_at, created_at, updated_at]
+      properties:
+        id: { type: string, readOnly: true }
+        page_id:
+          type: string
+          description: "The ID of a page in this workspace. Set when the row is made; it never changes."
+        name:
+          type: string
+          maxLength: 200
+        grid:
+          type: boolean
+          description: "Whether the editor shows its dot grid."
+        snap:
+          type: boolean
+          description: "Whether shapes snap to the grid and to each other as they move."
+        made_by:
+          type: string
+          description: "The ID of the user who made it: you. Left out, it is filled in. Set when the row is made; it never changes."
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at: { type: string, format: date-time, readOnly: true }
+        updated_at: { type: string, format: date-time, readOnly: true }
+    PageDrawingPage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/PageDrawing" }
+        next:
+          type: string
+          description: "Pass as after for the next page; absent when this page came back short."
+    PageDrawingCreate:
+      type: object
+      additionalProperties: false
+      required: [page_id]
+      properties:
+        id:
+          type: string
+          description: "A new ID of yours (letters, digits and dashes, at most 64), or left out for one the server makes. A UUID should be drawn (versions 1 to 7 of RFC 9562): one of the shapes Mila works IDs out in (version 8, or another variant) is refused unless it is the one Mila would work out for the row."
+        page_id:
+          type: string
+          description: "The ID of a page in this workspace. Set when the row is made; it never changes."
+        name:
+          type: string
+          maxLength: 200
+          default: ""
+        grid:
+          type: boolean
+          default: true
+          description: "Whether the editor shows its dot grid."
+        snap:
+          type: boolean
+          default: true
+          description: "Whether shapes snap to the grid and to each other as they move."
+        made_by:
+          type: string
+          description: "The ID of the user who made it: you. Left out, it is filled in. Set when the row is made; it never changes."
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+    PageDrawingPatch:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name:
+          type: string
+          maxLength: 200
+        grid:
+          type: boolean
+          description: "Whether the editor shows its dot grid."
+        snap:
+          type: boolean
+          description: "Whether shapes snap to the grid and to each other as they move."
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    DrawingShape:
+      description: "A shape of a drawing: a box, ellipse, diamond, cylinder, text, sticky note, line, arrow, pen stroke or picture, with its place, words and look. A line or arrow on shapes names them in from_id and to_id and follows them. Shapes are drawn in sort_key order. A drawing holds 2,000 shapes at most."
+      type: object
+      required: [id, page_id, drawing_id, kind, box, points, text, style, from_id, to_id, image_id, sort_key, deleted_at, created_at, updated_at]
+      properties:
+        id: { type: string, readOnly: true }
+        page_id:
+          type: string
+          description: "The ID of a page in this workspace. Set when the row is made; it never changes."
+        drawing_id:
+          type: string
+          description: "The ID of a page drawing in this workspace. Set when the row is made; it never changes."
+        kind:
+          type: string
+          enum: [rect, ellipse, diamond, cylinder, text, sticky, arrow, line, pen, image]
+          description: "Set when the row is made; it never changes."
+        box:
+          type: object
+          required: [x, y, w, h]
+          properties:
+            x: { type: number }
+            y: { type: number }
+            w: { type: number, minimum: 0 }
+            h: { type: number, minimum: 0 }
+          description: "Where the shape is, in the drawing's own pixels: {\"x\", \"y\", \"w\", \"h\"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON."
+        points:
+          type: array
+          maxItems: 5000
+          items:
+            type: array
+            minItems: 2
+            maxItems: 2
+            items: { type: number }
+          nullable: true
+          description: "A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON."
+        text:
+          type: string
+          maxLength: 2000
+        style:
+          type: object
+          properties:
+            fill: { type: string }
+            stroke: { type: string }
+            rounded: { type: boolean }
+            bold: { type: boolean }
+            italic: { type: boolean }
+            size: { type: string, enum: [s, m, l] }
+            route: { type: string, enum: [straight, elbow, curved] }
+            start: { type: string, enum: [none, arrow] }
+            end: { type: string, enum: [none, arrow] }
+            dash: { type: string, enum: [solid, dashed, dotted] }
+            fromSide: { type: string, enum: [top, right, bottom, left] }
+            toSide: { type: string, enum: [top, right, bottom, left] }
+          description: "How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size (\"s\", \"m\" or \"l\"), route (\"straight\", \"elbow\" or \"curved\"), start and end (arrowheads: \"none\" or \"arrow\"), dash (\"solid\", \"dashed\" or \"dotted\"), fromSide and toSide (\"top\", \"right\", \"bottom\" or \"left\"). At most 2,000 bytes as compact JSON."
+        from_id:
+          type: string
+          nullable: true
+          description: "The shape a line or arrow starts on, which it follows."
+        to_id:
+          type: string
+          nullable: true
+          description: "The shape a line or arrow ends on, which it follows."
+        image_id:
+          type: string
+          nullable: true
+          description: "The page's file a picture shows."
+        sort_key:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: "Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind."
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at: { type: string, format: date-time, readOnly: true }
+        updated_at: { type: string, format: date-time, readOnly: true }
+    DrawingShapePage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/DrawingShape" }
+        next:
+          type: string
+          description: "Pass as after for the next page; absent when this page came back short."
+    DrawingShapeCreate:
+      type: object
+      additionalProperties: false
+      required: [page_id, drawing_id, kind, box]
+      properties:
+        id:
+          type: string
+          description: "A new ID of yours (letters, digits and dashes, at most 64), or left out for one the server makes. A UUID should be drawn (versions 1 to 7 of RFC 9562): one of the shapes Mila works IDs out in (version 8, or another variant) is refused unless it is the one Mila would work out for the row."
+        page_id:
+          type: string
+          description: "The ID of a page in this workspace. Set when the row is made; it never changes."
+        drawing_id:
+          type: string
+          description: "The ID of a page drawing in this workspace. Set when the row is made; it never changes."
+        kind:
+          type: string
+          enum: [rect, ellipse, diamond, cylinder, text, sticky, arrow, line, pen, image]
+          description: "Set when the row is made; it never changes."
+        box:
+          type: object
+          required: [x, y, w, h]
+          properties:
+            x: { type: number }
+            y: { type: number }
+            w: { type: number, minimum: 0 }
+            h: { type: number, minimum: 0 }
+          description: "Where the shape is, in the drawing's own pixels: {\"x\", \"y\", \"w\", \"h\"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON."
+        points:
+          type: array
+          maxItems: 5000
+          items:
+            type: array
+            minItems: 2
+            maxItems: 2
+            items: { type: number }
+          nullable: true
+          default: null
+          description: "A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON."
+        text:
+          type: string
+          maxLength: 2000
+          default: ""
+        style:
+          type: object
+          properties:
+            fill: { type: string }
+            stroke: { type: string }
+            rounded: { type: boolean }
+            bold: { type: boolean }
+            italic: { type: boolean }
+            size: { type: string, enum: [s, m, l] }
+            route: { type: string, enum: [straight, elbow, curved] }
+            start: { type: string, enum: [none, arrow] }
+            end: { type: string, enum: [none, arrow] }
+            dash: { type: string, enum: [solid, dashed, dotted] }
+            fromSide: { type: string, enum: [top, right, bottom, left] }
+            toSide: { type: string, enum: [top, right, bottom, left] }
+          default: {}
+          description: "How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size (\"s\", \"m\" or \"l\"), route (\"straight\", \"elbow\" or \"curved\"), start and end (arrowheads: \"none\" or \"arrow\"), dash (\"solid\", \"dashed\" or \"dotted\"), fromSide and toSide (\"top\", \"right\", \"bottom\" or \"left\"). At most 2,000 bytes as compact JSON."
+        from_id:
+          type: string
+          nullable: true
+          default: null
+          description: "The shape a line or arrow starts on, which it follows."
+        to_id:
+          type: string
+          nullable: true
+          default: null
+          description: "The shape a line or arrow ends on, which it follows."
+        image_id:
+          type: string
+          nullable: true
+          default: null
+          description: "The page's file a picture shows."
+        sort_key:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: "Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind."
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+    DrawingShapePatch:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        box:
+          type: object
+          required: [x, y, w, h]
+          properties:
+            x: { type: number }
+            y: { type: number }
+            w: { type: number, minimum: 0 }
+            h: { type: number, minimum: 0 }
+          description: "Where the shape is, in the drawing's own pixels: {\"x\", \"y\", \"w\", \"h\"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON."
+        points:
+          type: array
+          maxItems: 5000
+          items:
+            type: array
+            minItems: 2
+            maxItems: 2
+            items: { type: number }
+          nullable: true
+          description: "A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON."
+        text:
+          type: string
+          maxLength: 2000
+        style:
+          type: object
+          properties:
+            fill: { type: string }
+            stroke: { type: string }
+            rounded: { type: boolean }
+            bold: { type: boolean }
+            italic: { type: boolean }
+            size: { type: string, enum: [s, m, l] }
+            route: { type: string, enum: [straight, elbow, curved] }
+            start: { type: string, enum: [none, arrow] }
+            end: { type: string, enum: [none, arrow] }
+            dash: { type: string, enum: [solid, dashed, dotted] }
+            fromSide: { type: string, enum: [top, right, bottom, left] }
+            toSide: { type: string, enum: [top, right, bottom, left] }
+          description: "How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size (\"s\", \"m\" or \"l\"), route (\"straight\", \"elbow\" or \"curved\"), start and end (arrowheads: \"none\" or \"arrow\"), dash (\"solid\", \"dashed\" or \"dotted\"), fromSide and toSide (\"top\", \"right\", \"bottom\" or \"left\"). At most 2,000 bytes as compact JSON."
+        from_id:
+          type: string
+          nullable: true
+          description: "The shape a line or arrow starts on, which it follows."
+        to_id:
+          type: string
+          nullable: true
+          description: "The shape a line or arrow ends on, which it follows."
+        image_id:
+          type: string
+          nullable: true
+          description: "The page's file a picture shows."
+        sort_key:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: "Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind."
         deleted_at:
           type: string
           format: date-time

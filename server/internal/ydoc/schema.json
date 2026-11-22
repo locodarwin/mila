@@ -13,6 +13,12 @@
 			"layout": "1:1"
 		},
 		"doc": {},
+		"drawingEmbed": {
+			"id": null,
+			"name": "",
+			"size": null,
+			"src": ""
+		},
 		"fold": {
 			"open": false
 		},

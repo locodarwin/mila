@@ -47,6 +47,9 @@
 	import type { DocTarget } from '../../sync/docs';
 	import ImagePicker from './ImagePicker.svelte';
 	import DiagramPicker from './DiagramPicker.svelte';
+	import DrawingPicker from '../drawing/DrawingPicker.svelte';
+	import { MAX_DRAWINGS, type DrawingStarter } from '../../drawing';
+	import { session } from '../../session.svelte';
 	import ViewPicker from './ViewPicker.svelte';
 	import {
 		FONT_NAMES,
@@ -94,8 +97,9 @@
 		if (slash)
 			return (
 				findBlocks(slash.query)
-					// Columns don't go inside columns.
+					// Columns don't go inside columns, and drawings are a page's.
 					.filter((b) => !(b.id.startsWith('columns') && editor.isActive('column')))
+					.filter((b) => !b.pageOnly || target.kind === 'page')
 					.map((b) => ({
 						id: b.id,
 						label: b.label,
@@ -179,6 +183,7 @@
 		else if (block.id === 'view') pickingView = true;
 		else if (block.id === 'report') pickingReport = true;
 		else if (block.id === 'diagram') pickingDiagram = true;
+		else if (block.id === 'drawing') pickingDrawing = true;
 		announce(
 			block.id === 'image'
 				? 'Choose an image'
@@ -188,7 +193,9 @@
 						? 'Choose a report'
 						: block.id === 'diagram'
 							? 'Choose a kind of diagram'
-							: `Inserted ${block.label.toLowerCase()}`
+							: block.id === 'drawing'
+								? 'Choose how the drawing starts'
+								: `Inserted ${block.label.toLowerCase()}`
 		);
 	}
 	function insertLink(title: string, href: string) {
@@ -242,6 +249,34 @@
 		editor.chain().focus().insertContent({ type: 'viewEmbed', attrs: { id, name } }).run();
 		announce(`Inserted the view ${name}`);
 	}
+	let pickingDrawing = $state(false);
+	async function insertDrawing(starter: DrawingStarter) {
+		if (target.kind !== 'page') return;
+		const me = session.user?.id ?? '';
+		if ((engine.replica(ws)?.drawingCount(target.id) ?? 0) >= MAX_DRAWINGS) {
+			toasts.error(`A page holds ${MAX_DRAWINGS} drawings at most.`);
+			return;
+		}
+		const { makeDrawing } = await import('../../sync/drawings.svelte');
+		const { openWhenDrawn } = await import('../../docs/nodeviews.svelte');
+		let id: string;
+		try {
+			id = await makeDrawing(ws, target.id, me, starter);
+		} catch {
+			toasts.error('The drawing could not be made.');
+			return;
+		}
+		openWhenDrawn(id);
+		editor
+			.chain()
+			.focus()
+			.insertContent({
+				type: 'drawingEmbed',
+				attrs: { id, name: starter.name, src: '', size: null }
+			})
+			.run();
+		announce(`Inserted a drawing`);
+	}
 	let pickingDiagram = $state(false);
 	function insertStarter(starter: Starter) {
 		editor.commands.focus();
@@ -286,6 +321,7 @@
 			image: editor.isActive('image'),
 			view: editor.isActive('viewEmbed'),
 			report: editor.isActive('reportEmbed'),
+			drawing: editor.isActive('drawingEmbed'),
 			columns: around('columns')?.node.childCount ?? 0,
 			fold: around('fold'),
 			inFoldTitle: editor.isActive('foldTitle')
@@ -297,6 +333,7 @@
 			!pickingView &&
 			!pickingReport &&
 			!pickingDiagram &&
+			!pickingDrawing &&
 			(barFocus ||
 				summoned ||
 				(focused && !sel.inCode && (!sel.empty || sel.inTable || sel.inFoldTitle)))
@@ -420,6 +457,7 @@
 		| 'highlight'
 		| 'image-size'
 		| 'image-side'
+		| 'drawing-size'
 		| 'widths'
 		| 'layout'
 		| 'chart'
@@ -520,6 +558,24 @@
 						)
 					}
 				];
+			case 'drawing-size':
+				return IMAGE_SIZES.map((n) => ({
+					id: String(n),
+					label:
+						n === 100
+							? 'Full width'
+							: n === 25
+								? 'A quarter'
+								: n === 50
+									? 'Half'
+									: 'Three quarters',
+					pressed: ((editor.getAttributes('drawingEmbed').size as number | null) ?? 100) === n,
+					run: pick(() =>
+						edit()
+							.updateAttributes('drawingEmbed', { size: n === 100 ? null : n })
+							.run()
+					)
+				}));
 			case 'image-side':
 				return IMAGE_SIDES.map((d) => ({
 					id: d,
@@ -610,6 +666,14 @@
 	];
 	const REPORT: Tool[] = [
 		{ id: 'chart', label: 'Chart', icon: ChartLine, run: () => void choose('chart') }
+	];
+	const DRAWING: Tool[] = [
+		{
+			id: 'drawing-size',
+			label: 'Drawing size',
+			icon: Scaling,
+			run: () => void choose('drawing-size')
+		}
 	];
 	const IMAGE: Tool[] = [
 		{ id: 'image-size', label: 'Image size', icon: Scaling, run: () => void choose('image-size') },
@@ -702,20 +766,22 @@
 	const tools = $derived(
 		sel.image
 			? IMAGE
-			: sel.view
-				? VIEW
-				: sel.report
-					? REPORT
-					: sel.inFoldTitle
-						? FOLD
-						: [
-								...FORMAT,
-								...STYLE,
-								...(sel.inTable ? TABLE : []),
-								...(sel.columns ? COLUMNS : []),
-								...(sel.fold ? FOLD : []),
-								...(oncomment && !sel.empty ? [COMMENT] : [])
-							]
+			: sel.drawing
+				? DRAWING
+				: sel.view
+					? VIEW
+					: sel.report
+						? REPORT
+						: sel.inFoldTitle
+							? FOLD
+							: [
+									...FORMAT,
+									...STYLE,
+									...(sel.inTable ? TABLE : []),
+									...(sel.columns ? COLUMNS : []),
+									...(sel.fold ? FOLD : []),
+									...(oncomment && !sel.empty ? [COMMENT] : [])
+								]
 	);
 	/** Where a line goes between the bar's kinds of tools. */
 	const SEPARATE = new Set(['font', 'row', 'widths', 'take-out', 'fold-start', 'comment']);
@@ -972,6 +1038,9 @@
 {/if}
 {#if pickingDiagram}
 	<DiagramPicker bind:open={pickingDiagram} onpick={insertStarter} />
+{/if}
+{#if pickingDrawing}
+	<DrawingPicker bind:open={pickingDrawing} onpick={insertDrawing} />
 {/if}
 
 <style>

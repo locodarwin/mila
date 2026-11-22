@@ -18,6 +18,13 @@ export function fmt(n: number): string {
 	return s === '-0' ? '0' : s;
 }
 
+/** A token as CSS, the way a component names it: for code that is handed a token's name. */
+export function tokenVar(name: string): string {
+	const meta = byName(name);
+	if (!meta) throw new Error(`no token ${name}`);
+	return `var(--${meta.name})`;
+}
+
 /** A color as CSS, for a swatch drawn outside any theme preview. */
 export function colorCss([l, c, h]: [number, number, number], alpha = 1): string {
 	const color = `${fmt(l)} ${fmt(c)} ${fmt(h)}`;

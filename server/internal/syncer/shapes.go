@@ -265,3 +265,112 @@ func themeShape(v any) error {
 	}
 	return nil
 }
+
+// shapeKinds are what a drawing's shapes may be (web/src/lib/drawing.ts).
+var shapeKinds = []string{"rect", "ellipse", "diamond", "cylinder", "text", "sticky", "arrow", "line", "pen", "image"}
+
+// maxCoordinate bounds where a shape may be in its drawing, either way.
+const maxCoordinate = 1_000_000
+
+// coordinate: a finite JSON number within maxCoordinate of the origin.
+func coordinate(v any) bool {
+	n, ok := v.(json.Number)
+	if !ok {
+		return false
+	}
+	f, err := n.Float64()
+	return err == nil && !math.IsNaN(f) && !math.IsInf(f, 0) && math.Abs(f) <= maxCoordinate
+}
+
+var boxSchema = []string{"type: object", "required: [x, y, w, h]", "properties:",
+	"  x: { type: number }", "  y: { type: number }", "  w: { type: number, minimum: 0 }", "  h: { type: number, minimum: 0 }"}
+
+// boxShape: a shape's box is {x, y, w, h}, numbers, its size not negative.
+func boxShape(v any) error {
+	box, ok := v.(map[string]any)
+	if !ok {
+		return errors.New(`must be an object, such as {"x":0,"y":0,"w":160,"h":80}`)
+	}
+	for _, k := range []string{"x", "y", "w", "h"} {
+		if !coordinate(box[k]) {
+			return fmt.Errorf("%s must be a number within %d of 0", k, maxCoordinate)
+		}
+	}
+	for _, k := range []string{"w", "h"} {
+		if f, _ := box[k].(json.Number).Float64(); f < 0 {
+			return fmt.Errorf("%s must not be negative", k)
+		}
+	}
+	return nil
+}
+
+// maxPoints bounds a pen stroke's points.
+const maxPoints = 5_000
+
+var pointsSchema = []string{"type: array", "maxItems: 5000", "items:", "  type: array", "  minItems: 2", "  maxItems: 2", "  items: { type: number }"}
+
+// pointsShape: a list of at most maxPoints [x, y] pairs of numbers.
+func pointsShape(v any) error {
+	list, ok := v.([]any)
+	if !ok {
+		return errors.New("must be a list of [x, y] points")
+	}
+	if len(list) > maxPoints {
+		return fmt.Errorf("holds %d points at most", maxPoints)
+	}
+	for i, p := range list {
+		pair, ok := p.([]any)
+		if !ok || len(pair) != 2 || !coordinate(pair[0]) || !coordinate(pair[1]) {
+			return fmt.Errorf("point %d must be [x, y], two numbers", i+1)
+		}
+	}
+	return nil
+}
+
+// drawingStyleChoices are the parts of a shape's style that take one of a
+// few words; the colors are names the app reads, any string to it.
+var drawingStyleChoices = map[string][]string{
+	"size":     {"s", "m", "l"},
+	"route":    {"straight", "elbow", "curved"},
+	"start":    {"none", "arrow"},
+	"end":      {"none", "arrow"},
+	"dash":     {"solid", "dashed", "dotted"},
+	"fromSide": {"top", "right", "bottom", "left"},
+	"toSide":   {"top", "right", "bottom", "left"},
+}
+
+var drawingStyleSchema = []string{"type: object", "properties:",
+	"  fill: { type: string }", "  stroke: { type: string }",
+	"  rounded: { type: boolean }", "  bold: { type: boolean }", "  italic: { type: boolean }",
+	"  size: { type: string, enum: [s, m, l] }", "  route: { type: string, enum: [straight, elbow, curved] }",
+	"  start: { type: string, enum: [none, arrow] }", "  end: { type: string, enum: [none, arrow] }",
+	"  dash: { type: string, enum: [solid, dashed, dotted] }",
+	"  fromSide: { type: string, enum: [top, right, bottom, left] }", "  toSide: { type: string, enum: [top, right, bottom, left] }"}
+
+// drawingStyleShape: an object whose known parts have their types; the
+// rest is left for a newer app.
+func drawingStyleShape(v any) error {
+	style, ok := v.(map[string]any)
+	if !ok {
+		return errors.New("must be an object")
+	}
+	for name, part := range style {
+		switch name {
+		case "fill", "stroke":
+			if s, ok := part.(string); !ok || len(s) > 40 {
+				return fmt.Errorf("%s must be a color's name", name)
+			}
+		case "rounded", "bold", "italic":
+			if _, ok := part.(bool); !ok {
+				return fmt.Errorf("%s must be true or false", name)
+			}
+		default:
+			if choices, known := drawingStyleChoices[name]; known {
+				if s, ok := part.(string); !ok || !slices.Contains(choices, s) {
+					return fmt.Errorf("%s must be one of %s", name, strings.Join(choices, ", "))
+				}
+			}
+		}
+	}
+	return nil
+}

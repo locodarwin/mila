@@ -6,6 +6,7 @@ import { Extension, type NodeViewRenderer } from '@tiptap/core';
 import { Plugin } from '@tiptap/pm/state';
 import { mount, unmount } from 'svelte';
 import DiagramCard from '../components/doc/Diagram.svelte';
+import DrawingCard from '../components/drawing/DrawingView.svelte';
 import ReportEmbedCard from '../components/doc/ReportEmbed.svelte';
 import ViewEmbedCard from '../components/doc/ViewEmbed.svelte';
 import { editDiagram, editingIn, isDiagram, leaveDiagram } from './diagrams';
@@ -277,3 +278,87 @@ export const codeBlockView: NodeViewRenderer = ({ node, editor, getPos, decorati
 		destroy: () => void unmount(card)
 	};
 };
+
+/** Drawings just made here, to open in the editor as soon as they are drawn. */
+// eslint-disable-next-line svelte/prefer-svelte-reactivity -- plain: read once, as a block is drawn
+const opening = new Set<string>();
+export function openWhenDrawn(id: string) {
+	opening.add(id);
+}
+
+/**
+ * A drawing in a page, drawn by DrawingView.svelte from the page's rows.
+ * When its editor closes, the picture saved with the page (for other apps
+ * and exports) is made again if the drawing changed, and the block takes
+ * its address and the drawing's name.
+ */
+export function drawingEmbedView(ws: string, pageId: string | null): NodeViewRenderer {
+	return ({ node, editor, getPos }) => {
+		let current = node;
+		const dom = document.createElement('div');
+		dom.className = 'drawing-embed';
+		dom.contentEditable = 'false';
+		const id = String(node.attrs.id ?? '');
+		const openAtStart = opening.delete(id);
+		const props = $state({
+			ws,
+			pageId: pageId ?? '',
+			id,
+			name: String(node.attrs.name ?? ''),
+			src: String(node.attrs.src ?? ''),
+			size: (node.attrs.size as number | null) ?? null,
+			editable: editor.isEditable && !!pageId,
+			openAtStart,
+			onclosed: (changed: boolean) => void closed(changed)
+		});
+		async function closed(changed: boolean) {
+			if (!pageId || !editor.isEditable) return;
+			const [{ shapesOf }, { refreshPicture }, { engine }] = await Promise.all([
+				import('../sync/drawings.svelte'),
+				import('../drawingPaint'),
+				import('../sync/engine.svelte')
+			]);
+			const row = engine.replica(ws)?.get('page_drawing', id);
+			const name =
+				typeof row?.values.name === 'string' ? row.values.name : String(current.attrs.name ?? '');
+			const src = String(current.attrs.src ?? '');
+			const picture =
+				changed || !src
+					? await refreshPicture(ws, pageId, shapesOf(ws, pageId, id), name, src)
+					: null;
+			if (editor.isDestroyed) return;
+			const pos = typeof getPos === 'function' ? getPos() : undefined;
+			if (typeof pos !== 'number') return;
+			const at = editor.state.doc.nodeAt(pos);
+			if (!at || at.type.name !== 'drawingEmbed' || at.attrs.id !== id) return;
+			if (name === at.attrs.name && !picture) return;
+			editor.view.dispatch(
+				editor.state.tr.setNodeMarkup(pos, undefined, {
+					...at.attrs,
+					name,
+					src: picture ?? at.attrs.src
+				})
+			);
+		}
+		const card = mount(DrawingCard, { target: dom, props });
+		return {
+			dom,
+			update(next) {
+				if (next.type !== current.type || next.attrs.id !== current.attrs.id) return false;
+				current = next;
+				props.name = String(next.attrs.name ?? '');
+				props.src = String(next.attrs.src ?? '');
+				props.size = (next.attrs.size as number | null) ?? null;
+				props.editable = editor.isEditable && !!pageId;
+				return true;
+			},
+			// Its buttons and the editor over the page are its own; the rest picks the block.
+			stopEvent: (e) => {
+				const at = e.target as HTMLElement | null;
+				return !!at?.closest?.('button, a, input, textarea, dialog') && e.type !== 'dragstart';
+			},
+			ignoreMutation: (m) => m.type !== 'selection',
+			destroy: () => void unmount(card)
+		};
+	};
+}

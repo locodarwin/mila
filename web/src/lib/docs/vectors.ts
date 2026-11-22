@@ -242,6 +242,26 @@ const HAND: [string, string][] = [
 		'report whose link is to another view',
 		'<!-- mila:report 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa cfd -->\n[Other](/views/00000000-6a0e-4d1b-9c55-2e8b7d10f4aa)'
 	],
+	[
+		'drawing',
+		'<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)'
+	],
+	[
+		'drawing at half the width',
+		'<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 50 -->\n![Request flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)\n\nAfter it.'
+	],
+	[
+		'drawing with no picture yet',
+		'<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n\nAfter it.'
+	],
+	[
+		'drawing with escapes in its name',
+		'<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa -->\n![A \\*starred\\* flow](/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file)'
+	],
+	[
+		'a drawing of another size stays text',
+		'<!-- mila:drawing 7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa 60 -->'
+	],
 	['page style', '<!-- mila:page font=source-serif size=large -->\n\n# Title'],
 	['page style with only a size', '<!-- mila:page size=small -->\n\nText'],
 	['a page style with an unknown font stays text', '<!-- mila:page font=comic -->'],
@@ -516,6 +536,38 @@ const EDITOR: [string, JSONContent[]][] = [
 			{
 				type: 'viewEmbed',
 				attrs: { id: '7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa', name: 'a *star* [x]' }
+			}
+		]
+	],
+	[
+		'drawings',
+		[
+			{
+				type: 'drawingEmbed',
+				attrs: {
+					id: '7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa',
+					name: 'Request flow',
+					src: '/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file',
+					size: null
+				}
+			},
+			{
+				type: 'drawingEmbed',
+				attrs: {
+					id: '7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa',
+					name: 'a *star* [x]',
+					src: '/api/v1/workspaces/0a1b2c3d-1111-4222-8333-444455556666/attachments/9f8e7d6c-1111-4222-8333-444455556666/file',
+					size: 75
+				}
+			},
+			{
+				type: 'drawingEmbed',
+				attrs: {
+					id: '7f3a91c2-6a0e-4d1b-9c55-2e8b7d10f4aa',
+					name: '',
+					src: '',
+					size: null
+				}
 			}
 		]
 	],

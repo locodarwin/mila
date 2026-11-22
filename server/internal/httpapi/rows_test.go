@@ -118,6 +118,10 @@ func sample(t *testing.T, e syncer.EntityInfo, f syncer.FieldInfo, made map[stri
 	case "time":
 		return "2026-10-28T09:30:00Z", true
 	case "ref":
+		// A row pointing at its own kind (a line's shapes) has none made yet.
+		if made[f.Ref] == "" {
+			return nil, false
+		}
 		return made[f.Ref], true
 	case "bool":
 		return true, true
@@ -146,6 +150,12 @@ func sample(t *testing.T, e syncer.EntityInfo, f syncer.FieldInfo, made map[stri
 			return json.RawMessage(`{"name":"Sample","mila":"theme","version":1,"id":"` + uuid.NewString() + `","base":"calm"}`), true
 		case "value": // of a user field, the type made last
 			return json.RawMessage(strconv.Quote(me)), true
+		case "box": // a drawing's shape
+			return json.RawMessage(`{"y":20,"x":-10,"w":160,"h":80}`), true
+		case "points":
+			return json.RawMessage(`[[0,0],[40,-12.5]]`), true
+		case "style":
+			return json.RawMessage(`{"size":"m","fill":"yellow","rounded":true}`), true
 		}
 		return json.RawMessage(sampleJSON), true
 	}
@@ -179,6 +189,10 @@ func changed(t *testing.T, f syncer.FieldInfo) any {
 			return json.RawMessage(`{"then":[{"do":"priority","value":"low"}],"when":{"on":"completed"}}`)
 		case "value":
 			return json.RawMessage(`"changed"`)
+		case "box":
+			return json.RawMessage(`{"x":8,"y":8,"w":40,"h":40}`)
+		case "points":
+			return json.RawMessage(`[[1,1],[2,2]]`)
 		}
 		return json.RawMessage(`{"changed":true}`)
 	}

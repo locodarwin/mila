@@ -232,7 +232,15 @@
 				{ default: DocTools },
 				{ LinkView },
 				{ CommentMarks, pinSelection, revealMark },
-				{ foldView, FoldReveal, imageView, viewEmbedView, reportEmbedView, codeBlockView },
+				{
+					foldView,
+					FoldReveal,
+					imageView,
+					viewEmbedView,
+					reportEmbedView,
+					codeBlockView,
+					drawingEmbedView
+				},
 				{ FONT_STACKS, PAGE_SCALE },
 				{ DiagramEditing }
 			]) => {
@@ -254,7 +262,8 @@
 								image: imageView,
 								viewEmbed: viewEmbedView(ws),
 								reportEmbed: reportEmbedView(ws),
-								codeBlock: codeBlockView
+								codeBlock: codeBlockView,
+								drawingEmbed: drawingEmbedView(ws, kind === 'page' ? docId : null)
 							}
 						}),
 						FoldReveal,
@@ -387,7 +396,8 @@
 							image: views.imageView,
 							viewEmbed: views.viewEmbedView(ws),
 							reportEmbed: views.reportEmbedView(ws),
-							codeBlock: views.codeBlockView
+							codeBlock: views.codeBlockView,
+							drawingEmbed: views.drawingEmbedView(ws, kind === 'page' ? docId : null)
 						}
 					}),
 					LinkView.configure({ noteFor, follow }),
@@ -847,6 +857,13 @@
 			grid-row: 1;
 			grid-column: 1;
 		}
+	}
+	.doc :global(.drawing-embed) {
+		margin: 0.2em 0;
+	}
+	.doc :global(.drawing-embed.ProseMirror-selectednode) {
+		outline: var(--focus-ring-width) solid var(--focus-ring-color);
+		border-radius: var(--radius-md);
 	}
 	.doc :global(.diagram-block.ProseMirror-selectednode),
 	.doc :global(.view-embed.ProseMirror-selectednode),

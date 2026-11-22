@@ -548,6 +548,99 @@ export const ViewEmbed = Node.create({
 	}
 });
 
+const DRAWING = new RegExp(`^<!-- mila:drawing (${UUID})(?: (25|50|75|100))? -->[ \t]*(?:\n|$)`);
+// The picture after a drawing's marker: an image alone on the next line.
+const DRAWING_PICTURE = /^!\[((?:\\.|[^\]\\\n])*)\]\(([^()\s]+)\)[ \t]*(?:\n(?=[ \t]*(?:\n|$))|$)/;
+
+/**
+ * A drawing (drawing.ts), drawn where it sits from the page's rows: a
+ * marker naming it, at a share of the page's width, then a picture of it
+ * for every other app.
+ */
+export const DrawingEmbed = Node.create({
+	name: 'drawingEmbed',
+	group: 'block',
+	atom: true,
+	selectable: true,
+	draggable: true,
+	addAttributes() {
+		return {
+			id: {
+				default: null,
+				parseHTML: (el) => el.getAttribute('data-drawing'),
+				renderHTML: (a) => ({ 'data-drawing': a.id })
+			},
+			name: {
+				default: '',
+				parseHTML: (el) => el.getAttribute('data-name') ?? '',
+				renderHTML: (a) => ({ 'data-name': a.name })
+			},
+			src: {
+				default: '',
+				parseHTML: (el) => el.getAttribute('data-src') ?? '',
+				renderHTML: (a) => (a.src ? { 'data-src': a.src } : {})
+			},
+			size: {
+				default: null,
+				parseHTML: (el) => {
+					const n = Number(el.getAttribute('data-size'));
+					return IMAGE_SIZES.includes(n as never) ? n : null;
+				},
+				renderHTML: (a) => (a.size ? { 'data-size': a.size } : {})
+			}
+		};
+	},
+	parseHTML() {
+		return [{ tag: 'div[data-drawing]' }];
+	},
+	renderHTML({ HTMLAttributes }) {
+		return ['div', mergeAttributes({ class: 'drawing-embed' }, HTMLAttributes)];
+	},
+	markdownTokenName: 'drawingEmbed',
+	markdownTokenizer: {
+		name: 'drawingEmbed',
+		level: 'block',
+		start: (src) => src.search(/^<!-- mila:drawing /m),
+		tokenize(src) {
+			const m = DRAWING.exec(src);
+			if (!m) return undefined;
+			const size = m[2] ? Number(m[2]) : null;
+			const picture = m[0].endsWith('\n') ? DRAWING_PICTURE.exec(src.slice(m[0].length)) : null;
+			if (!picture) return { type: 'drawingEmbed', raw: m[0], id: m[1], name: '', src: '', size };
+			const name = decodeHtml(picture[1].replace(/\\([!-/:-@[-`{-~])/g, '$1'));
+			return {
+				type: 'drawingEmbed',
+				raw: m[0] + picture[0],
+				id: m[1],
+				name,
+				src: picture[2],
+				size
+			};
+		}
+	},
+	parseMarkdown(token, h) {
+		return h.createNode('drawingEmbed', {
+			id: token.id,
+			name: token.name,
+			src: token.src,
+			size: token.size
+		});
+	},
+	renderMarkdown(node: JSONContent) {
+		const id = String(node.attrs?.id ?? '').toLowerCase();
+		if (!new RegExp(`^${UUID}$`).test(id)) return '';
+		const size = node.attrs?.size;
+		const share = IMAGE_SIZES.includes(size) && size !== 100 ? ` ${size}` : '';
+		const marker = `<!-- mila:drawing ${id}${share} -->`;
+		const src = String(node.attrs?.src ?? '');
+		if (!src) return marker;
+		const name = String(node.attrs?.name ?? '')
+			.replace(/\n/g, ' ')
+			.trim();
+		return `${marker}\n![${name.replace(/([\\`*_[\]~<&])/g, '\\$1')}](${src})`;
+	}
+});
+
 /**
  * One chart of a shared report view, drawn where it sits from the device's
  * copy: a marker naming the view and the chart, then a link to the view.
@@ -748,6 +841,7 @@ export const formattingExtensions = [
 	Fold,
 	ViewEmbed,
 	ReportEmbed,
+	DrawingEmbed,
 	PageStyle,
 	ImageMarker
 ];

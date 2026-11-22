@@ -2787,6 +2787,110 @@ export interface paths {
 		patch: operations['updatePageAttachment'];
 		trace?: never;
 	};
+	'/workspaces/{workspaceId}/page-drawings': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * List page drawings
+		 * @description The page drawings you can see, a page at a time in ID order (not the order they were made: IDs are random). Sort by sort_key, compared byte by byte, or by created_at yourself. Filters match a field exactly; an empty value matches null. Without include_deleted, rows hanging off a deleted task are left out with it.
+		 */
+		get: operations['listPageDrawings'];
+		put?: never;
+		/**
+		 * Make a page drawing
+		 * @description Makes a page drawing through the same merge as sync, so every device gets it. Fields left out take their defaults; sort_key, left out, puts it after every other page drawing. With an Idempotency-Key and no id, a retry names the same row and answers 200 with it.
+		 */
+		post: operations['createPageDrawing'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/workspaces/{workspaceId}/page-drawings/{pageDrawingId}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * Get a page drawing
+		 * @description One page drawing. A deleted one comes back with deleted_at set until it is purged.
+		 */
+		get: operations['getPageDrawing'];
+		put?: never;
+		post?: never;
+		/**
+		 * Delete a page drawing
+		 * @description Sets deleted_at. Deleting what is deleted already changes nothing.
+		 */
+		delete: operations['deletePageDrawing'];
+		options?: never;
+		head?: never;
+		/**
+		 * Change a page drawing
+		 * @description Sets the fields given and leaves the rest. Each field is last writer wins, as on every device; send If-Match with the ETag you read to change the row only if no one has since. deleted_at: null brings a deleted one back.
+		 */
+		patch: operations['updatePageDrawing'];
+		trace?: never;
+	};
+	'/workspaces/{workspaceId}/drawing-shapes': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * List drawing shapes
+		 * @description The drawing shapes you can see, a page at a time in ID order (not the order they were made: IDs are random). Sort by sort_key, compared byte by byte, or by created_at yourself. Filters match a field exactly; an empty value matches null. Without include_deleted, rows hanging off a deleted task are left out with it.
+		 */
+		get: operations['listDrawingShapes'];
+		put?: never;
+		/**
+		 * Make a drawing shape
+		 * @description Makes a drawing shape through the same merge as sync, so every device gets it. Fields left out take their defaults; sort_key, left out, puts it after every other drawing shape. With an Idempotency-Key and no id, a retry names the same row and answers 200 with it.
+		 */
+		post: operations['createDrawingShape'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/workspaces/{workspaceId}/drawing-shapes/{drawingShapeId}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * Get a drawing shape
+		 * @description One drawing shape. A deleted one comes back with deleted_at set until it is purged.
+		 */
+		get: operations['getDrawingShape'];
+		put?: never;
+		post?: never;
+		/**
+		 * Delete a drawing shape
+		 * @description Sets deleted_at. Deleting what is deleted already changes nothing.
+		 */
+		delete: operations['deleteDrawingShape'];
+		options?: never;
+		head?: never;
+		/**
+		 * Change a drawing shape
+		 * @description Sets the fields given and leaves the rest. Each field is last writer wins, as on every device; send If-Match with the ETag you read to change the row only if no one has since. deleted_at: null brings a deleted one back.
+		 */
+		patch: operations['updateDrawingShape'];
+		trace?: never;
+	};
 	'/workspaces/{workspaceId}/my-day-entries': {
 		parameters: {
 			query?: never;
@@ -5515,6 +5619,266 @@ export interface components {
 			/** Format: date-time */
 			deleted_at?: string | null;
 		};
+		/** @description A drawing in a wiki page, which the page's body names with <!-- mila:drawing <id> --> and a picture of it. Its shapes are drawing_shape rows. A page holds 50 drawings at most. */
+		PageDrawing: {
+			readonly id: string;
+			/** @description The ID of a page in this workspace. Set when the row is made; it never changes. */
+			page_id: string;
+			name: string;
+			/** @description Whether the editor shows its dot grid. */
+			grid: boolean;
+			/** @description Whether shapes snap to the grid and to each other as they move. */
+			snap: boolean;
+			/** @description The ID of the user who made it: you. Left out, it is filled in. Set when the row is made; it never changes. */
+			made_by: string;
+			/** Format: date-time */
+			deleted_at: string | null;
+			/** Format: date-time */
+			readonly created_at: string;
+			/** Format: date-time */
+			readonly updated_at: string;
+		};
+		PageDrawingPage: {
+			items: components['schemas']['PageDrawing'][];
+			/** @description Pass as after for the next page; absent when this page came back short. */
+			next?: string;
+		};
+		PageDrawingCreate: {
+			/** @description A new ID of yours (letters, digits and dashes, at most 64), or left out for one the server makes. A UUID should be drawn (versions 1 to 7 of RFC 9562): one of the shapes Mila works IDs out in (version 8, or another variant) is refused unless it is the one Mila would work out for the row. */
+			id?: string;
+			/** @description The ID of a page in this workspace. Set when the row is made; it never changes. */
+			page_id: string;
+			/** @default  */
+			name: string;
+			/**
+			 * @description Whether the editor shows its dot grid.
+			 * @default true
+			 */
+			grid: boolean;
+			/**
+			 * @description Whether shapes snap to the grid and to each other as they move.
+			 * @default true
+			 */
+			snap: boolean;
+			/** @description The ID of the user who made it: you. Left out, it is filled in. Set when the row is made; it never changes. */
+			made_by?: string;
+			/**
+			 * Format: date-time
+			 * @default null
+			 */
+			deleted_at: string | null;
+		};
+		PageDrawingPatch: {
+			name?: string;
+			/** @description Whether the editor shows its dot grid. */
+			grid?: boolean;
+			/** @description Whether shapes snap to the grid and to each other as they move. */
+			snap?: boolean;
+			/** Format: date-time */
+			deleted_at?: string | null;
+		};
+		/** @description A shape of a drawing: a box, ellipse, diamond, cylinder, text, sticky note, line, arrow, pen stroke or picture, with its place, words and look. A line or arrow on shapes names them in from_id and to_id and follows them. Shapes are drawn in sort_key order. A drawing holds 2,000 shapes at most. */
+		DrawingShape: {
+			readonly id: string;
+			/** @description The ID of a page in this workspace. Set when the row is made; it never changes. */
+			page_id: string;
+			/** @description The ID of a page drawing in this workspace. Set when the row is made; it never changes. */
+			drawing_id: string;
+			/**
+			 * @description Set when the row is made; it never changes.
+			 * @enum {string}
+			 */
+			kind:
+				| 'rect'
+				| 'ellipse'
+				| 'diamond'
+				| 'cylinder'
+				| 'text'
+				| 'sticky'
+				| 'arrow'
+				| 'line'
+				| 'pen'
+				| 'image';
+			/** @description Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON. */
+			box: {
+				x: number;
+				y: number;
+				w: number;
+				h: number;
+			};
+			/** @description A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON. */
+			points: number[][] | null;
+			text: string;
+			/** @description How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left"). At most 2,000 bytes as compact JSON. */
+			style: {
+				fill?: string;
+				stroke?: string;
+				rounded?: boolean;
+				bold?: boolean;
+				italic?: boolean;
+				/** @enum {string} */
+				size?: 's' | 'm' | 'l';
+				/** @enum {string} */
+				route?: 'straight' | 'elbow' | 'curved';
+				/** @enum {string} */
+				start?: 'none' | 'arrow';
+				/** @enum {string} */
+				end?: 'none' | 'arrow';
+				/** @enum {string} */
+				dash?: 'solid' | 'dashed' | 'dotted';
+				/** @enum {string} */
+				fromSide?: 'top' | 'right' | 'bottom' | 'left';
+				/** @enum {string} */
+				toSide?: 'top' | 'right' | 'bottom' | 'left';
+			};
+			/** @description The shape a line or arrow starts on, which it follows. */
+			from_id: string | null;
+			/** @description The shape a line or arrow ends on, which it follows. */
+			to_id: string | null;
+			/** @description The page's file a picture shows. */
+			image_id: string | null;
+			/** @description Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind. */
+			sort_key: string;
+			/** Format: date-time */
+			deleted_at: string | null;
+			/** Format: date-time */
+			readonly created_at: string;
+			/** Format: date-time */
+			readonly updated_at: string;
+		};
+		DrawingShapePage: {
+			items: components['schemas']['DrawingShape'][];
+			/** @description Pass as after for the next page; absent when this page came back short. */
+			next?: string;
+		};
+		DrawingShapeCreate: {
+			/** @description A new ID of yours (letters, digits and dashes, at most 64), or left out for one the server makes. A UUID should be drawn (versions 1 to 7 of RFC 9562): one of the shapes Mila works IDs out in (version 8, or another variant) is refused unless it is the one Mila would work out for the row. */
+			id?: string;
+			/** @description The ID of a page in this workspace. Set when the row is made; it never changes. */
+			page_id: string;
+			/** @description The ID of a page drawing in this workspace. Set when the row is made; it never changes. */
+			drawing_id: string;
+			/**
+			 * @description Set when the row is made; it never changes.
+			 * @enum {string}
+			 */
+			kind:
+				| 'rect'
+				| 'ellipse'
+				| 'diamond'
+				| 'cylinder'
+				| 'text'
+				| 'sticky'
+				| 'arrow'
+				| 'line'
+				| 'pen'
+				| 'image';
+			/** @description Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON. */
+			box: {
+				x: number;
+				y: number;
+				w: number;
+				h: number;
+			};
+			/**
+			 * @description A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON.
+			 * @default null
+			 */
+			points: number[][] | null;
+			/** @default  */
+			text: string;
+			/**
+			 * @description How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left"). At most 2,000 bytes as compact JSON.
+			 * @default {}
+			 */
+			style: {
+				fill?: string;
+				stroke?: string;
+				rounded?: boolean;
+				bold?: boolean;
+				italic?: boolean;
+				/** @enum {string} */
+				size?: 's' | 'm' | 'l';
+				/** @enum {string} */
+				route?: 'straight' | 'elbow' | 'curved';
+				/** @enum {string} */
+				start?: 'none' | 'arrow';
+				/** @enum {string} */
+				end?: 'none' | 'arrow';
+				/** @enum {string} */
+				dash?: 'solid' | 'dashed' | 'dotted';
+				/** @enum {string} */
+				fromSide?: 'top' | 'right' | 'bottom' | 'left';
+				/** @enum {string} */
+				toSide?: 'top' | 'right' | 'bottom' | 'left';
+			};
+			/**
+			 * @description The shape a line or arrow starts on, which it follows.
+			 * @default null
+			 */
+			from_id: string | null;
+			/**
+			 * @description The shape a line or arrow ends on, which it follows.
+			 * @default null
+			 */
+			to_id: string | null;
+			/**
+			 * @description The page's file a picture shows.
+			 * @default null
+			 */
+			image_id: string | null;
+			/** @description Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind. */
+			sort_key?: string;
+			/**
+			 * Format: date-time
+			 * @default null
+			 */
+			deleted_at: string | null;
+		};
+		DrawingShapePatch: {
+			/** @description Where the shape is, in the drawing's own pixels: {"x", "y", "w", "h"}, numbers, x and y its top left. A line's or arrow's box holds its points. At most 200 bytes as compact JSON. */
+			box?: {
+				x: number;
+				y: number;
+				w: number;
+				h: number;
+			};
+			/** @description A pen stroke's points, or a line's or arrow's ends when they are not on a shape: [[x, y], ...], in the drawing's pixels. At most 200,000 bytes as compact JSON. */
+			points?: number[][] | null;
+			text?: string;
+			/** @description How it looks, each part optional: fill and stroke (names of theme colors), rounded, bold and italic (true or false), size ("s", "m" or "l"), route ("straight", "elbow" or "curved"), start and end (arrowheads: "none" or "arrow"), dash ("solid", "dashed" or "dotted"), fromSide and toSide ("top", "right", "bottom" or "left"). At most 2,000 bytes as compact JSON. */
+			style?: {
+				fill?: string;
+				stroke?: string;
+				rounded?: boolean;
+				bold?: boolean;
+				italic?: boolean;
+				/** @enum {string} */
+				size?: 's' | 'm' | 'l';
+				/** @enum {string} */
+				route?: 'straight' | 'elbow' | 'curved';
+				/** @enum {string} */
+				start?: 'none' | 'arrow';
+				/** @enum {string} */
+				end?: 'none' | 'arrow';
+				/** @enum {string} */
+				dash?: 'solid' | 'dashed' | 'dotted';
+				/** @enum {string} */
+				fromSide?: 'top' | 'right' | 'bottom' | 'left';
+				/** @enum {string} */
+				toSide?: 'top' | 'right' | 'bottom' | 'left';
+			};
+			/** @description The shape a line or arrow starts on, which it follows. */
+			from_id?: string | null;
+			/** @description The shape a line or arrow ends on, which it follows. */
+			to_id?: string | null;
+			/** @description The page's file a picture shows. */
+			image_id?: string | null;
+			/** @description Which shapes are drawn over which: higher keys over lower ones. Orders rows in their list: a fractional key (web/src/lib/sync/sortkey.ts) compared byte by byte. On create, leave it out to put the row after every other row of its kind. */
+			sort_key?: string;
+			/** Format: date-time */
+			deleted_at?: string | null;
+		};
 		/** @description A task in the user's My Day, which only they see. Its ID is made from the task and the user. */
 		MyDayEntry: {
 			readonly id: string;
@@ -6217,6 +6581,8 @@ export interface components {
 		PageThreadId: string;
 		PageCommentId: string;
 		PageAttachmentId: string;
+		PageDrawingId: string;
+		DrawingShapeId: string;
 		MyDayEntryId: string;
 		ReminderId: string;
 		CustomFieldValueId: string;
@@ -11954,6 +12320,354 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['PageAttachment'];
+				};
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	listPageDrawings: {
+		parameters: {
+			query?: {
+				/** @description The ID of the last row of the page before; the next field of that page. */
+				after?: components['parameters']['ListAfter'];
+				/** @description How many rows, from 1 to 500. */
+				limit?: components['parameters']['ListLimit'];
+				/** @description true to list deleted rows too, which the trash still holds. */
+				include_deleted?: components['parameters']['IncludeDeleted'];
+				/** @description Only rows whose page_id is this. */
+				page_id?: string;
+				/** @description Only rows whose grid is this. */
+				grid?: string;
+				/** @description Only rows whose snap is this. */
+				snap?: string;
+				/** @description Only rows whose made_by is this. */
+				made_by?: string;
+			};
+			header?: never;
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description A page of page drawings. */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PageDrawingPage'];
+				};
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	createPageDrawing: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description Any string of yours: sending the same request with the same key again (a retry) does not make or change it twice. Kept for 90 days. */
+				'Idempotency-Key'?: components['parameters']['IdempotencyKey'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['PageDrawingCreate'];
+			};
+		};
+		responses: {
+			/** @description The row was there already (a pair, or a retry with the same Idempotency-Key). */
+			200: {
+				headers: {
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PageDrawing'];
+				};
+			};
+			/** @description Made. */
+			201: {
+				headers: {
+					Location?: string;
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PageDrawing'];
+				};
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	getPageDrawing: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description An ETag you hold: answers 304 if the row is unchanged. */
+				'If-None-Match'?: components['parameters']['IfNoneMatch'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+				pageDrawingId: components['parameters']['PageDrawingId'];
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description OK */
+			200: {
+				headers: {
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PageDrawing'];
+				};
+			};
+			/** @description Not modified since the ETag given in If-None-Match. */
+			304: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	deletePageDrawing: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412. */
+				'If-Match'?: components['parameters']['IfMatch'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+				pageDrawingId: components['parameters']['PageDrawingId'];
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Deleted. */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	updatePageDrawing: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412. */
+				'If-Match'?: components['parameters']['IfMatch'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+				pageDrawingId: components['parameters']['PageDrawingId'];
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['PageDrawingPatch'];
+			};
+		};
+		responses: {
+			/** @description The row as it stands now. */
+			200: {
+				headers: {
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PageDrawing'];
+				};
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	listDrawingShapes: {
+		parameters: {
+			query?: {
+				/** @description The ID of the last row of the page before; the next field of that page. */
+				after?: components['parameters']['ListAfter'];
+				/** @description How many rows, from 1 to 500. */
+				limit?: components['parameters']['ListLimit'];
+				/** @description true to list deleted rows too, which the trash still holds. */
+				include_deleted?: components['parameters']['IncludeDeleted'];
+				/** @description Only rows whose page_id is this. */
+				page_id?: string;
+				/** @description Only rows whose drawing_id is this. */
+				drawing_id?: string;
+				/** @description Only rows whose kind is this. */
+				kind?: string;
+				/** @description Only rows whose from_id is this; empty for none. */
+				from_id?: string;
+				/** @description Only rows whose to_id is this; empty for none. */
+				to_id?: string;
+				/** @description Only rows whose image_id is this; empty for none. */
+				image_id?: string;
+			};
+			header?: never;
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description A page of drawing shapes. */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DrawingShapePage'];
+				};
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	createDrawingShape: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description Any string of yours: sending the same request with the same key again (a retry) does not make or change it twice. Kept for 90 days. */
+				'Idempotency-Key'?: components['parameters']['IdempotencyKey'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['DrawingShapeCreate'];
+			};
+		};
+		responses: {
+			/** @description The row was there already (a pair, or a retry with the same Idempotency-Key). */
+			200: {
+				headers: {
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DrawingShape'];
+				};
+			};
+			/** @description Made. */
+			201: {
+				headers: {
+					Location?: string;
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DrawingShape'];
+				};
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	getDrawingShape: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description An ETag you hold: answers 304 if the row is unchanged. */
+				'If-None-Match'?: components['parameters']['IfNoneMatch'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+				drawingShapeId: components['parameters']['DrawingShapeId'];
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description OK */
+			200: {
+				headers: {
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DrawingShape'];
+				};
+			};
+			/** @description Not modified since the ETag given in If-None-Match. */
+			304: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	deleteDrawingShape: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412. */
+				'If-Match'?: components['parameters']['IfMatch'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+				drawingShapeId: components['parameters']['DrawingShapeId'];
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Deleted. */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			default: components['responses']['Error'];
+		};
+	};
+	updateDrawingShape: {
+		parameters: {
+			query?: never;
+			header?: {
+				/** @description An ETag from a GET, POST or PATCH: change the row only if it is unchanged since. A mismatch answers 412. */
+				'If-Match'?: components['parameters']['IfMatch'];
+			};
+			path: {
+				workspaceId: components['parameters']['WorkspaceId'];
+				drawingShapeId: components['parameters']['DrawingShapeId'];
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['DrawingShapePatch'];
+			};
+		};
+		responses: {
+			/** @description The row as it stands now. */
+			200: {
+				headers: {
+					ETag?: string;
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DrawingShape'];
 				};
 			};
 			default: components['responses']['Error'];

@@ -239,6 +239,8 @@ Better still, use `append-notes` or `replace-section`, which do this on the serv
 
 A diagram is a fenced code block in the language `mermaid` (```` ```mermaid ````), which the app draws in pages and notes alike. Write Mermaid's own syntax inside it, and give it an `accTitle:` line so people using screen readers hear its name.
 
+A drawing in a page is `<!-- mila:drawing <id> -->` with a picture of it after; its shapes are `drawing_shape` rows, which the REST endpoints read and write. Keep the marker and picture as they are when you change a page's text.
+
 ## Rules for agents
 
 - **Never make up an ID.** Leave `id` out of a POST and use the one the answer gives. The spec lets a client choose a new row's ID (the app does, to work offline), but an agent gains nothing by it, and some IDs Mila works out for itself and refuses one it wouldn't have made.
