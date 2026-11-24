@@ -187,3 +187,57 @@ test.describe('drawings', () => {
 		await expect(page.getByRole('option', { name: 'Drawing' })).toHaveCount(0);
 	});
 });
+
+test('dragging a shape drags only the shape, never the block the drawing sits in', async ({
+	page,
+	isMobile
+}) => {
+	test.skip(isMobile, 'dragged with a mouse at the desktop width');
+	const { ws } = await seed(page);
+	await page.goto(`/wiki?ws=${ws}`);
+	await body(page).click();
+	await page.keyboard.type('/draw');
+	await page.getByRole('option', { name: 'Drawing' }).click();
+	await page
+		.getByRole('dialog', { name: 'Insert a drawing' })
+		.getByRole('button', { name: /Flowchart/ })
+		.click();
+	const editor = page.getByRole('dialog', { name: 'Edit Flowchart' });
+	const diamond = editor
+		.getByRole('application')
+		.getByRole('button', { name: 'Diamond: Approved?' });
+	await expect(diamond).toBeVisible();
+	await expect.poll(async () => (await shapes(page, ws)).length).toBe(7);
+
+	// The browser's own drag (a picture of the page's block following the
+	// pointer) never goes ahead from inside the editor: any that starts there
+	// is canceled before it reaches the window.
+	await page.evaluate(() => {
+		(window as unknown as { drags: number }).drags = 0;
+		window.addEventListener('dragstart', (e) => {
+			if (!e.defaultPrevented) (window as unknown as { drags: number }).drags++;
+		});
+	});
+	const before = (await shapes(page, ws)).find((s) => s.text === 'Approved?')!.box.x;
+	const at = (await diamond.boundingBox())!;
+	await page.mouse.move(at.x + at.width / 2, at.y + at.height / 2);
+	await page.mouse.down();
+	await page.mouse.move(at.x + at.width / 2 + 60, at.y + at.height / 2 + 10, { steps: 8 });
+	await page.mouse.move(at.x + at.width / 2 + 120, at.y + at.height / 2 + 20, { steps: 8 });
+	await page.mouse.up();
+	expect(await page.evaluate(() => (window as unknown as { drags: number }).drags)).toBe(0);
+	await expect
+		.poll(async () => (await shapes(page, ws)).find((s) => s.text === 'Approved?')!.box.x)
+		.toBeGreaterThan(before + 60);
+
+	// Chromium under test never starts that drag from a pointer (Firefox and
+	// WebKit, the desktop app's engine on Linux, do), so the block is also
+	// asked directly: a drag of it is canceled while the editor is open.
+	expect(
+		await page.evaluate(() => {
+			const drag = new DragEvent('dragstart', { bubbles: true, cancelable: true });
+			document.querySelector('.drawing-embed')!.dispatchEvent(drag);
+			return drag.defaultPrevented;
+		})
+	).toBe(true);
+});

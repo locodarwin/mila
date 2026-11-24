@@ -341,6 +341,14 @@ export function drawingEmbedView(ws: string, pageId: string | null): NodeViewRen
 			);
 		}
 		const card = mount(DrawingCard, { target: dom, props });
+		// The editor opens inside the block, which the browser lets be dragged
+		// (the node is draggable): a drag that starts while it is open, such as
+		// moving a shape, would carry a picture of the whole block with the
+		// pointer. The drag starts at the block itself, so it is stopped here.
+		const editorOpen = () => !!dom.querySelector('dialog[open]');
+		dom.addEventListener('dragstart', (e) => {
+			if (editorOpen()) e.preventDefault();
+		});
 		return {
 			dom,
 			update(next) {
@@ -352,10 +360,13 @@ export function drawingEmbedView(ws: string, pageId: string | null): NodeViewRen
 				props.editable = editor.isEditable && !!pageId;
 				return true;
 			},
-			// Its buttons and the editor over the page are its own; the rest picks the block.
+			// Its buttons and the editor over the page are its own; the rest picks
+			// the block, and dragging it by its buttons moves it. While its editor
+			// is open nothing drags the block (see the dragstart listener above).
 			stopEvent: (e) => {
 				const at = e.target as HTMLElement | null;
-				return !!at?.closest?.('button, a, input, textarea, dialog') && e.type !== 'dragstart';
+				if (editorOpen() || at?.closest?.('dialog')) return true;
+				return !!at?.closest?.('button, a, input, textarea') && e.type !== 'dragstart';
 			},
 			ignoreMutation: (m) => m.type !== 'selection',
 			destroy: () => void unmount(card)
