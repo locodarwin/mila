@@ -22,7 +22,7 @@ You can have both, several servers, and several places on this computer.
 
 Each time the app opens it shows "Choose a place": every place with how it is (Ready, Stopped, Offline, or Sign in again), who you are there, its workspaces and when you last opened it. The last one you opened is outlined and in focus, so `Enter` opens it. Tick "Open my last place straight away", at the foot, to go there at once instead.
 
-One place shows at a time. The Mila menu at the top of the window lists every place, to go straight to another, and its first item, "All places…" (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), comes back to the list. "Connect to a server…" and "New place on this computer…" are there too.
+One place shows at a time. The Mila menu at the top of the window, named with the app's version (Mila 3.2.1, say), lists every place, to go straight to another, and its first item, "All places…" (`Ctrl+Shift+P`, or `Cmd+Shift+P` on a Mac), comes back to the list. "Connect to a server…" and "New place on this computer…" are there too.
 
 Each place's menu, the dots beside Open, has:
 

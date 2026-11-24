@@ -14,7 +14,7 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::collections::VecDeque;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, OnceLock};
 use std::time::{Duration, Instant};
 use tauri::menu::{CheckMenuItemBuilder, Menu, MenuBuilder, MenuItemBuilder, SubmenuBuilder};
 use tauri::webview::{DownloadEvent, NewWindowResponse, PageLoadEvent};
@@ -23,7 +23,19 @@ use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
 use tauri_plugin_notification::NotificationExt;
 use tauri_plugin_opener::OpenerExt;
 
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// This app's version: its release's number, which the release build gives
+/// Tauri's config (Cargo.toml stays at 0.0.0), set as the app starts.
+static VERSION: OnceLock<String> = OnceLock::new();
+
+/// The version, or 0.0.0 for a build of no release (which never says a server is newer).
+fn version() -> &'static str {
+    VERSION.get().map(String::as_str).unwrap_or("0.0.0")
+}
+
+/// The app's name with its version, as the menu bar and the window's title show it.
+fn named(version: &str) -> String {
+    if version == "0.0.0" { "Mila".to_string() } else { format!("Mila {version}") }
+}
 const RELEASES: &str = "https://github.com/locodarwin/mila/releases";
 /// How often a page can send the browser somewhere: a place can't be stopped from
 /// trying, but it can't fill the screen with tabs.
@@ -162,7 +174,7 @@ fn build_menu(app: &AppHandle) -> tauri::Result<Menu<tauri::Wry>> {
     let places = state.places.lock().unwrap().clone();
     let statuses = state.statuses.lock().unwrap().clone();
     let current = state.current_place.lock().unwrap().clone();
-    let mut go = SubmenuBuilder::new(app, "Mila")
+    let mut go = SubmenuBuilder::new(app, named(version()))
         .item(&MenuItemBuilder::with_id("places", "All places…").accelerator("CmdOrCtrl+Shift+P").build(app)?)
         .separator();
     for place in &places.list {
@@ -183,7 +195,7 @@ fn build_menu(app: &AppHandle) -> tauri::Result<Menu<tauri::Wry>> {
     if state.newer.load(Ordering::SeqCst) {
         go = go.separator().item(&MenuItemBuilder::with_id("newer", "A newer version of this app exists…").build(app)?);
     }
-    go = go.separator().item(&MenuItemBuilder::with_id("about", format!("Version {VERSION}")).enabled(false).build(app)?).quit();
+    go = go.separator().item(&MenuItemBuilder::with_id("about", format!("Version {}", version())).enabled(false).build(app)?).quit();
     MenuBuilder::new(app).item(&go.build()?).build()
 }
 
@@ -309,7 +321,7 @@ fn instance_of(origin: &str) -> Result<serde_json::Value, String> {
 fn server_is_newer(origin: &str) -> bool {
     instance_of(origin)
         .ok()
-        .and_then(|i| i["version"].as_str().map(|v| places::is_newer(v, VERSION)))
+        .and_then(|i| i["version"].as_str().map(|v| places::is_newer(v, version())))
         .unwrap_or(false)
 }
 
@@ -467,7 +479,7 @@ fn places_list(app: State<App>) -> Result<PlacesView, String> {
             })
             .collect(),
         open_last: places.open_last,
-        version: VERSION,
+        version: version(),
     })
 }
 
@@ -495,7 +507,7 @@ fn server_status(app: &AppHandle, origin: &str) -> StatusView {
     let Ok(instance) = instance_of(origin) else {
         return StatusView { status: "offline", who: None, workspaces: None, newer: false };
     };
-    let newer = instance["version"].as_str().is_some_and(|v| places::is_newer(v, VERSION));
+    let newer = instance["version"].as_str().is_some_and(|v| places::is_newer(v, version()));
     let agent = ureq::AgentBuilder::new().timeout(Duration::from_secs(10)).build();
     let ask = |path: &str, cookie: &str| -> Option<serde_json::Value> {
         agent.get(&format!("{origin}/api/v1{path}")).set("Cookie", cookie).call().ok()?.into_json().ok()
@@ -1056,13 +1068,14 @@ fn main() {
             smoke_report
         ])
         .setup(move |tauri_app| {
+            let _ = VERSION.set(tauri_app.package_info().version.to_string());
             let app = tauri_app.handle().clone();
             let nav = app.clone();
             let loaded = app.clone();
             let popups = app.clone();
             let downloads = app.clone();
             WebviewWindowBuilder::new(tauri_app, "main", WebviewUrl::App("index.html".into()))
-                .title("Mila")
+                .title(named(version()))
                 .inner_size(1200.0, 800.0)
                 .min_inner_size(480.0, 400.0)
                 .on_navigation(move |address| {
@@ -1201,6 +1214,12 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_menu_and_title_name_the_version() {
+        assert_eq!(named("3.2.1"), "Mila 3.2.1");
+        assert_eq!(named("0.0.0"), "Mila", "a build of no release has no number to show");
+    }
 
     #[test]
     fn a_persons_key_becomes_a_system_shortcut() {

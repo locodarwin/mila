@@ -15,7 +15,8 @@
 </p>
 <p>
 	One place shows at a time. To go to another, choose it in the Mila menu at the top of the window,
-	or choose All places there to come back to the list, where you can add more.
+	or choose All places there to come back to the list, where you can add more. The menu's name shows
+	the app's version, such as Mila 3.2.1.
 </p>
 <p>
 	Each place's menu, the dots beside Open, renames it (the name is kept in the app only), signs out
