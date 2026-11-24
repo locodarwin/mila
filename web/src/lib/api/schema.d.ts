@@ -3389,6 +3389,8 @@ export interface components {
 			 * @enum {string}
 			 */
 			taskPanel: 'boxes' | 'summary';
+			/** @description Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone). */
+			wikiToolbar: boolean;
 			/** @description The sidebar's items in order; any left out follow in their usual order. */
 			sidebarOrder: components['schemas']['SidebarItem'][];
 			sidebarHidden: components['schemas']['SidebarItem'][];
@@ -3451,6 +3453,8 @@ export interface components {
 			 * @enum {string}
 			 */
 			taskPanel?: 'boxes' | 'summary';
+			/** @description Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone). */
+			wikiToolbar?: boolean;
 			/** @description The sidebar's items in order; any left out follow in their usual order. */
 			sidebarOrder?: components['schemas']['SidebarItem'][];
 			sidebarHidden?: components['schemas']['SidebarItem'][];

@@ -41,7 +41,8 @@ export const DEFAULT_PREFERENCES: Preferences = {
 	shortcuts: {},
 	customTheme: null,
 	themeAnswers: [],
-	taskPanel: 'boxes'
+	taskPanel: 'boxes',
+	wikiToolbar: true
 };
 
 // The choices of each preference that has a list of them, as the server
@@ -80,6 +81,7 @@ function valid(key: Key, v: unknown): boolean {
 			);
 		case 'showCompleted':
 		case 'singleKeyShortcuts':
+		case 'wikiToolbar':
 			return typeof v === 'boolean';
 		case 'sidebarOrder':
 		case 'sidebarHidden':

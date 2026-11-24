@@ -4726,6 +4726,9 @@ type Preferences struct {
 
 	// WeekStart The first day of the week; auto follows the device's region.
 	WeekStart PreferencesWeekStart `json:"weekStart"`
+
+	// WikiToolbar Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone).
+	WikiToolbar bool `json:"wikiToolbar"`
 }
 
 // PreferencesClock 12- or 24-hour times; auto follows the device.
@@ -4797,6 +4800,9 @@ type PreferencesPatch struct {
 
 	// WeekStart The first day of the week; auto follows the device's region.
 	WeekStart *PreferencesPatchWeekStart `json:"weekStart,omitempty"`
+
+	// WikiToolbar Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone).
+	WikiToolbar *bool `json:"wikiToolbar,omitempty"`
 }
 
 // PreferencesPatchClock 12- or 24-hour times; auto follows the device.

@@ -5613,7 +5613,7 @@ components:
       required:
         [theme, scheme, accentHue, density, fontSize, weekStart, dateFormat, clock,
          showCompleted, startPage, sidebarOrder, sidebarHidden, singleKeyShortcuts, shortcuts,
-         customTheme, themeAnswers, taskPanel]
+         customTheme, themeAnswers, taskPanel, wikiToolbar]
       properties: &preferenceFields
         theme: { type: string, enum: [standard, calm, playful, contrast] }
         scheme: { type: string, enum: [system, light, dark] }
@@ -5648,6 +5648,9 @@ components:
           type: string
           enum: [boxes, summary]
           description: How the task panel lays out its sections, all showing in boxes or as summary lines that open in place.
+        wikiToolbar:
+          type: boolean
+          description: Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone).
         sidebarOrder:
           type: array
           items: { $ref: "#/components/schemas/SidebarItem" }

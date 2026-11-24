@@ -20,6 +20,7 @@
 	import { engine } from '../../sync/engine.svelte';
 	import { PALETTE } from '../../theme/palette';
 	import Avatar from '../task/Avatar.svelte';
+	import type { DocToolsApi, ToolbarParts } from '../../docs/toolbar';
 
 	interface Props {
 		ws: string;
@@ -128,9 +129,29 @@
 	// The editor's tools (the formatting bar, the / menu, images), loaded
 	// with it; version follows the editor's state for them.
 	let shownEditor = $state.raw<Editor>();
-	let Tools =
-		$state.raw<Component<Record<string, unknown>, { keydown(e: KeyboardEvent): boolean }>>();
-	let tools = $state<{ keydown(e: KeyboardEvent): boolean }>();
+	let Tools = $state.raw<Component<Record<string, unknown>, DocToolsApi>>();
+	let tools = $state<DocToolsApi>();
+	// A page's toolbar, loaded with the tools; the wiki shows it in the
+	// page's bar (toolbar()), and Alt+F10 goes to it (toolbarFocus).
+	let Toolbar = $state.raw<Component<Record<string, unknown>>>();
+	let toolbarFocus: (() => boolean) | null = null;
+
+	/**
+	 * What a page's toolbar needs, once the editor and its tools have
+	 * loaded; null before, for a task's notes, and while the page shows as
+	 * Markdown.
+	 */
+	export function toolbar(): ToolbarParts | null {
+		if (!Toolbar || !shownEditor || !tools || source) return null;
+		return {
+			Toolbar,
+			editor: shownEditor,
+			version,
+			focused,
+			tools,
+			register: (focus) => (toolbarFocus = focus)
+		};
+	}
 	let version = $state(0);
 	let focused = $state(false);
 	const people = $derived(
@@ -219,7 +240,8 @@
 			import('../../docs/commentMarks'),
 			import('../../docs/nodeviews.svelte'),
 			import('../../docs/formatting'),
-			import('../../docs/diagrams')
+			import('../../docs/diagrams'),
+			page ? import('./DocToolbar.svelte') : null
 		]).then(
 			([
 				{ Editor },
@@ -242,7 +264,8 @@
 					drawingEmbedView
 				},
 				{ FONT_STACKS, PAGE_SCALE },
-				{ DiagramEditing }
+				{ DiagramEditing },
+				toolbarModule
 			]) => {
 				if (destroyed) return;
 				stacks = FONT_STACKS;
@@ -307,6 +330,7 @@
 					onBlur: () => (focused = false)
 				});
 				Tools = DocTools as never;
+				if (toolbarModule) Toolbar = toolbarModule.default as never;
 				shownEditor = made;
 				const ed = made;
 				const held = untrack(() => pins);
@@ -468,6 +492,7 @@
 			{focused}
 			{frame}
 			oncomment={pins ? () => pins.begin?.() : undefined}
+			ontoolbar={() => toolbarFocus?.() ?? false}
 		/>
 	{/if}
 </div>

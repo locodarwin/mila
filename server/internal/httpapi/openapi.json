@@ -11606,7 +11606,8 @@
           "shortcuts",
           "customTheme",
           "themeAnswers",
-          "taskPanel"
+          "taskPanel",
+          "wikiToolbar"
         ],
         "properties": {
           "theme": {
@@ -11700,6 +11701,10 @@
               "summary"
             ],
             "description": "How the task panel lays out its sections, all showing in boxes or as summary lines that open in place."
+          },
+          "wikiToolbar": {
+            "type": "boolean",
+            "description": "Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone)."
           },
           "sidebarOrder": {
             "type": "array",
@@ -11862,6 +11867,10 @@
               "summary"
             ],
             "description": "How the task panel lays out its sections, all showing in boxes or as summary lines that open in place."
+          },
+          "wikiToolbar": {
+            "type": "boolean",
+            "description": "Whether wiki pages show the formatting toolbar in the page's bar (and above the keyboard on a phone)."
           },
           "sidebarOrder": {
             "type": "array",

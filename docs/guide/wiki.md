@@ -50,7 +50,7 @@ The button at the top of the panel hides it, and the page then takes all the roo
 
 ## Writing
 
-Pages are written in the same editor as a task's notes, and saved as Markdown. Select text for the formatting bar, or type `/` at the start of a line for lists, checklists, tables, columns, foldable sections, a saved view, boxes and images. [Writing in notes and pages](writing.md) has the details, and [A page's font and size](writing.md#a-pages-font-and-size) shows how to give one page its own look.
+Pages are written in the same editor as a task's notes, and saved as Markdown. Use the [toolbar](writing.md#the-toolbar-in-a-page) at the top of the page, select text for the formatting bar, or type `/` at the start of a line for lists, checklists, tables, columns, foldable sections, a saved view, boxes and images. [Writing in notes and pages](writing.md) has the details, and [A page's font and size](writing.md#a-pages-font-and-size) shows how to give one page its own look.
 
 Several people can write in a page at once, and everything each of them types stays. Their pictures and names show above the page while they have it open, and their cursors show in it as they type. See [Offline and sync](offline-and-sync.md#when-two-people-edit).
 

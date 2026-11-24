@@ -3,7 +3,9 @@
 	// the formatting bar over selected text (and in a table, the table's
 	// actions), which Alt+F10 reaches from the keyboard; the `/` menu at
 	// the start of a line and the `[[` menu of links; and the image picker. DocEditor passes key
-	// presses in the text through keydown() first.
+	// presses in the text through keydown() first. A wiki page's toolbar
+	// (DocToolbar) puts blocks in and starts links through insert(),
+	// startLink() and linkTo().
 	import ALargeSmall from '@lucide/svelte/icons/a-large-small';
 	import Bold from '@lucide/svelte/icons/bold';
 	import Captions from '@lucide/svelte/icons/captions';
@@ -36,7 +38,8 @@
 	import MessageSquarePlus from '@lucide/svelte/icons/message-square-plus';
 	import { announce } from '../../announce.svelte';
 	import { keymap } from '../../keys/keymap.svelte';
-	import { findBlocks, insertDiagram, slashAt, type Block } from '../../docs/blocks';
+	import { BLOCKS, findBlocks, insertDiagram, slashAt, type Block } from '../../docs/blocks';
+	import { IN_PLACE, openLine } from '../../docs/toolbar';
 	import type { Starter } from '../../docs/diagrams';
 	import { linkAt, linkChoices } from '../../docs/mentions';
 	import { createPage } from '../../sync/data';
@@ -73,9 +76,11 @@
 		frame: HTMLElement;
 		/** Begins a comment on the selected words: a wiki page's. */
 		oncomment?: () => void;
+		/** Moves focus to the page's toolbar, when it has one showing: false when not. */
+		ontoolbar?: () => boolean;
 	}
 
-	let { ws, target, editor, version, focused, frame, oncomment }: Props = $props();
+	let { ws, target, editor, version, focused, frame, oncomment, ontoolbar }: Props = $props();
 	const uid = $props.id();
 
 	// The menus in the text: `/` at the start of a line inserts a block,
@@ -198,6 +203,29 @@
 								: `Inserted ${block.label.toLowerCase()}`
 		);
 	}
+	/**
+	 * A block from the `/` menu's list, put in from the toolbar: a kind of
+	 * line changes the line the caret is on, anything else goes on a line
+	 * of its own, as `/` puts it.
+	 */
+	export function insert(id: string) {
+		const block = findBlock(id);
+		if (!block) return;
+		if (!IN_PLACE.has(id)) openLine(editor);
+		insertBlock(block);
+	}
+
+	/** Opens the `[[` menu at the caret, to link to a page or task. */
+	export function linkTo() {
+		const here = editor.state.selection.$from;
+		const before = here.parent.textBetween(0, here.parentOffset, undefined, '￼');
+		editor
+			.chain()
+			.focus()
+			.insertContent(before && !/\s$/.test(before) ? ' [[' : '[[')
+			.run();
+	}
+
 	function insertLink(title: string, href: string) {
 		clearTyped();
 		editor
@@ -795,7 +823,10 @@
 	let linking = $state(false);
 	let href = $state('');
 	let linkInput = $state<HTMLInputElement>();
-	async function startLink() {
+	const findBlock = (id: string) => BLOCKS.find((b) => b.id === id);
+
+	/** Asks for a link's address in the bar: for the words selected, or to put in as a link. */
+	export async function startLink() {
 		href = (editor.getAttributes('link').href as string | undefined) ?? '';
 		linking = true;
 		summoned = true;
@@ -805,6 +836,22 @@
 	}
 	function applyLink() {
 		const url = href.trim();
+		// Nothing selected and no link here: the address goes in as a link.
+		// setLink checks the address as it does for selected words; one it
+		// refuses stays as words.
+		if (url && editor.state.selection.empty && !editor.isActive('link')) {
+			const from = editor.state.selection.from;
+			run()
+				.insertContent(url)
+				.setTextSelection({ from, to: from + url.length })
+				.setLink({ href: url })
+				.setTextSelection(from + url.length)
+				.unsetMark('link')
+				.insertContent(' ')
+				.run();
+			closeBar();
+			return;
+		}
 		const chain = run().extendMarkRange('link');
 		if (url) chain.setLink({ href: url }).run();
 		else chain.unsetLink().run();
@@ -884,7 +931,8 @@
 		}
 		if (e.key === 'F10' && e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
 			e.preventDefault();
-			void focusBar();
+			// The bar over selected words (or a table's), else the page's toolbar.
+			if (barShown || !ontoolbar?.()) void focusBar();
 			return true;
 		}
 		return false;

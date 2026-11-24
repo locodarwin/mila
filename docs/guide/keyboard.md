@@ -132,7 +132,7 @@ These are fixed and cannot be changed.
 | Right, Left | In a menu, open a list one step in, such as Priority, and go back from it. `Escape` goes back too, then closes the menu |
 | `Alt+Up`, `Alt+Down`, `Alt+Left`, `Alt+Right` | Move a page in the wiki's tree: up and down among its siblings, right under the page above, left out a level |
 | `Alt+Up`, `Alt+Down` | Move a project or a sidebar item |
-| `Alt+F10` | From notes or a page, go to the formatting bar. `Escape` goes back to the text |
+| `Alt+F10` | Go to the bar over selected words, or a wiki page's toolbar when none are selected. `Escape` goes back to the text |
 | `Ctrl+B` | Bold |
 | `Ctrl+I` | Italic |
 | `Ctrl+Shift+S` | Strikethrough |

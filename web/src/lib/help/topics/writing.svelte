@@ -25,6 +25,38 @@
 	<Keys id="doc.strike" /> for strikethrough and <Keys id="doc.code" /> for code.
 </p>
 
+<h2 id="toolbar" tabindex="-1">The toolbar in a page</h2>
+<p>
+	A wiki page has a toolbar at the top, beside the page's path. It sets the line's style (text or a
+	heading), makes words bold, italic, struck through, code or a link, and starts lists, checklists
+	and quotes. It also puts in a table, a code block, a divider, an image or SVG file, a diagram or a
+	drawing. Insert holds everything the <code>/</code> menu has.
+</p>
+<p>
+	The toolbar works where the cursor is, and leaves the cursor in the text. A heading, list or box
+	changes the line you are on; anything else goes on a line of its own, so the words around the
+	cursor stay whole. Link asks for an address: with words selected they become the link, and
+	without, the address goes in as one.
+</p>
+<p>
+	When the bar is short of room, the page's path shortens first, and the pages between the top and
+	this one go under "…". Then the toolbar puts its rarer buttons away: tables, images, diagrams and
+	drawings are still in Insert, and lists and the other marks go under More formatting.
+</p>
+<p>
+	<Keys
+		id="doc.toolbar"
+		lead="From the text, "
+		trail=" goes to the toolbar when no words are selected, and to the bar over them when some are. The arrow keys move along it, and Escape goes back to the text."
+		otherwise="The toolbar's buttons can be reached with the arrow keys once one has focus, and Escape goes back to the text."
+	/>
+</p>
+<p>
+	On a phone the toolbar sits above the keyboard while you write in a page; swipe it sideways for
+	the rest, Undo included. To hide it, clear Show the formatting toolbar in the page's More menu.
+	The choice follows you to every device.
+</p>
+
 <h2 id="blocks" tabindex="-1">Lists, tables and more</h2>
 <p>
 	Type <code>/</code> at the start of a line for a menu of what can go there: a heading, a bulleted

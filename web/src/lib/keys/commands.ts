@@ -367,12 +367,12 @@ export const COMMANDS = [
 	},
 	{
 		id: 'doc.toolbar',
-		name: 'Go to the formatting bar',
+		name: 'Go to the formatting bar or toolbar',
 		scope: 'elsewhere',
 		keys: [],
 		fixed: ['Alt+F10'],
 		remappable: false,
-		help: 'From notes or a page; Escape goes back to the text.'
+		help: "The bar over selected words, or a wiki page's toolbar when none are selected; Escape goes back to the text."
 	},
 	{
 		id: 'desktop.quick-add',

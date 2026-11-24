@@ -49,6 +49,8 @@ for (const character of characters) {
 			await expect(page.locator('.diagram .drawing > svg')).toHaveCount(11, { timeout: 20_000 });
 			// And the drawings, made in the sample workspace (DrawingsDemo.svelte).
 			await expect(page.locator('figure.drawing svg.art')).toHaveCount(2);
+			// The wiki toolbar loads with its sample page's editor (ToolbarDemo.svelte).
+			await expect(page.getByRole('toolbar', { name: 'Format and insert' })).toHaveCount(2);
 			await expect(page.locator('html')).toHaveAttribute('data-theme', character);
 			await expect(page.locator('html')).toHaveAttribute('data-scheme', scheme);
 			await page.evaluate(() => document.fonts.ready);

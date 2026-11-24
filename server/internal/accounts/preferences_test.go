@@ -81,6 +81,14 @@ func TestPreferences(t *testing.T) {
 			}
 		}
 
+		// The wiki's toolbar shows until it is turned off.
+		if !accounts.DefaultPreferences().WikiToolbar {
+			t.Fatal("the wiki toolbar is off by default")
+		}
+		if p, _, err = f.svc.SavePreferences(ctx, id, patch(t, `{"wikiToolbar":false}`)); err != nil || p.WikiToolbar {
+			t.Fatalf("wiki toolbar off = %+v, %v", p, err)
+		}
+
 		// Null resets the accent to the theme's.
 		if p, _, _ = f.svc.SavePreferences(ctx, id, patch(t, `{"accentHue":null}`)); p.AccentHue != nil {
 			t.Fatalf("accent after reset = %v", *p.AccentHue)
@@ -96,6 +104,7 @@ func TestPreferences(t *testing.T) {
 			`{"sidebarOrder":["inbox","inbox"]}`,
 			`{"startPage":"trash"}`,
 			`{"taskPanel":"tabs"}`,
+			`{"wikiToolbar":"no"}`,
 			`{"fontSize":"xxxl"}`,
 			`{"density":"dense","colour":"blue"}`,
 			`{"shortcuts":{"Quick-Add":["q"]}}`,
@@ -163,7 +172,7 @@ func TestPreferences(t *testing.T) {
 
 		// The user's other devices hear of each saved change.
 		events.mu.Lock()
-		if len(events.changed) != 13 || events.changed[0] != id {
+		if len(events.changed) != 14 || events.changed[0] != id {
 			t.Fatalf("settings events = %v", events.changed)
 		}
 		events.mu.Unlock()

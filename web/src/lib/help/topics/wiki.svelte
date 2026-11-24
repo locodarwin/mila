@@ -47,9 +47,9 @@
 
 <h2 id="writing" tabindex="-1">Writing</h2>
 <p>
-	Pages are written in the same editor as a task's notes, and saved as Markdown: select text for the
-	formatting bar, or type <code>/</code> at the start of a line for lists, checklists, tables, boxes and
-	images. Writing in notes and pages, under Help, has the details.
+	Pages are written in the same editor as a task's notes, and saved as Markdown. Use the toolbar at
+	the top of the page, select text for the formatting bar, or type <code>/</code> at the start of a line
+	for lists, checklists, tables, boxes and images. Writing in notes and pages, under Help, has the details.
 </p>
 <p>
 	Several people can write in a page at once, and everything each of them types stays. Their

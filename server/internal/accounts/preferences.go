@@ -45,6 +45,8 @@ type Preferences struct {
 	// TaskPanel is how the task panel lays out its sections: all showing,
 	// in boxes, or as summary lines that open in place.
 	TaskPanel string `json:"taskPanel"`
+	// WikiToolbar is whether wiki pages show the formatting toolbar.
+	WikiToolbar bool `json:"wikiToolbar"`
 }
 
 // The choices each preference allows, its default first.
@@ -70,7 +72,7 @@ func DefaultPreferences() Preferences {
 		WeekStart: weekStarts[0], DateFormat: dateFormats[0], Clock: clocks[0],
 		StartPage: startPages[0], SidebarOrder: slices.Clone(SidebarItems), SidebarHidden: []string{},
 		SingleKeyShortcuts: true, Shortcuts: map[string][]string{}, ThemeAnswers: []string{},
-		TaskPanel: taskPanels[0],
+		TaskPanel: taskPanels[0], WikiToolbar: true,
 	}
 }
 
@@ -127,6 +129,8 @@ func (p *Preferences) set(key string, raw json.RawMessage) error {
 		return flag(&p.ShowCompleted)
 	case "singleKeyShortcuts":
 		return flag(&p.SingleKeyShortcuts)
+	case "wikiToolbar":
+		return flag(&p.WikiToolbar)
 	case "accentHue":
 		var hue *int
 		if json.Unmarshal(raw, &hue) != nil || (hue != nil && (*hue < 0 || *hue > 359)) {

@@ -364,6 +364,7 @@ func preferencesJSON(p accounts.Preferences) api.Preferences {
 		Shortcuts: shortcuts, CustomTheme: customThemeJSON(p.CustomTheme),
 		ThemeAnswers: themeAnswersJSON(p.ThemeAnswers),
 		TaskPanel:    api.PreferencesTaskPanel(p.TaskPanel),
+		WikiToolbar:  p.WikiToolbar,
 	}
 }
 

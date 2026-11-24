@@ -35,6 +35,8 @@ test.describe('the wiki', () => {
 	test.skip(({ isMobile }) => isMobile, 'phones have their own test below');
 
 	test('the workspace wiki has a main page and pages under it', async ({ page }) => {
+		// Room for the whole path beside the toolbar (wikitoolbar.e2e.ts tries a short bar).
+		await page.setViewportSize({ width: 2000, height: 900 });
 		const { ws } = await seed(page);
 		await page.goto(`/wiki?ws=${ws}`);
 		await expect(

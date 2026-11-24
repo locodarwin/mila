@@ -129,6 +129,11 @@ export const HELP: Topic[] = [
 				keywords: ['bold', 'italic', 'link', 'heading', 'bar', 'highlight', 'font', 'size']
 			},
 			{
+				id: 'toolbar',
+				title: 'The toolbar in a page',
+				keywords: ['toolbar', 'insert', 'buttons', 'diagram', 'svg', 'hide']
+			},
+			{
 				id: 'blocks',
 				title: 'Lists, tables and more',
 				keywords: [

@@ -47,6 +47,9 @@
 	import DocEditor from '../doc/DocEditor.svelte';
 	import LinkedFrom from '../doc/LinkedFrom.svelte';
 	import Avatar from '../task/Avatar.svelte';
+	import Checkbox from '../Checkbox.svelte';
+	import { preferences } from '../../preferences.svelte';
+	import type { ToolbarParts } from '../../docs/toolbar';
 	import WikiContents from './WikiContents.svelte';
 	import WikiTree from './WikiTree.svelte';
 
@@ -240,7 +243,23 @@
 		currentMarkdown(): string | null;
 		pageStyle(): { font: string | null; size: string | null };
 		setPageStyle(font: string | null, size: string | null): void;
+		toolbar(): ToolbarParts | null;
 	}>();
+
+	// The formatting toolbar, once the page's editor has loaded it: in the
+	// bar beside the path, or above the keyboard on a phone. When the bar is
+	// short of room the path gives way first, the pages between the top
+	// and this one becoming "…", and then the toolbar folds (DocToolbar).
+	const toolbarParts = $derived(
+		preferences.current.wikiToolbar ? (pageEditor?.toolbar() ?? null) : null
+	);
+	let toolbarBox = $state<DOMRectReadOnly>();
+	const toolbarRoom = $derived(toolbarBox?.width ?? 0);
+	let toolbarWidest = $state(0);
+	let toolbarLeast = $state(0);
+	let crumbsWidth = $state(0);
+	let crumbsFull = $state(0);
+	const crumbsMenuId = `crumbs-menu-${uuid()}`;
 	// The page's own font and size, from its menu.
 	let typeOpen = $state(false);
 	let typeNow = $state<{ font: string | null; size: string | null }>({ font: null, size: null });
@@ -355,6 +374,13 @@
 	// The page's history, in a dialog loaded when it opens.
 	let historyOpen = $state(false);
 	let here = $state<string[]>([]);
+	const shortPath = $derived(
+		!!toolbarParts &&
+			!phone &&
+			path.length > 2 &&
+			toolbarWidest > 0 &&
+			toolbarRoom + crumbsWidth - crumbsFull < toolbarWidest
+	);
 	const people = $derived(
 		here.filter((id) => id !== session.user?.id).map((id) => ({ id, ...session.personOf(ws, id) }))
 	);
@@ -512,9 +538,30 @@
 					onclick={toggleTree}><PanelLeft size={15} /></button
 				>
 			{/if}
-			<nav class="crumbs" aria-label="Page path">
+			<nav
+				class="crumbs"
+				class:tight={!!toolbarParts && !phone}
+				aria-label="Page path"
+				bind:offsetWidth={crumbsWidth}
+			>
 				{#each path as id, i (id)}
-					{#if i < path.length - 1}
+					{#if shortPath && i > 0 && i < path.length - 1}
+						{#if i === 1}
+							<button
+								type="button"
+								popovertarget={crumbsMenuId}
+								aria-label={`Pages between: ${path
+									.slice(1, -1)
+									.map((p) => titleOf(p))
+									.join(', ')}`}
+								title={path
+									.slice(1, -1)
+									.map((p) => titleOf(p))
+									.join(' / ')}>…</button
+							>
+							<span class="sep" aria-hidden="true">/</span>
+						{/if}
+					{:else if i < path.length - 1}
 						<button type="button" onclick={() => open(id)}>{titleOf(id)}</button>
 						<span class="sep" aria-hidden="true">/</span>
 					{:else}
@@ -522,12 +569,34 @@
 					{/if}
 				{/each}
 			</nav>
+			{#if toolbarParts && !phone}
+				<!-- The whole path's width, measured to know when it must give way. -->
+				<span class="crumbs measure" aria-hidden="true" bind:offsetWidth={crumbsFull}>
+					{#each path as id, i (id)}
+						{#if i < path.length - 1}<span class="crumb">{titleOf(id)}</span><span class="sep"
+								>/</span
+							>{:else}<span class="here-crumb">{titleOf(id)}</span>{/if}
+					{/each}
+				</span>
+				<div
+					class="toolbar-room"
+					style:min-width={`calc(${toolbarLeast}px + var(--space-2) + var(--border-width))`}
+					bind:contentRect={toolbarBox}
+				>
+					<toolbarParts.Toolbar
+						{...toolbarParts}
+						room={toolbarRoom}
+						bind:widest={toolbarWidest}
+						bind:narrowest={toolbarLeast}
+					/>
+				</div>
+			{/if}
 			{#if people.length}
 				<span class="people">
 					<span class="faces" aria-hidden="true">
 						{#each people as p (p.id)}<Avatar name={p.name} src={p.avatar} size={22} />{/each}
 					</span>
-					<span class="said">
+					<span class="said" class:visually-hidden={!!toolbarParts && !phone}>
 						{people.map((p) => p.name).join(' and ')}
 						{people.length === 1 ? 'is' : 'are'} here
 					</span>
@@ -755,6 +824,13 @@
 		}}><Plus size={15} />New page under this one</button
 	>
 	<button type="button" class="option" onclick={copyLink}><Link size={15} />Copy link</button>
+	<div class="option toggle">
+		<Checkbox
+			label="Show the formatting toolbar"
+			checked={preferences.current.wikiToolbar}
+			onchange={(on) => preferences.set({ wikiToolbar: on })}
+		/>
+	</div>
 	{#if mayUseTemplates}
 		<button
 			type="button"
@@ -788,6 +864,25 @@
 		<button type="button" class="option danger" onclick={remove}><Trash2 size={15} />Delete</button>
 	{/if}
 </div>
+
+{#if shortPath}
+	<div class="menu" popover id={crumbsMenuId} use:anchored>
+		{#each path.slice(1, -1) as id (id)}
+			<button
+				type="button"
+				class="option"
+				onclick={(e) => {
+					(e.currentTarget.closest('[popover]') as HTMLElement | null)?.hidePopover();
+					open(id);
+				}}>{titleOf(id)}</button
+			>
+		{/each}
+	</div>
+{/if}
+
+{#if toolbarParts && phone}
+	<toolbarParts.Toolbar {...toolbarParts} docked />
+{/if}
 
 <div class="menu" popover id={templatesMenuId} bind:this={templatesMenu} use:anchored>
 	{#each pageTemplates as t (t.id)}
@@ -929,6 +1024,42 @@
 	}
 	.wiki.folded .bar {
 		padding-left: var(--space-3);
+	}
+	/* With the toolbar the path takes what it needs and gives way to it. */
+	.bar:has(.toolbar-room) {
+		flex-wrap: nowrap;
+	}
+	.crumbs.tight {
+		flex: 0 1 auto;
+		flex-wrap: nowrap;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	.crumbs.tight .here-crumb {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.crumbs.measure {
+		position: absolute;
+		visibility: hidden;
+		flex-wrap: nowrap;
+		white-space: nowrap;
+		pointer-events: none;
+	}
+	.crumbs.measure .crumb {
+		padding: 0 var(--space-1);
+	}
+	.toolbar-room {
+		box-sizing: border-box;
+		flex: 1 1 0;
+		display: flex;
+		align-items: center;
+		min-width: 0;
+		padding-left: var(--space-2);
+		border-left: var(--border-width) solid var(--border);
+	}
+	.option.toggle {
+		padding: 0 var(--space-2);
 	}
 	.crumbs {
 		flex: 1;
