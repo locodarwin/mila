@@ -100,7 +100,7 @@ func (k *Key) cipher(orMake bool) (cipher.AEAD, error) {
 	if k.aead != nil {
 		return k.aead, nil
 	}
-	key, err := k.read()
+	key, err := k.readWhole()
 	if errors.Is(err, fs.ErrNotExist) && orMake {
 		key, err = k.create()
 	}
@@ -158,9 +158,31 @@ func (k *Key) read() ([]byte, error) {
 	}
 	key, err := base64.StdEncoding.DecodeString(strings.TrimSpace(string(text)))
 	if err != nil || len(key) != 32 {
-		return nil, fmt.Errorf("%s is not a key Mila made: it should be 32 bytes in base64", k.Path())
+		return nil, notAKey{k.Path()}
 	}
 	return key, nil
+}
+
+// notAKey is a key file that holds something else, or holds it only in part.
+type notAKey struct{ path string }
+
+func (e notAKey) Error() string {
+	return fmt.Sprintf("%s is not a key Mila made: it should be 32 bytes in base64", e.path)
+}
+
+// readWhole reads the key, and if the file is there but not a key, reads
+// again for a moment before calling it broken: where the filesystem has no
+// hard links, another process making it in place (createInPlace) may be
+// partway through writing it.
+func (k *Key) readWhole() ([]byte, error) {
+	for range 20 {
+		key, err := k.read()
+		if !errors.As(err, &notAKey{}) {
+			return key, err
+		}
+		time.Sleep(50 * time.Millisecond)
+	}
+	return k.read()
 }
 
 // create makes the key file whole or not at all: written under another name,
@@ -211,17 +233,11 @@ func (k *Key) create() ([]byte, error) {
 // createInPlace makes the key file where it goes, for a filesystem without
 // hard links: created only if there is none (O_EXCL), so the first process
 // wins as with a link. Another that finds it may read it mid-write, so it
-// reads again for a moment before calling it broken.
+// reads it whole (readWhole).
 func (k *Key) createInPlace(key []byte) ([]byte, error) {
 	f, err := os.OpenFile(k.Path(), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
 	if errors.Is(err, fs.ErrExist) {
-		for range 20 {
-			if got, err := k.read(); err == nil {
-				return got, nil
-			}
-			time.Sleep(50 * time.Millisecond)
-		}
-		return k.read()
+		return k.readWhole()
 	}
 	if err != nil {
 		return nil, err
